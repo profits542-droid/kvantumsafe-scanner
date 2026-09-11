@@ -10,7 +10,7 @@ from fpdf import FPDF
 
 app = FastAPI(title="Quantum Safe API")
 
-# Настройка CORS для безопасности (разрешаем запросы со всех доменов для GitHub Pages)
+# Настройка CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,7 +19,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Упрощенная модель данных для формы обратной связи под NDA
 class ContactRequest(BaseModel):
     name: str
     company: str
@@ -27,26 +26,23 @@ class ContactRequest(BaseModel):
     phone: str
     message: str
 
-# ЭНДПОИНТ №1: Сканирование периметра и моментальная выдача PDF
+# ЭНДПОИНТ №1: Сканирование домена и выдача PDF
 @app.post("/scan")
 async def scan_endpoint(domain: Form(...)):
-    # Базовая очистка и валидация входящего домена
     clean_domain = domain.strip().lower()
     clean_domain = re.sub(r'^(https?://)?(www\.)?', '', clean_domain).split('/')[0]
     
-    # Генерация официального PDF-отчета на лету с помощью fpdf2
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Helvetica", size=12)
     
-    # Заголовок отчета
     pdf.set_font("Helvetica", style="B", size=16)
     pdf.cell(200, 10, txt="QUANTUM SAFE SECURITY REPORT", ln=True, align="C")
     pdf.ln(10)
     
-    # Контент отчета
-    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=6))) # Время Бишкека GMT+6
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=6)))
     formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    
     pdf.set_font("Helvetica", size=12)
     pdf.cell(200, 10, txt=f"Target Host: {clean_domain}", ln=True)
     pdf.cell(200, 10, txt=f"Scan Timestamp: {formatted_time} (GMT+6)", ln=True)
@@ -67,33 +63,30 @@ async def scan_endpoint(domain: Form(...)):
     pdf.set_font("Helvetica", style="B", size=14)
     pdf.cell(200, 10, txt="Architectural Recommendation:", ln=True)
     pdf.set_font("Helvetica", size=12)
-    pdf.multi_cell(0, 8, txt="1. Deploy a Quantum Orchestrator (Crypto-Agility Proxy Platform) to manage external routing.\n"
-                             "2. Integrate certified hardware HSM modules (Huawei/Sangfor) for SM2/SM4 transaction rails.\n"
-                             "3. Initiate deep internal On-Premise code discovery under NDA to locate static MD5/SHA-1 assets.")
+    pdf.multi_cell(0, 8, txt="1. Deploy a Quantum Orchestrator (Crypto-Agility Proxy Platform).\n"
+                             "2. Integrate certified hardware HSM modules for SM2/SM4 transaction rails.\n"
+                             "3. Initiate deep internal On-Premise code discovery under NDA.")
     
     pdf.ln(10)
     pdf.set_font("Helvetica", style="I", size=10)
     pdf.cell(200, 10, txt="Verified by Quantum Safe Automated Compliance Scanner. Resident of HTP Kyrgyz Republic.", ln=True, align="C")
     
-    pdf_bytes = pdf.output(dest='S')
-    
+    pdf_bytes = pdf.output()
     return Response(
-        content=pdf_bytes,
+        content=bytes(pdf_bytes),
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename=quantum_report_{clean_domain}.pdf"}
     )
 
-# ЭНДПОИНТ №2: Прием B2B заявок под NDA и скрытая отправка в Telegram
+# ЭНДПОИНТ №2: Заявки в Telegram
 @app.post("/contact-request")
 async def contact_request_endpoint(request: ContactRequest):
-    # Извлекаем секретные ключи из защищенных переменных окружения Render
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     
     if not bot_token or not chat_id:
-        raise HTTPException(status_code=500, detail="Telegram keys are not configured on server")
-    
-    # Формируем сообщение для отправки ИТ-директору стартапа в Telegram
+        return {"status": "error", "message": "Keys missing"}
+        
     telegram_text = (
         f"🔥 *НОВАЯ ЗАЯВКА ПОД NDA [Quantum Safe]*\n"
         f"━━━━━━━━━━━━━━━━━━\n"
@@ -101,22 +94,11 @@ async def contact_request_endpoint(request: ContactRequest):
         f"🏢 *Компания:* {request.company}\n"
         f"📧 *Email:* {request.email}\n"
         f"📞 *Телефон:* {request.phone}\n"
-        f"💬 *Сообщение:* {request.message}\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"🌐 *Обработка:* Через защищенный API Render"
+        f"💬 *Сообщение:* {request.message}"
     )
     
-    # Отправляем асинхронный запрос в API Telegram
     async with httpx.AsyncClient() as client:
         url = f"https://telegram.org{bot_token}/sendMessage"
-        payload = {
-            "chat_id": chat_id,
-            "text": telegram_text,
-            "parse_mode": "Markdown"
-        }
-        try:
-            response = await client.post(url, json=payload)
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Failed to connect to Telegram: {str(e)}")
+        await client.post(url, json={"chat_id": chat_id, "text": telegram_text, "parse_mode": "Markdown"})
             
-    return {"status": "success", "message": "Lead forwarded to Telegram successfully"}
+    return {"status": "success"}
