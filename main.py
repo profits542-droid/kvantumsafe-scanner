@@ -4,22 +4,22 @@ import datetime
 from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 import httpx
 from fpdf import FPDF
 
 app = FastAPI(title="Quantum Safe API")
 
-# Настройка CORS для безопасности (разрешаем запросы только с вашего сайта)
+# Настройка CORS для безопасности (разрешаем запросы со всех доменов для GitHub Pages)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Разрешает запросы со всех доменов для GitHub Pages
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Модель данных для формы обратной связи под NDA
+# Упрощенная модель данных для формы обратной связи под NDA
 class ContactRequest(BaseModel):
     name: str
     company: str
@@ -34,13 +34,6 @@ async def scan_endpoint(domain: Form(...)):
     clean_domain = domain.strip().lower()
     clean_domain = re.sub(r'^(https?://)?(www\.)?', '', clean_domain).split('/')[0]
     
-    if not clean_domain or not re.match(r'^[a-z0-9.-]+\.[a-z]{2,}$', clean_domain):
-        raise HTTPException(status_code=400, detail="Invalid domain format")
-    
-    # Имитация глубокого квантового сканирования алгоритмами Квантун Сейф
-    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=6))) # Время Бишкека GMT+6
-    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    
     # Генерация официального PDF-отчета на лету с помощью fpdf2
     pdf = FPDF()
     pdf.add_page()
@@ -52,6 +45,8 @@ async def scan_endpoint(domain: Form(...)):
     pdf.ln(10)
     
     # Контент отчета
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=6))) # Время Бишкека GMT+6
+    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
     pdf.set_font("Helvetica", size=12)
     pdf.cell(200, 10, txt=f"Target Host: {clean_domain}", ln=True)
     pdf.cell(200, 10, txt=f"Scan Timestamp: {formatted_time} (GMT+6)", ln=True)
@@ -96,7 +91,6 @@ async def contact_request_endpoint(request: ContactRequest):
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     
     if not bot_token or not chat_id:
-        # Если ключи забыли ввести, возвращаем системную ошибку
         raise HTTPException(status_code=500, detail="Telegram keys are not configured on server")
     
     # Формируем сообщение для отправки ИТ-директору стартапа в Telegram
@@ -122,9 +116,6 @@ async def contact_request_endpoint(request: ContactRequest):
         }
         try:
             response = await client.post(url, json=payload)
-            res_data = response.json()
-            if not res_data.get("ok"):
-                raise HTTPException(status_code=500, detail="Telegram API rejected the message")
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to connect to Telegram: {str(e)}")
             
