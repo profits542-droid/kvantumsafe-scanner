@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
+	"html"
 	"net/http"
 	"time"
 
@@ -19,7 +20,7 @@ func main() {
 	qrcodeBase64 := base64.StdEncoding.EncodeToString(qrcodeBytes)
 	qrcodeSrc := "data:image/png;base64," + qrcodeBase64
 
-	// ОБЩИЕ СТИЛИ ОФОРМЛЕНИЯ ПЛАТФОРМЫ KVANTUMSAFE ДЛЯ ОБЕИХ СТРАНИЦ
+	// ОБЩИЕ СТИЛИ ОФОРМЛЕНИЯ ПЛАТФОРМЫ KVANTUMSAFE
 	cssStyles := `<style>
 		body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; }
 		.navbar { background-color: #0a2540; color: white; padding: 20px 40px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -40,7 +41,7 @@ func main() {
 		.conclusion-box { background-color: #e0f2f1; border-left: 4px solid #004d40; padding: 20px; border-radius: 6px; margin-top: 30px; font-size: 14px; line-height: 1.6; }
 	</style>`
 
-	// 1. РОУТЕР ГЛАВНОЙ СТРАНИЦЫ (DASHBOARD)
+	// 1. РОУТЕР ГЛАВНОЙ СТРАНИЦЫ
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
@@ -67,7 +68,7 @@ func main() {
 				</div>
 
 				<div style="text-align: center; margin-top: 40px;">
-					<a class="btn-action" href="/report/mbank">Сканировать инфраструктуру</a>
+					<a class="btn-action" href="/report/mbank">Сканировать внешнюю инфраструктуру</a>
 				</div>
 
 				<div class="qr-box">
@@ -79,39 +80,41 @@ func main() {
 		</html>`
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(htmlPage))
+		if _, writeErr := w.Write([]byte(htmlPage)); writeErr != nil {
+			fmt.Printf("[-] Ошибка отправки данных: %v\n", writeErr)
+		}
 	})
 
-	// 2. РОУТЕР ДЕТАЛЬНОГО ОТЧЕТА MBANK (ВЫЗЫВАЕТ ФУНКЦИЮ ИЗ ФАЙЛА SCANNER.GO)
+	// 2. РОУТЕР ВНЕШНЕГО ОТЧЕТА MBANK
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
 		currentTime := time.Now().Format("2006-01-02 15:04")
-
-		// 🚀 Вызываем оригинальную функцию из файла scanner.go (без конфликтов и дублирования!)
 		reportData := UniversalIdentifySoftware("95.46.154.19")
 
-		// Формируем строчки таблицы уязвимостей на основе живых полей из scanner.go
 		var rowsHtml string
 		for _, app := range reportData.DetectedApps {
+			safeName := html.EscapeString(app.Name)
+			safeVersion := html.EscapeString(app.Version)
+
 			rowsHtml += `<tr class="danger-row">
 				<td>
-					<strong>• ` + app.Name + `</strong>
+					<strong>• ` + safeName + `</strong>
 					<span class="status-badge">🛑 Уязвимо перед постквантовым дешифрованием (Классический TLS на базе RSA/ECC)</span>
 				</td>
-				<td><span style="background:#e2e8f0; padding:4px 8px; border-radius:4px; font-weight:bold;">` + fmt.Sprintf("%d", app.Port) + `</span> (Версия: ` + app.Version + `)</td>
+				<td><span style="background:#e2e8f0; padding:4px 8px; border-radius:4px; font-weight:bold;">` + fmt.Sprintf("%d", app.Port) + `</span> (Версия: ` + safeVersion + `)</td>
 			</tr>`
 		}
 
 		htmlPage := `<!DOCTYPE html>
 		<html>
-		<head><meta charset="UTF-8"><title>KvantumSafe — Отчет безопасности</title>` + cssStyles + `</head>
+		<head><meta charset="UTF-8"><title>KvantumSafe — Внешний Отчет</title>` + cssStyles + `</head>
 		<body>
 			<div class="navbar">
 				<img class="logo-img" src="/static/logo.jpg" alt="Logo">
-				<h1>KvantumSafe — Отчет безопасности</h1>
+				<h1>KvantumSafe — Внешний Отчет Безопасности</h1>
 			</div>
 			<div class="content-area">
 				<p><a href="/" style="color: #004d40; text-decoration: none; font-weight: bold;">← Назад к панели</a></p>
-				<h2>Результаты инфраструктурного сканирования</h2>
+				<h2>Результаты внешнего инфраструктурного сканирования</h2>
 				
 				<div class="meta-grid">
 					<div><strong>Объект проверки / IP:</strong> mbank.kg (95.46.154.19)</div>
@@ -137,7 +140,7 @@ func main() {
 					<ol>
 						<li>Обнаруженный внешний софт шлюзов банка выдает свои баннеры наружу, позволяя злоумышленникам составить точную карту сети компании.</li>
 						<li><strong>Рекомендация №1:</strong> Срочно перевести инфраструктуру в закрытый режим (Stealth Mode) с помощью платформы <strong>Crypto Traffic Inspector (CTI)</strong> для полной маскировки портов.</li>
-						<li><strong>Рекомендация №2:</strong> Интегрировать постквантовые алгоритмы шифрования NIST для защиты каналов передачи финтех-данных.</li>
+						<li><strong>Рекомендация №2:</strong> Интегрировать как международные постквантовые стандарты шифрования <strong>NIST (ML-KEM)</strong>, так и суверенные китайские криптографические алгоритмы <strong>GmSSL (линейка стандартов SM4/SM9)</strong> для обеспечения полной трансграничной безопасности финтех-данных в рамках СНГ и ШОС.</li>
 					</ol>
 				</div>
 
@@ -150,7 +153,9 @@ func main() {
 		</html>`
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(htmlPage))
+		if _, writeErr := w.Write([]byte(htmlPage)); writeErr != nil {
+			fmt.Printf("[-] Ошибка отправки данных: %v\n", writeErr)
+		}
 	})
 
 	// 3. РОУТЕР ДЛЯ ОТОБРАЖЕНИЯ ЛОКАЛЬНОГО ФАЙЛА LOGO.JPG
@@ -158,10 +163,20 @@ func main() {
 		http.ServeFile(w, r, "logo.jpg")
 	})
 
-	// Запуск живого сервера
-	fmt.Println(">>> Локальный веб-сервер KvantumSafe успешно запущен <<<")
+	// Запуск живого сервера с полной конфигурацией таймаутов
+	fmt.Println(">>> Глобальная платформа KvantumSafe Pro успешно запущена <<<")
 	fmt.Println("Сервис отчёта запущен на http://localhost:9494/")
-	if err := http.ListenAndServe(":9494", nil); err != nil {
+
+	server := &http.Server{
+		Addr:              ":9494",
+		ReadHeaderTimeout: 3 * time.Second,
+		ReadTimeout:       5 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		IdleTimeout:       30 * time.Second,
+	}
+
+	// #nosec G114
+	if err := server.ListenAndServe(); err != nil {
 		fmt.Printf("[-] Ошибка запуска порта: %v\n", err)
 	}
 }
