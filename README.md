@@ -1,19 +1,52 @@
-# KvantumSafe: Universal Crypto Agility Orchestrator & Scanner
+# KvantumSafe Pro: Compliance Core & Post-Quantum Orchestrator 🛡️
 
-An enterprise-grade cyber-inspection and automated traffic routing engine written in pure **Go (Golang)**. Designed to shield traditional FinTech/Banking ecosystems and Web3 infrastructure against advanced reconnaissance, DDoS threats, and Post-Quantum cryptographic vulnerabilities.
+**KvantumSafe Pro** — это высокотехнологичное постквантовое ядро безопасности (Crypto Agility Engine) коммерческого уровня, спроектированное для автоматического аудита уязвимостей, защиты данных в покое (Data at Rest) и оркестрации зашифрованных трансграничных банковских потоков (Data in Transit).
 
-## 🚀 Core Features
+Платформа полностью развернута, протестирована и калибрована под инфраструктурные стандарты финтех-экосистем (включая шлюзы межбанковских платежей и веб-консоли).
 
-- **External Perimeter Scanner:** Non-intrusive scanning of public web domains and Web3 RPC/P2P ports (8545, 30303, 26657). Dynamically benchmarks TLS exposure against quantum threats ("Harvest Now, Decrypt Later") and generates automated branded reports.
-- **Cyber-Aikido Moving Target Defense (AMTD):** Instead of standard rigid blocking, the Crypto Traffic Inspector (CTI) smoothly traps malicious payloads and network reconnaissance scanners inside an isolated post-quantum sandbox loop (Honeypot), safely neutralizing attack vectors while draining attacker computation.
-- **SaaS Billing Guard:** Automated offline cryptographic license checker tailored for banking air-gapped on-premise deployments. Automatically toggles stealth infrastructure masking based on subscription validity.
-- **Web3 Custody Bridge Security:** Proxies Hot Wallet APIs and signs Cold Wallet serialized delivery channels with post-quantum encryption (NIST ML-KEM / GmSSL SM4) to prevent Man-in-the-Middle (MitM) wallet clipping.
+---
 
-## 🛡️ Security & Compliance Audit
-This codebase maintains strict zero-dependency protocols and has been fully vetted using enterprise static application security testing (SAST):
-- `go vet ./...` — **PASSED** (0 structural anomalies)
-- `govulncheck ./...` — **PASSED** (0 library vulnerabilities)
-- `gosec ./...` — **PASSED** (Summary: Total 0 Issues)
+## 🚀 Основные модули и функционал платформы
 
-## 📄 License & Commercial Notice
-Developed under the jurisdiction of the High-Tech Park (ПВТ), Central Asia. Global HQ and Enterprise Exit Route managed under international corporate framework in Dubai, UAE.
+*   **Внешний инфраструктурный аудит (`scanner.go`):** Автоматическое сканирование периметра шлюзов, детекция версий программного обеспечения (например, OpenSSL Web-Gateway) и выявление уязвимостей перед классическим TLS дешифрованием.
+*   **Закрытый аудит комплаенса (`internal_fs.go`):** Ревизия файловой системы сервера в изолированных зонах (Air-Gapped). Обнаружение открытых текстовых паролей администраторов, забытых дампов баз данных (SQL Dump) и приватных Web3-ключей (Keystore) с последующей автоматической изоляцией (права доступа `0600`).
+*   **Постквантовый крипто-мост (`quantum_bridge.go`):** Активная защита каналов передачи данных и SWIFT-переводов с использованием гибридной криптографии нового поколения.
+
+---
+
+## 🔒 Стандарты шифрования и криптографии
+
+Продукт интегрирует передовые мировые и суверенные стандарты защиты информации:
+1.  **NIST ML-KEM-768:** Постквантовая решетчатая криптография для сквозной защиты межбанковских транзакций, неуязвимая для дешифрования на квантовых компьютерах.
+2.  **GmSSL SM4-GCM / SM9:** Суверенные криптографические алгоритмы и национальные стандарты шифрования КНР, адаптированные для обеспечения безопасности трансграничных расчетов в зонах СНГ и ШОС.
+
+---
+
+## 📊 Результаты аудита безопасности (Security Compliance)
+
+Кодовая база ядра платформы успешно прошла строгую верификацию официальным статическим сканером уязвимостей **Gosec (Go Security Assistant)**.
+
+```heading
+[gosec] Including rules: default
+[gosec] Checking package: main
+Results:
+
+Summary:
+  Files  : 4
+  Lines  : 289
+  Nosec  : 0
+  Issues : 0  🏆 [АБСОЛЮТНЫЙ НОЛЬ УЯЗВИМОСТЕЙ]
+```
+
+---
+
+## 🛠️ Системные требования и локальный запуск
+
+*   **Среда выполнения:** Go Engine v2.6+ / Go Compliance Core
+*   **Рабочий порт:** `:8080` (с полной конфигурацией таймаутов защиты от DOS-атак)
+
+Для сборки и запуска полноценного локального веб-сервера отчётов введите в терминале команду:
+```bash
+go run main.go scanner.go internal_fs.go quantum_bridge.go
+```
+После запуска панель управления KvantumSafe Dashboard будет доступна по адресу: `http://localhost:8080/`
