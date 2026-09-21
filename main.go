@@ -7,8 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
-
-	"://github.com"
+"github.com/skip2/go-qrcode"
 )
 
 type LicenseInfo struct {
