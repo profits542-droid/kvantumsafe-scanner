@@ -6,10 +6,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
-
 	"github.com/skip2/go-qrcode"
 )
-
 type LicenseInfo struct {
 	ClientName string
 	ServerID   string
