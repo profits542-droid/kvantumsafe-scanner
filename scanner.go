@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// Функция выдает главную страницу сайта с новыми текстами и полем сканирования
+// Полное продающее наполнение сайта KvantumSafe простыми словами для людей
 func GetDashboardHTML(clientName, serverID string) string {
 	return `<!DOCTYPE html>
 <html>
@@ -11,33 +11,30 @@ func GetDashboardHTML(clientName, serverID string) string {
 	<title>KvantumSafe Pro — Постквантовый ИТ-Комплаенс и Безопасность</title>
 	<style>
 		body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
-		.navbar { background-color: #0a2540; color: white; padding: 30px 40px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+		.navbar { background-color: #0a2540; color: white; padding: 35px 40px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 		.navbar h1 { margin: 0; font-size: 32px; font-weight: 600; }
 		.navbar p { margin: 8px 0 0 0; color: #cbd5e1; font-size: 16px; letter-spacing: 0.5px; }
 		.content { max-width: 900px; background: white; margin: 40px auto; padding: 50px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); }
 		h2 { color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-top: 40px; font-size: 24px; }
 		p { font-size: 16px; color: #475569; }
 		
-		/* Интерактивный блок сканирования периметра */
 		.scan-container { background: #e0f2f1; padding: 35px; border-radius: 10px; border: 2px dashed #004d40; text-align: center; margin: 35px 0; }
 		.scan-container h3 { margin-top: 0; color: #004d40; font-size: 20px; }
 		.scan-input { width: 65%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; box-sizing: border-box; }
 		.scan-btn { background: #004d40; color: white; padding: 14px 30px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
 		.scan-btn:hover { background: #00796b; }
 		
-		/* Особенности и уникальность */
 		.feature-card { background: #f8fafc; padding: 25px; border-left: 4px solid #d4af37; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
-		.feature-title { font-weight: bold; color: #0a2540; font-size: 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+		.feature-title { font-weight: bold; color: #0a2540; font-size: 18px; margin-bottom: 8px; }
 		
-		/* Таблица тарифов */
-		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; }
 		.tariff-table th, .tariff-table td { padding: 20px; border: 1px solid #cbd5e1; font-size: 15px; }
 		.tariff-free { background-color: #f0fdf4; color: #16a34a; }
 		.tariff-premium { background-color: #faf5ff; color: #7c3aed; }
 		.price-tag { font-size: 24px; font-weight: bold; margin: 10px 0; color: #0a2540; }
 		
 		.footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 14px; }
-		.btn-tech { font-size: 12px; color: #94a3b8; text-decoration: none; display: inline-block; margin-top: 15px; }
+		.btn-tech { background-color: #7c3aed; color: white; padding: 12px 25px; font-size: 14px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 15px; }
 	</style>
 </head>
 <body>
@@ -50,7 +47,6 @@ func GetDashboardHTML(clientName, serverID string) string {
 		<h2>О проекте KvantumSafe</h2>
 		<p><strong>KvantumSafe Pro Framework</strong> — это передовое программное решение (SaaS), разработанное на сверхбезопасном технологическом стеке Go (Engine v2.6 SDK). Наша платформа функционирует в режиме интеллектуального сетевого координатора. Она помогает современным банкам, крупным платежным шлюзам и Web3-экосистемам автоматически проверять сетевую инфраструктуру на соответствие международным стандартам безопасности, находить критические уязвимости и защищать внутренние файловые контуры.</p>
 		
-		<!-- ИНТЕРАКТИВНЫЙ МОДУЛЬ ЛИДОГЕНЕРАЦИИ ДЛЯ КЛИЕНТОВ -->
 		<div class='scan-container'>
 			<h3>🔍 Экспресс-аудит сетевого периметра в реальном времени</h3>
 			<p style='color: #004d40; font-size: 15px; margin-bottom: 20px;'>Введите адрес домена вашей организации (например, <i>bank.kg</i>), чтобы запустить внешнее сканирование защитных шлюзов на предмет устаревших конфигураций:</p>
@@ -63,12 +59,12 @@ func GetDashboardHTML(clientName, serverID string) string {
 		<h2>Уникальность и ключевые продукты платформы:</h2>
 		
 		<div class='feature-card'>
-			<div class='feature-title'>🌐 Продукт 1. Автоматический аудит периметра (Data in Transit)</div>
+			<div class='feature-title'>🌐 Продукт 1. Автоматический аудит периметра (Защита данных в пути)</div>
 			<div>Программа выполняет роль бдительного цифрового ревизора. Она сканирует внешние порты системы, проверяет сетевые шлюзы банковских приложений и мгновенно выявляет устаревшие версии защитных протоколов (например, уязвимые версии OpenSSL), предотвращая перехват данных снаружи.</div>
 		</div>
 		
 		<div class='feature-card' style='border-left-color: #004d40;'>
-			<div class='feature-title'>🗄️ Продукт 2. Внутренний комплаенс-контроль серверов (Data at Rest)</div>
+			<div class='feature-title'>🗄️ Продукт 2. Внутренний комплаенс-контроль серверов (Защита сохраненных данных)</div>
 			<div>Модуль проводит тотальную ревизию файловой системы внутри закрытого ИТ-контура организации. При обнаружении критических ошибок сотрудников (например, оставленных в открытом текстовом виде резервных копий баз данных SQL или SWIFT-паролей), KvantumSafe автоматически изолирует угрозу, присваивая файлам жесткие права доступа банковского стандарта <code>0600</code>.</div>
 		</div>
 		
@@ -113,7 +109,7 @@ func GetInternalReportHTML(serverID string, daysLeft int) string {
 }
 
 func GetQuantumBridgeHTML() string {
-	return "<html><body><h2>Постквантовый крипто-мост</h2><p>Статус: Вызов NIST ML-KEM + GmSSL SM4-GCM активен.</p><p><a href='/'>← Назад</a></p></body></html>"
+	return "<html><body><h2>Постквантовый крипто-мост</h2><p>Статус: Вызов NIST ML-KEM + GmSSL SM4-GCM active.</p><p><a href='/'>← Назад</a></p></body></html>"
 }
 
 func GetBillingPageHTML(clientName string) string {
