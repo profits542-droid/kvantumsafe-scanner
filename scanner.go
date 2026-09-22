@@ -1,96 +1,85 @@
 package main
 
-func getTranslation(key, lang string) string {
-	translations := map[string]map[string]string{
-		"nav_title": {
-			"ru": "🛡️ Международная ИТ-Платформа KvantumSafe Pro",
-			"en": "🛡️ KvantumSafe Pro International IT Platform",
-			"kz": "🛡️ KvantumSafe Pro Халықаралық ИТ-Платформасы",
-			"ar": "🛡️ منصة كيفانتوم سيف برو الدولية لتكنولوجيا المعلومات",
-		},
-		"nav_sub": {
-			"ru": "Автоматическая проверка сетевой безопасности и умное управление защитой данных",
-			"en": "Automatic network security audit and smart data protection management",
-			"kz": "Желілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару",
-			"ar": "التدقيق الآلي لأمن الشبكات والإدارة الذكية لحماية البيانات",
-		},
-		"about_title": {
-			"ru": "О проекте KvantumSafe",
-			"en": "About KvantumSafe Project",
-			"kz": "KvantumSafe жобасы туралы",
-			"ar": "حول مشروع كيفانتوم سيف",
-		},
-		"about_desc": {
-			"ru": "<strong>KvantumSafe Pro Framework</strong> — это передовое программное решение (SaaS), разработанное на сверхбезопасном технологическом стеке Go (Engine v2.6 SDK). Наша платформа функционирует в режиме интеллектуального сетевого координатора. Она помогает современным банкам, крупным платежным шлюзам и Web3-экосистемам автоматически проверять сетевую инфраструктуру на соответствие международным стандартам безопасности, находить критические уязвимости и защищать внутренние файловые контуры.",
-			"en": "<strong>KvantumSafe Pro Framework</strong> is an advanced software solution (SaaS) built on the ultra-secure Go technological stack (Engine v2.6 SDK). Our platform functions as a smart network coordinator. It helps modern banks, large payment gateways, and Web3 ecosystems automatically audit network infrastructure for compliance with international security standards, discover critical vulnerabilities, and protect internal file perimeters.",
-			"kz": "<strong>KvantumSafe Pro Framework</strong> — бұл аса қауіпсіз Go технологиялық стекінде (Engine v2.6 SDK) әзірленген озық бағдарламалық шешім (SaaS). Біздің платформа зияткерлік желілік үйлестіруші режимінде жұмыс істейді. Ол заманауи банктерге, ірі төлем шлюздеріне және Web3 экожүйелеріне желілік инфрақұрылымның халықаралық қауіпсіздік стандарттарына сәйкестігін автоматты түрде тексеруге, критикалық осалдықтарды табуға және ішкі файлдық контурларды қорғауға көмектеседі.",
-			"ar": "إن <strong>KvantumSafe Pro Framework</strong> هو حل برمجيات متقدم (SaaS) تم بناؤه على بيئة Go التكنولوجية فائقة الأمان (Engine v2.6 SDK). تعمل منصتنا كمنسق ذكي للشبكة، حيث تساعد البنوك الحديثة وبوابات الدفع الكبيرة وأنظمة Web3 على التدقيق الآلي للبنية التحتية للشبكة للامتثال لمعايير الأمن الدولية، واكتشاف الثغرات الأمنية الحرجة، وحماية الملفات الداخلية.",
-		},
-		"scan_title": {
-			"ru": "🔍 Экспресс-аудит сетевого периметра в реальном времени",
-			"en": "🔍 Real-Time Network Perimeter Express Audit",
-			"kz": "🔍 Нақты уақыттағы желілік периметрдің экспресс-аудиті",
-			"ar": "🔍 تدقيق سريع لمحيط الشبكة في الوقت الفعلي",
-		},
-		"scan_desc": {
-			"ru": "Введите адрес домена вашей организации, чтобы запустить внешнее сканирование шлюзов на предмет устаревших конфигураций:",
-			"en": "Enter your organization's domain address to launch an external scan of protective gateways for outdated configurations:",
-			"kz": "Ескірген конфигурацияларды анықтау үшін ұйымыңыздың домендік мекенжайын енгізіңіз:",
-			"ar": "أدخل عنوان نطاق مؤسستك لبدء فحص خارجي لبوابات الحماية بحثًا عن الإعدادات القديمة:",
-		},
-		"scan_btn": {
-			"ru": "Запустить аудит",
-			"en": "Launch Audit",
-			"kz": "Аудитті бастау",
-			"ar": "بدء التدقيق",
-		},
-		"prod_title": {
-			"ru": "Уникальность и ключевые продукты платформы:",
-			"en": "Uniqueness and Key Platform Products:",
-			"kz": "Платформаның бірегейлігі мен негізгі өнімдері:",
-			"ar": "التفرد والمنتجات الرئيسية للمنصة:",
-		},
-		"p1_title": {
-			"ru": "🌐 Продукт 1. Автоматический аудит периметра",
-			"en": "🌐 Product 1. Automatic Perimeter Audit",
-			"kz": "🌐 Өнім 1. Периметрді автоматты аудиттеу",
-			"ar": "🌐 المنتج 1. التدقيق الآلي لمحيط الشبكة",
-		},
-		"p1_desc": {
-			"ru": "Программа выполняет роль бдительного цифрового ревизора. Она сканирует внешние порты системы, проверяет сетевые шлюзы банковских приложений и мгновенно выявляет устаревшие версии защитных протоколов (например, уязвимые версии OpenSSL), предотвращая перехват данных снаружи.",
-			"en": "The software acts as a vigilant digital auditor. It scans external system ports, verifies network gateways of banking applications, and instantly identifies outdated versions of secure protocols (e.g., vulnerable OpenSSL versions), preventing data interception from the outside.",
-			"kz": "Бағдарлама қырағы цифрлық ревизор рөлін атқарады. Ол жүйенің сыртқы порттарын сканерлейді, банктік қосымшалардың желілік шлюздерін тексереді және қорғаныс хаттамаларының ескірген нұсқаларын (мысалы, OpenSSL-дің осал нұсқаларын) дереу анықтап, деректерді сырттан ұстап алудың алдын алады.",
-			"ar": "يعمل البرنامج كمدقق رقمي يقظ. يقوم بفحص مناфذ النظام الخارجية، والتحقق من بوابات الشبكة للتطبيقات المصرفية، والتعرف الفوري على الإصدارات القديمة من البروتوكولات الآمنة (مثل إصدارات OpenSSL الضعيفة)، مما يمنع اعتراض البيانات من الخارج.",
-		},
-		"p2_title": {
-			"ru": "🗄️ Продукт 2. Внутренний комплаенс-контроль серверов",
-			"en": "🗄️ Product 2. Internal Server Compliance Control",
-			"kz": "🗄️ Өнім 2. Серверлерді ішкі комплаенс-бақылау",
-			"ar": "🗄️ المنتج 2. الرقابة الداخلية لامتثال الخوادم",
-		},
-		"p2_desc": {
-			"ru": "Модуль проводит тотальную ревизию файловой системы внутри закрытого ИТ-контура организации. При обнаружении критических ошибок сотрудников (например, оставленных в открытом текстовом виде резервных копий баз данных SQL или SWIFT-паролей), KvantumSafe автоматически изолирует угрозу, присваивая файлам жесткие права доступа банковского стандарта 0600.",
-			"en": "The module performs a total audit of the file system inside the organization's closed IT perimeter. Upon detecting critical employee errors (e.g., SQL database backup copies or SWIFT passwords left in plain text), KvantumSafe automatically isolates the threat, assigning strict banking-standard 0600 access rights to the files.",
-			"kz": "Модуль ұйымның жабық ИТ-контурындағы файлдық жүйеге толық ревизия жүргізеді. Қызметкерлердің критикалық қателері анықталған кезде (мысалы, ашық мәтіндік түрде қалдырылған SQL деректер базасының сақтық көшірмелері немесе SWIFT-парольдер), KvantumSafe файлдарға банктік стандарттағы 0600 қатаң қолжетімділік құқықтарын бере отырып, қауіпті автоматты түрде оқшаулайды.",
-			"ar": "يقوم الموديل بإجراء تدقيق شامل لنظام الملفات داخل المحيط المغلق لتكنولوجيا المعلومات في المؤسسة. عند اكتشاف أخطاء حرجة من الموظفين (مثل نسخ احتياطية لقواعد بيانات SQL أو كلمات مرور SWIFT المتروكة في نص واضح)، يقوم البرنامج بتوجيه الحماية تلقائيًا وعزل التهديد بصلاحيات 0600 الصارمة.",
-		},
-		"p3_title": {
-			"ru": "🔀 Продукт 3. Постквантовый координатор маршрутов",
-			"en": "🔀 Product 3. Post-Quantum Route Coordinator",
-			"kz": "🔀 Өнім 3. Посткванттық бағыт үйлестірушісі",
-			"ar": "🔀 المنتج 3. منسق المسارات بعد العصر الكمي",
-		},
-		"p3_desc": {
-			"ru": "Флагманское решение для трансграничных переводов и смарт-контрактов. Наша система выступает как умный инкассаторский диспетчер — она упаковывает потоки данных в защищенные контейнеры нового поколения, вызывая нативные аппаратные HSM-модули серверов по международным стандартам решеток (NIST ML-KEM) и суверенным протоколам (GmSSL). Если принимающая сторона не поддерживает новые стандарты, система плавно переключается в безопасный режим совместимости (Fallback), исключая сбои транзакций.",
-			"en": "A flagship solution for cross-border transfers and smart contracts. Our system acts as a smart transit dispatcher — it packs data streams into next-generation secure containers, calling native hardware HSM modules of servers using international lattice standards (NIST ML-KEM) and sovereign protocols (GmSSL). If the receiving party does not support the new standards, the system smoothly switches to a secure Fallback mode, eliminating transaction failures.",
-			"kz": "Трансшекаралық аударымдар мен смарт-келісімшарттарға арналған флагмандық шешім. Біздің жүйе ақылды инкассаторлық диспетчер ретінде әрекет етеді — ол торлардың халықаралық стандарттары (NIST ML-KEM) және егеменді хаттамалар (GmSSL) бойынша серверлердің нативті аппараттық HSM-модульдерін шақыра отырып, деректер ағынын жаңа буынның қорғалған контейнерлеріне жинақтайды. Егер қабылдаушы тарап жаңа стандарттарды қолдамаса, жүйе транзакциялардың іркілістерін болдырмай, қауіпсіз үйлесімділік режиміне (Fallback) бірқалыпты ауысады.",
-			"ar": "الحل الرائد للتحويلات عبر الحدود والعقود الذكية. يعمل نظامنا كمنسق نقل ذكي، حيث يدمج تدفقات البيانات في حاويات آمنة من الجيل الجديد، ويستدعي وحدات HSM للأجهزة الأصلية للخوادم وفقًا لمعايير الشبكة الدولية (NIST ML-KEM) والبروتوكولات السيادية (GmSSL). إذا كان الطرف المستلم لا يدعم المعايير الجديدة، ينتقل النظام بسلاسة إلى وضع التوافق الآمن (Fallback) لمنع فشل المعاملات.",
-		},
-		"legal_title": {
-			"ru": "⚖️ Полная юридическая чистота и соответствие регламентам",
-			"en": "⚖️ Complete Legal Purity and Compliance with Regulations",
-			"kz": "⚖️ Толық заңды тазалық және регламенттерге сәйкестік",
-			"ar": "⚖️ النزاهة القانونية الكاملة والامتثال للوائح",
-		},
-		"legal_desc": {
-			"ru": "Важнейшая особенность KvantumSafe Pro — платформа не осуществляет самостоятельную разработку криптографических алгоритмов и не является средством шифрования. Программа лишь оркестрирует и управляет теми защитными модулями, которые уже сертифицированы и встроены в серверное оборудование вашей организации. Это полностью снимает любые вопросы контролирующих и проверяющих органов касательно специального лицензирования.",
+func GetDashboardHTML(clientName, serverID, lang string) string {
+	direction := "ltr"
+	if lang == "ar" { direction = "rtl" }
+
+	return `<!DOCTYPE html>
+<html lang='` + lang + `' dir='` + direction + `'>
+<head>
+	<meta charset='UTF-8'>
+	<title>KvantumSafe Pro</title>
+	<style>
+		body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
+		.navbar { background-color: #0a2540; color: white; padding: 35px 40px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+		.navbar h1 { margin: 0; font-size: 30px; font-weight: 600; }
+		.navbar p { margin: 8px 0 15px 0; color: #cbd5e1; font-size: 16px; }
+		.lang-switcher { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
+		.lang-switcher a { color: #cbd5e1; text-decoration: none; font-weight: bold; font-size: 14px; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; }
+		.lang-switcher a:hover { color: white; background: #004d40; }
+		.content { max-width: 850px; background: white; margin: 40px auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); }
+		.scan-container { background: #e0f2f1; padding: 35px; border-radius: 10px; border: 2px dashed #004d40; text-align: center; margin: 20px 0; }
+		.scan-input { width: 60%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; }
+		.scan-btn { background: #004d40; color: white; padding: 14px 30px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+		.feature-card { background: #f8fafc; padding: 25px; border-left: 4px solid #d4af37; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
+		html[dir="rtl"] .feature-card { border-left: none; border-right: 4px solid #d4af37; border-radius: 8px 0 0 8px; }
+		.feature-title { font-weight: bold; color: #0a2540; font-size: 18px; margin-bottom: 8px; }
+		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; }
+		.tariff-table th, .tariff-table td { padding: 20px; border: 1px solid #cbd5e1; font-size: 15px; }
+		.tariff-free { background-color: #f0fdf4; color: #16a34a; }
+		.tariff-premium { background-color: #faf5ff; color: #7c3aed; }
+		.footer { text-align: center; margin-top: 40px; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+	</style>
+</head>
+<body>
+	<div class='navbar'>
+		<h1>` + getTranslation("nav_title", lang) + `</h1>
+		<p>📊 ` + getTranslation("nav_sub", lang) + `</p>
+		<div class='lang-switcher'>
+			<a href='/?lang=ru'>RU</a>
+			<a href='/?lang=en'>EN</a>
+			<a href='/?lang=kz'>KZ</a>
+			<a href='/?lang=ar'>AR</a>
+		</div>
+	</div>
+	<div class='content'>
+		<h2>` + getTranslation("about_title", lang) + `</h2>
+		<p>` + getTranslation("about_desc", lang) + `</p>
+		
+		<div class='scan-container'>
+			<h3>` + getTranslation("scan_title", lang) + `</h3>
+			<p style='color: #004d40; font-size: 15px; margin-bottom: 20px;'>` + getTranslation("scan_desc", lang) + `</p>
+			<form action='/report/mbank?lang=` + lang + `' method='GET'>
+				<input type='text' name='domain' class='scan-input' placeholder='bank.com...'>
+				<button type='submit' class='scan-btn'>` + getTranslation("scan_btn", lang) + `</button>
+			</form>
+		</div>
+
+		<h2>` + getTranslation("prod_title", lang) + `</h2>
+		<div class='feature-card'><div class='feature-title'>` + getTranslation("p1_title", lang) + `</div><div>` + getTranslation("p1_desc", lang) + `</div></div>
+		<div class='feature-card' style='border-left-color: #004d40; border-right-color: #004d40;'><div class='feature-title'>` + getTranslation("p2_title", lang) + `</div><div>` + getTranslation("p2_desc", lang) + `</div></div>
+		<div class='feature-card' style='border-left-color: #2563eb; border-right-color: #2563eb;'><div class='feature-title'>` + getTranslation("p3_title", lang) + `</div><div>` + getTranslation("p3_desc", lang) + `</div></div>
+
+		<h2>` + getTranslation("legal_title", lang) + `</h2><p>` + getTranslation("legal_desc", lang) + `</p>
+
+		<h2>` + getTranslation("saas_title", lang) + `</h2>
+		<table class='tariff-table'>
+			<tr>
+				<th class='tariff-free'><h3>Global Scanner</h3><div style='font-size:20px; font-weight:bold;'>FREE / $0</div></th>
+				<th><h3>Compliance Pro</h3><div style='font-size:20px; font-weight:bold;'>$15,000 / год</div></th>
+				<th class='tariff-premium'><h3>Quantum Web3</h3><div style='font-size:20px; font-weight:bold;'>$35,000 / год</div></th>
+			</tr>
+		</table>
+		<div class='footer'><p>© 2026 KvantumSafe Pro. Международная ИТ-платформа комплаенса органов контроля.</p></div>
+	</div>
+</body>
+</html>`
+}
+
+func GetPerimeterReportHTML(lang string) string {
+	return "<html><body><h2>Audit Report (" + lang + ")</h2><p><a href='/?lang=" + lang + "'>← Back</a></p></body></html>"
+}
+
+func GetBillingPageHTML(clientName, lang string) string {
+	return "<html><body><h2>Billing Panel (" + lang + ")</h2><p><a href='/?lang=" + lang + "'>← Back</a></p></body></html>"
+}
