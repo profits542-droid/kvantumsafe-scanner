@@ -1,4 +1,5 @@
 package main
+
 import (
 	"encoding/base64"
 	"fmt"
@@ -6,8 +7,10 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
 	"github.com/skip2/go-qrcode"
 )
+
 type LicenseInfo struct {
 	ClientName string
 	ServerID   string
@@ -35,7 +38,7 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	return info
 }
 
-var cssStyles = "<style>body{font-family:'Segoe UI',sans-serif;background-color:#f4f7f6;color:#333;margin:0;padding:0}.navbar{background-color:#0a2540;color:#fff;padding:20px 40px;display:flex;align-items:center;gap:20px;box-shadow:0 4px 10px rgba(0,0,0,.1)}.logo-img{width:70px;height:70px;border:2px solid #d4af37;background:#fff;object-fit:cover}.navbar h1{margin:0;font-size:24px}.content-area{max-width:900px;background:#fff;margin:40px auto;padding:40px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.05)}h2{color:#0a2540;margin-top:0;font-size:22px;border-bottom:2px solid #e2e8f0;padding-bottom:10px}.btn-action{display:inline-block;background-color:#004d40;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.btn-bridge{display:inline-block;background-color:#2563eb;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.btn-billing{display:inline-block;background-color:#7c3aed;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;background:#f8fafc;padding:20px;border-radius:6px;margin-bottom:30px;border-left:4px solid #d4af37;font-size:14px}.billing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px}.tier-card{border:1px solid #e2e8f0;padding:20px;border-radius:8px;text-align:center;background:#fff}.tier-card.free-tier{border:2px solid #16a34a;background:#f0fdf4}.tier-card.premium{border:2px solid #7c3aed;background:#faf5ff}.tier-price{font-size:24px;font-weight:bold;color:#0a2540;margin:15px 0}.input-field{width:100%;padding:10px;margin:10px 0;border:1px solid #cbd5e1;border-radius:4px}.table-vulnerabilities{width:100%;border-collapse:collapse;margin-top:20px}.table-vulnerabilities th{background-color:#f1f5f9;text-align:left;padding:12px;border:1px solid #cbd5e1;font-weight:bold}.table-vulnerabilities td{padding:12px;border:1px solid #cbd5e1;font-size:14px}.danger-row{background-color:#fff5f5}.warning-row{background-color:#fffbeb}.bridge-row{background-color:#f0fdf4}.status-badge{display:block;margin-top:5px;color:#b71c1c;font-weight:bold;font-size:12px}.conclusion-box{background-color:#e0f2f1;border-left:4px solid #004d40;padding:20px;border-radius:6px;margin-top:30px;font-size:14px}</style>"
+var cssStyles = "<style>body{font-family:'Segoe UI',sans-serif;background-color:#f4f7f6;color:#333;margin:0;padding:0}.navbar{background-color:#0a2540;color:#fff;padding:20px 40px;display:flex;align-items:center;gap:20px;box-shadow:0 4px 10px rgba(0,0,0,.1)}.logo-img{width:70px;height:70px;border:2px solid #d4af37;background:#fff;object-fit:cover}.navbar h1{margin:0;font-size:24px}.content-area{max-width:900px;background:#fff;margin:40px auto;padding:40px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.05)}h2{color:#0a2540;margin-top:0;font-size:22px;border-bottom:2px solid #e2e8f0;padding-bottom:10px}.btn-action{display:inline-block;background-color:#004d40;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.btn-bridge{display:inline-block;background-color:#2563eb;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.btn-billing{display:inline-block;background-color:#7c3aed;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:20px}.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;background:#f8fafc;padding:20px;border-radius:6px;margin-bottom:30px;border-left:4px solid #d4af37;font-size:14px}.billing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px}.tier-card{border:1px solid #e2e8f0;padding:20px;border-radius:8px;text-align:center;background:#fff}.tier-card.free-tier{border:2px solid #16a34a;background:#f0fdf4}.tier-card.premium{border:2px solid #7c3aed;background:#faf5ff}.tier-price{font-size:24px;font-weight:bold;color:#0a2540;margin:15px 0}.input-field{width:100%;padding:10px;margin:10px 0;border:1px solid #cbd5e1;border-radius:4px}.table-vulnerabilities{width:100%;border-collapse:collapse;margin-top:20px}.table-vulnerabilities th{background-color:#f1f5f9;text-align:left;padding:12px;border:1px solid #cbd5e1;font-weight:bold}.table-vulnerabilities td{padding:12px;border:1px solid #cbd5e1;font-size:14px}.danger-row{background-color:#fff5f5}.warning-row {background-color:#fffbeb}.bridge-row{background-color:#f0fdf4}.status-badge{display:block;margin-top:5px;color:#b71c1c;font-weight:bold;font-size:12px}.conclusion-box{background-color:#e0f2f1;border-left:4px solid #004d40;padding:20px;border-radius:6px;margin-top:30px;font-size:14px}</style>"
 
 func main() {
 	premiumLicenseKey := "T0FPIEtvbW1lcmNoZXNreWkgYmFuayBLWVJHWVpTVEFOIChNQkFOSyl8MjAyNy0wOS0yMHxDb3JlLU5vZGUtMDE="
