@@ -25,8 +25,8 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
 		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ServerID = parts[1]
+		if expTime, err := time.Parse("2006-01-02", parts[2]); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -40,36 +40,31 @@ func main() {
 	premiumLicenseKey := "T0FPIEtvbW1lcmNoZXNreWkgYmFuayBLWVJHWVpTVEFOIChNQkFOSyl8MjAyNy0wOS0yMHxDb3JlLU5vZGUtMDE="
 	license := VerifyLicenseKey(premiumLicenseKey)
 
-	// Главная страница с поддержкой мультиязычности
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" { http.NotFound(w, r); return }
 		lang := r.URL.Query().Get("lang")
-		if lang == "" { lang = "ru" }
+		if lang == "" { lang = "kg" } // По умолчанию ставим кыргызский язык
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		_, _ = w.Write([]byte(GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID), lang)))
 	})
 
-	// Страница отчета сканирования периметра (считывает введенный домен)
-http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
-    lang := r.URL.Query().Get("lang")
-    if lang == "" { lang = "ru" }
-    domainName := r.URL.Query().Get("domain")
-    if domainName == "" { domainName = "unknown-node.com" }
-    w.Header().Set("Content-Type", "text/html; charset=utf-8")
-    _, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
-})
-
-	// Страница биллинга
-	http.HandleFunc("/billing", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
-		if lang == "" { lang = "ru" }
+		if lang == "" { lang = "kg" }
+		domainName := r.URL.Query().Get("domain")
+		if domainName == "" { domainName = "unknown-node.com" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetBillingPageHTML(html.EscapeString(license.ClientName), lang)))
+		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
 	})
 
-	// Обработчик логотипа
-	http.HandleFunc("/static/logo.jpg", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./logo.jpg")
+	// Роутер для автоматического скачивания текстовой спецификации ПО
+	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
+		lang := r.URL.Query().Get("lang")
+		if lang == "" { lang = "kg" }
+		
+		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		_, _ = w.Write([]byte(GetSpecificationText(lang)))
 	})
 
 	fmt.Println(">>> Глобальная мультиязычная платформа KvantumSafe SDK успешно запущена <<<")
