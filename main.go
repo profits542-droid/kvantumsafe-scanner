@@ -65,6 +65,9 @@ func main() {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		_, _ = w.Write([]byte(GetBillingPageHTML(html.EscapeString(license.ClientName))))
 	})
+	http.HandleFunc("/static/logo.jpg", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./logo.jpg")
+	})
 
 	fmt.Println(">>> Глобальная платформа KvantumSafe SDK успешно запущена <<<")
 	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
