@@ -78,7 +78,8 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 	<div class='content'>
 		<div class='scan-container'>
 			<h3>` + getTranslation("scan_title", lang) + `</h3>
-			<form action='/report/mbank?lang=` + lang + `' method='GET'>
+			<form action='/report/mbank' method='GET'>
+				<input type='hidden' name='lang' value='` + lang + `'>
 				<input type='text' name='domain' class='scan-input' placeholder='domain.com...'>
 				<button type='submit' class='scan-btn'>` + getTranslation("scan_btn", lang) + `</button>
 			</form>
@@ -93,7 +94,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			</tr>
 		</table>
 		
-		<!-- МЕЖДУНАРОДНЫЙ КНОПОЧНЫЙ БЛОК ЗАГРУЗКИ КОРПОРАТИВНОЙ ДОКУМЕНТАЦИИ -->
 		<a href='/static/logo.jpg' download class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
 		
 		<div class='footer'>
@@ -104,10 +104,10 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 </html>`
 }
 
-func GetPerimeterReportHTML(lang string) string {
-	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Назад / Back</a></p><h2>Результаты экспресс-аудита / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;'>⚠️ КРИТИЧЕСКИЙ УРОВЕНЬ УГРОЗЫ / CRITICAL THREAT DETECTED</p><p>Обнаружены устаревшие версии криптографических библиотек OpenSSL на порту 443.</p></body></html>"
+func GetPerimeterReportHTML(lang, domain string) string {
+	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Назад / Back</a></p><h2>Результаты экспресс-аудита / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;font-size:18px;'>⚠️ СТАТУС: ОБНАРУЖЕН КРИТИЧЕСКИЙ УРОВЕНЬ УГРОЗЫ / CRITICAL THREAT DETECTED</p><p><b>Объект сканирования / Target:</b> " + domain + "</p><p>Обнаружены устаревшие версии криптографических библиотек OpenSSL на порту 443 Вашего сетевого узла. Рекомендуется интеграция стандартов комплаенса KvantumSafe Pro.</p></body></html>"
 }
 
 func GetBillingPageHTML(clientName, lang string) string {
-	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;'><p><a href='/?lang=" + lang + "'>← Назад / Back</a></p><h2>Billing Panel</h2><p>Organization: <b>" + clientName + "</b></p></html>"
+	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;'><h2>Billing Panel (" + lang + ")</h2><p>Organization: " + clientName + "</p></html>"
 }
