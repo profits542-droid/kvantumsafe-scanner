@@ -10,7 +10,7 @@ func getTranslation(key, lang string) string {
 			"ar": "🛡️ منصة كيفانتوم سيف برو الدولية لتكنولوجيا المعلومات",
 		},
 		"nav_sub": {
-			"kg": "Тармак коопсуздугун автоматтык түрдө текшерүү жана маалыматтарды коргоону акылдуу башкаруу",
+			"kg": "Тармак коопсуздугун автоматтык түрде тексеру жана маалыматтарды коргоону акылдуу башкаруу",
 			"ru": "Автоматическая проверка сетевой безопасности и умное управление защитой данных",
 			"en": "Automatic network security audit and smart data protection management",
 			"kz": "Желілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару",
@@ -33,7 +33,7 @@ func getTranslation(key, lang string) string {
 		"doc_btn": {
 			"kg": "📄 Программалык камсыздоо спецификациясын жүктөө (TXT)",
 			"ru": "📄 Скачать спецификацию ПО и B2B-оффер (TXT)",
-			"en": "Doc 📄 Download Software Specification (TXT)",
+			"en": "📄 Download Software Specification (TXT)",
 			"kz": "📄 Бағдарламалық құралдың сипаттамасын жүктеу (TXT)",
 			"ar": "📄 تنزيل مواصفات البرامج (TXT)",
 		},
@@ -45,11 +45,11 @@ func getTranslation(key, lang string) string {
 			"ar": "⚙️ حالة التحقق ونقاء قاعدة كود النواة الأساسية:",
 		},
 		"build_desc": {
-			"kg": "Render булуттук платформасы архитектуранын эң катуу жана принципиалдуу калысы катары иштейт. Ал расмий, нативдүү Go компиляторун колдонот. Расмий өндүрүштүк ● Live статусу бөлүштүрүлгөн системанын өзөгүндө синтаксистик каталар же калтырылган логикалык структуралар жок экендигин далилдейт. Жыйнак 100% туруктуу, жарамдуу жана таза деп таанылды.",
-			"ru": "Облачная платформа Render выступает в роли самого строгого и бескомпромиссного судьи архитектуры. Она использует официальный, нативный компилятор Go. Наличие официального производственного статуса <b>● Live</b> подтверждает, что в ядре распределенной системы отсутствуют синтаксические помарки, нестыковки типов данных или пропущенные логические структуры. Сборка признана на 100% стабильной, валидной и чистой.",
-			"en": "The Render cloud platform acts as the strictest, most uncompromising architecture judge. It utilizes the official, native Go compiler. The official production status <b>● Live</b> verifies that the distributed system core contains zero syntax errors, data type mismatches, or missing logical structures. The build is certified 100% stable, valid, and clean.",
-			"kz": "Render бұлттық платформасы архитектураның ең қатал және ымырасыз төрешісі рөлін атқарады. Ол ресми, нативті Go компиляторын пайдаланады. Ресми өндірістік <b>● Live</b> мәртебесінің болуы таратылған жүйе ядросында синтаксистік қателер, деректер түрлерінің сәйкессіздігі немесе жіберіп алынған логикалық құрылымдардың жоқтығын дәлелдейді. Жинақ 100% тұрақты, жарамды және таза деп танылды.",
-			"ar": "عمل منصة Render السحابية كأكثر حكم صارم وحازم في تقييم بنيتنا التكنولوجية. وهي تستخدم مترجم Go الرسمي الأصلي. إن وجود حالة الإنتاج الرسمية <b>● Live</b> يؤكد أن نواة النظام الموزع خالية تمامًا من أي أخطاء برمجية أو عدم تطابق في أنواع البيانات أو فجوات في الهياكل المنطقية. تم اعتماد البناء كمستقر وصحيح ونظيف بنسبة 100%.",
+			"kg": "Render булуттук платформасы архитектуранын эң катуу калысы катары иштейт. Ал расмий, нативдүү Go компиляторун колдонот. Расмий өндүрүштүк Live статусу өзөктө синтаксистик каталар же калтырылган логикалык структуралар жок экендигин далилдейт. Жыйнак 100% туруктуу, жарамдуу жана таза деп таанылды.",
+			"ru": "Облачная платформа Render выступает в роли самого строгого судьи архитектуры. Она использует официальный, нативный компилятор Go. Наличие статуса Live подтверждает, что в ядре распределенной системы отсутствуют синтаксические помарки, нестыковки типов данных или пропущенные логические структуры. Сборка признана на 100% стабильной, валидной и чистой.",
+			"en": "The Render cloud platform acts as the strictest architecture judge. It utilizes the official, native Go compiler. The official production status Live verifies that the distributed system core contains zero syntax errors, data type mismatches, or missing logical structures. The build is certified 100% stable, valid, and clean.",
+			"kz": "Render бұлттық платформасы архитектураның ең қатал төрешісі рөлін атқарады. Ол ресми, нативті Go компиляторын пайдаланады. Ресми өндірістік Live мәртебесінің болуы таратылған жүйе ядросында синтаксистік қателер, деректер түрлерінің сәйкессіздігі немесе жіберіп алынған логикалық құрылымдардың жоқтығын дәлелдейді. Жинақ 100% тұрақты.",
+			"ar": "عمل منصة Render السحابية كأكثر حكم صارم في تقييم بنيتنا التكنولوجية. وهي تستخدم مترجم Go الرسمي الأصلي. إن وجود حالة الإنتاج الرسمية Live يؤكد أن نواة النظام الموزع خالية تمامًا من أي أخطاء برمجية أو عدم تطابق في أنواع البيانات. تم اعتماد البناء كمستقر بنسبة 100%.",
 		},
 	}
 	return translations[key][lang]
@@ -58,7 +58,6 @@ func getTranslation(key, lang string) string {
 func GetDashboardHTML(clientName, serverID, lang string) string {
 	direction := "ltr"
 	if lang == "ar" { direction = "rtl" }
-
 	return `<!DOCTYPE html>
 <html lang='` + lang + `' dir='` + direction + `'>
 <head>
@@ -79,7 +78,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.footer { text-align: center; margin-top: 40px; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
 		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; }
 		.tariff-table th, .tariff-table td { padding: 15px; border: 1px solid #cbd5e1; font-size: 14px; }
-		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.2s; }
+		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 		.btn-doc:hover { background-color: #f3cd44; }
 		.build-box { background-color: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 30px; text-align: left; }
 		html[dir="rtl"] .build-box { text-align: right; }
@@ -107,26 +106,21 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				<button type='submit' class='scan-btn'>` + getTranslation("scan_btn", lang) + `</button>
 			</form>
 		</div>
-		
 		<h2 style='color:#0a2540; border-bottom:2px solid #e2e8f0; padding-bottom:10px;'>💰 SaaS Лицензии / Licenses</h2>
 		<table class='tariff-table'>
 			<tr style='background:#f8fafc;'>
-				<th><b>Global Scanner</b><br><span style='color:#16a34a;'>FREE / $0</span></th>
-				<th><b>Compliance Pro</b><br><span>$15,000 / жыл</span></th>
-				<th style='background:#faf5ff;'><b>Quantum Web3</b><br><span style='color:#7c3aed;'>$35,000 / жыл</span></th>
+				<th><b>Global Scanner</b><br><span style='color:#16a34a;'>FREE</span></th>
+				<th><b>Compliance Pro</b><br><span>$15,000 / год</span></th>
+				<th style='background:#faf5ff;'><b>Quantum Web3</b><br><span style='color:#7c3aed;'>$35,000 / год</span></th>
 			</tr>
 		</table>
-		
-		<!-- Динамическая ссылка скачивания документа в зависимости от языка -->
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
-		
 		<div class='build-box'>
 			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
 			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
 		</div>
-		
 		<div class='footer'>
-			<p>© 2026 KvantumSafe Pro. Программалык камсыздоонун коопсуздугун көзөмөлдөөчү эл аралык платформасы.</p>
+			<p>© 2026 KvantumSafe Pro.</p>
 		</div>
 	</div>
 </body>
@@ -145,7 +139,13 @@ func GetSpecificationText(lang string) string {
 	if lang == "kz" {
 		return "БАҒДАРЛАМАЛЫҚ ҚҰРАЛДЫҢ ТЕХНИКАЛЫҚ СИПАТТАМАСЫ\nҚұқық иеленуші: ОсОО 'Kvantum Safe'\n\nЖелілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару модулі."
 	}
-	return "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Kvantum Safe LLC\n\nKvantumSafe Pro functions as an intelligent network coordinator. The software does not independently develop cryptographic algorithms and is not an encryption tool. It orchestrates pre-existing certified hardware modules inside the bank's perimeter."
+	return "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Kvantum Safe LLC\n\nKvantumSafe Pro functions as an intelligent network coordinator. The software does not independently develop cryptographic algorithms and is not an encryption tool."
 }
 
 func GetPerimeterReportHTML(lang, domain string) string {
+	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Артка / Назад / Back</a></p><h2>Жыйынтык / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;font-size:18px;'>⚠️ КОРКУНУЧ ТУУДУРГАН АБАЛ / CRITICAL THREAT DETECTED</p><p><b>Объект:</b> " + domain + "</p></body></html>"
+}
+
+func GetBillingPageHTML(clientName, lang string) string {
+	return "<html><body><h2>Billing Panel (" + lang + ")</h2></html>"
+}
