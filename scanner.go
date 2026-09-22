@@ -40,7 +40,7 @@ func GetDashboardHTML(clientName, serverID string) string {
 <body>
 	<div class='navbar'>
 		<h1>🛡️ Международная ИТ-Платформа KvantumSafe Pro</h1>
-		<p>Интеллектуальная диспетчеризация сетевого комплаенса и оркестрация потоков данных нового поколения</p>
+		<p>Автоматическая проверка сетевой безопасности и умное управление защитой данных</p>
 	</div>
 	
 	<div class='content'>
