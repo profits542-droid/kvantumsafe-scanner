@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+package main
+
+func getTranslation(key, lang string) string {
+
 
 func getTranslation(key, lang string) string {
 	translations := map[string]map[string]string{
