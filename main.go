@@ -40,36 +40,37 @@ func main() {
 	premiumLicenseKey := "T0FPIEtvbW1lcmNoZXNreWkgYmFuayBLWVJHWVpTVEFOIChNQkFOSyl8MjAyNy0wOS0yMHxDb3JlLU5vZGUtMDE="
 	license := VerifyLicenseKey(premiumLicenseKey)
 
+	// Главная страница с поддержкой мультиязычности
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" { http.NotFound(w, r); return }
+		lang := r.URL.Query().Get("lang")
+		if lang == "" { lang = "ru" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID))))
+		_, _ = w.Write([]byte(GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID), lang)))
 	})
 
+	// Страница отчета сканирования периметра
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
+		lang := r.URL.Query().Get("lang")
+		if lang == "" { lang = "ru" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetPerimeterReportHTML()))
+		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang)))
 	})
 
-	http.HandleFunc("/report/internal", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetInternalReportHTML(html.EscapeString(license.ServerID), license.DaysLeft)))
-	})
-
-	http.HandleFunc("/report/quantum-bridge", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetQuantumBridgeHTML()))
-	})
-
+	// Страница биллинга
 	http.HandleFunc("/billing", func(w http.ResponseWriter, r *http.Request) {
+		lang := r.URL.Query().Get("lang")
+		if lang == "" { lang = "ru" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetBillingPageHTML(html.EscapeString(license.ClientName))))
+		_, _ = w.Write([]byte(GetBillingPageHTML(html.EscapeString(license.ClientName), lang)))
 	})
+
+	// Обработчик логотипа
 	http.HandleFunc("/static/logo.jpg", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./logo.jpg")
 	})
 
-	fmt.Println(">>> Глобальная платформа KvantumSafe SDK успешно запущена <<<")
+	fmt.Println(">>> Глобальная мультиязычная платформа KvantumSafe SDK успешно запущена <<<")
 	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
 	_ = server.ListenAndServe()
 }
