@@ -49,13 +49,15 @@ func main() {
 		_, _ = w.Write([]byte(GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID), lang)))
 	})
 
-	// Страница отчета сканирования периметра
-	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
-		lang := r.URL.Query().Get("lang")
-		if lang == "" { lang = "ru" }
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang)))
-	})
+	// Страница отчета сканирования периметра (считывает введенный домен)
+http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
+    lang := r.URL.Query().Get("lang")
+    if lang == "" { lang = "ru" }
+    domainName := r.URL.Query().Get("domain")
+    if domainName == "" { domainName = "unknown-node.com" }
+    w.Header().Set("Content-Type", "text/html; charset=utf-8")
+    _, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
+})
 
 	// Страница биллинга
 	http.HandleFunc("/billing", func(w http.ResponseWriter, r *http.Request) {
