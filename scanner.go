@@ -94,7 +94,7 @@ func activeClass(current, target string) string {
 
 func GetPerimeterReportHTML(lang, domain string) string {
 	cleanLang := lang
-	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" {
+	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" && cleanLang != "kz" && cleanLang != "ar" {
 		cleanLang = "ru"
 	}
 
@@ -118,32 +118,32 @@ func GetPerimeterReportHTML(lang, domain string) string {
 </head>
 <body>
 	<div class='report-card'>
-		<a href='/?lang=` + lang + `' class='btn-back'>` + getTranslation("rep_back", cleanLang) + `</a>
-		<h2>🛡️ ` + getTranslation("rep_title", cleanLang) + `</h2>
-		<div class='alert-banner'>` + getTranslation("rep_alert", cleanLang) + `</div>
+		<a href='/?lang=` + lang + `' class='btn-back'>` + getReportTranslation("rep_back", cleanLang) + `</a>
+		<h2>🛡️ ` + getReportTranslation("rep_title", cleanLang) + `</h2>
+		<div class='alert-banner'>` + getReportTranslation("rep_alert", cleanLang) + `</div>
 		<div class='meta-info'>
-			<b>` + getTranslation("rep_obj", cleanLang) + `:</b> <span style='color:#004d40; font-weight:bold;'>` + domain + `</span>
+			<b>` + getReportTranslation("rep_obj", cleanLang) + `:</b> <span style='color:#004d40; font-weight:bold;'>` + domain + `</span>
 		</div>
 		
 		<div class='metric-box'>
-			<div class='metric-title'>` + getTranslation("rep_m1_t", cleanLang) + `</div>
-			<p class='metric-desc'>` + getTranslation("rep_m1_d", cleanLang) + `</p>
+			<div class='metric-title'>` + getReportTranslation("rep_m1_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getReportTranslation("rep_m1_d", cleanLang) + `</p>
 		</div>
 		<div class='metric-box'>
-			<div class='metric-title'>` + getTranslation("rep_m2_t", cleanLang) + `</div>
-			<p class='metric-desc'>` + getTranslation("rep_m2_d", cleanLang) + `</p>
+			<div class='metric-title'>` + getReportTranslation("rep_m2_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getReportTranslation("rep_m2_d", cleanLang) + `</p>
 		</div>
 		<div class='metric-box'>
-			<div class='metric-title'>` + getTranslation("rep_m3_t", cleanLang) + `</div>
-			<p class='metric-desc'>` + getTranslation("rep_m3_d", cleanLang) + `</p>
+			<div class='metric-title'>` + getReportTranslation("rep_m3_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getReportTranslation("rep_m3_d", cleanLang) + `</p>
 		</div>
 		<div class='metric-box'>
-			<div class='metric-title'>` + getTranslation("rep_m4_t", cleanLang) + `</div>
-			<p class='metric-desc'>` + getTranslation("rep_m4_d", cleanLang) + `</p>
+			<div class='metric-title'>` + getReportTranslation("rep_m4_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getReportTranslation("rep_m4_d", cleanLang) + `</p>
 		</div>
 		<div class='metric-box' style='border-bottom:none; background:#fff5f5; padding:15px; border-radius:6px; border:1px solid #fee2e2;'>
-			<div class='metric-title' style='color:#b71c1c; margin-bottom:4px;'>` + getTranslation("rep_m5_t", cleanLang) + `</div>
-			<p class='metric-desc' style='color:#b71c1c; font-weight:bold; font-size:16px;'>` + getTranslation("rep_m5_d", cleanLang) + `</p>
+			<div class='metric-title' style='color:#b71c1c; margin-bottom:4px;'>` + getReportTranslation("rep_m5_t", cleanLang) + `</div>
+			<p class='metric-desc' style='color:#b71c1c; font-weight:bold; font-size:16px;'>` + getReportTranslation("rep_m5_d", cleanLang) + `</p>
 		</div>
 	</div>
 </body>
