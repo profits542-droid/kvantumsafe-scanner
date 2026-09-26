@@ -21,9 +21,9 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	if err != nil { return info }
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ClientName = parts
+		info.ServerID = parts
+		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -47,13 +47,14 @@ func main() {
 		direction := "right: 25px;"
 		if lang == "ar" { direction = "left: 25px;" }
 		
-		// ДИНАМИЧЕСКИЕ ПЕРЕМЕННЫЕ ДЛЯ ПЕРЕВОДА ИИ-РОБОТА
+		// БАЗОВЫЕ НАСТРОЙКИ ПЕРЕМЕННЫХ НА РУССКОМ ЯЗЫКЕ (DEFAULT)
 		welcomeMessage := "Здравствуйте! Я ИИ-консультант ОсОО «Квантум Сейф». Если у вас есть вопросы по нашему ПО, стандартам NIST или азиатским алгоритмам GmSSL, я готов помочь!"
 		placeholderText := "Задать вопрос ИИ..."
 		ansNist := "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта <b>NIST ML-KEM</b> и суверенные азиатские криптопротоколы <b>GmSSL (SM4-GCM)</b>. Система автоматически выбирает оптимальный маршрут данных, исключая риски дешифрования транзакций хакерами."
 		ansMeet := "Отличное решение! Наш Генеральный директор готов провести личную техническую презентацию контура безопасности. Оставьте ваши контакты, и мы зафиксируем удобное время встречи."
 		ansDefault := "Платформа, разработанная ОсОО «Квантум Сейф» на языке Go, обеспечивает автоматический комплаенс-контроль, сканирование внешнего периметра (порт 443) и фоновую изоляцию файлов под права POSIX 0600. Программа юридически чиста и не требует лицензий СКЗИ."
 
+		// ДИНАМИЧЕСКАЯ ПОДСТАНОВКА ЛОКАЛИЗАЦИЙ ДЛЯ РОБОТА
 		if lang == "kg" {
 			welcomeMessage = "Саламатсызбы! Мен ОсОО «Квантум Сейф» ИИ-консультантымын. Программалык камсыздоо, NIST посткванттык стандарттары же азиялык GmSSL алгоритмдери боюнча суроолоруңуз болсо, берсеңиз болот."
 			placeholderText = "Текст жазыңыз..."
@@ -75,6 +76,9 @@ func main() {
 		} else if lang == "kz" {
 			welcomeMessage = "Сәлеметсіз бе! Мен «Квантум Сейф» ЖШС ИИ-консультантымын. Бағдарламалық құрал, NIST немесе GmSSL алгоритмдері туралы сұрақтарыңыз болса, қоя аласыз."
 			placeholderText = "Сұрақ қою..."
+			ansNist = "KvantumSafe Pro ядросы <b>NIST ML-KEM</b> посткванттық тор алгоритмдерін және <b>GmSSL (SM4-GCM)</b> азиялық егеменді криптопротоколдарын үйлестіреді. Жүйе транзакцияларды хакерлерден сенімді қорғайды."
+			ansMeet = "Өте жақсы шешім! Біздің Бас директорымыз қауіпсіздік контуры бойынша сізге жеке техникалық таныстырылым өткізуге дайын. Байланыс мәліметтеріңізді қалдырыңыз, біз кездесу уақытын белгілейміз."
+			ansDefault = "«Квантум Сейф» ЖШС Go тілінде әзірлеген платформа автоматты комплаенс-бақылауды, сыртқы периметрді сканерлеуді (443-порт) және файлдарды 0600 стандартына жасырын ауыстыруды қамтамасыз етеді."
 		}
 
 		botWidget := `
@@ -150,19 +154,3 @@ func main() {
 		_, _ = w.Write([]byte(GetSpecificationPageHTML(lang)))
 	})
 
-	http.HandleFunc("/antihacker", func(w http.ResponseWriter, r *http.Request) {
-		lang := r.URL.Query().Get("lang")
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetAntiHackerPageHTML(lang)))
-	})
-
-	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
-		lang := r.URL.Query().Get("lang")
-		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		_, _ = w.Write([]byte(getTranslation("download_text", lang)))
-	})
-
-	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
-	_ = server.ListenAndServe()
-}
