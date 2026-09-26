@@ -1,145 +1,82 @@
 package main
 
-func GetDashboardHTML(clientName, serverID, lang string) string {
-	direction := "ltr"
-	textAlign := "left"
-	if lang == "ar" { 
-		direction = "rtl" 
-		textAlign = "right"
+func GetSpecificationPageHTML(lang string) string {
+	title := "Технический регламент и функционал Золотой Кнопки"
+	desc := "Настоящий веб-интерфейс реализует функцию динамической генерации и безопасного депонирования технической документации. При активации триггера (нажатии на кнопку) ядро сервера на Go на лету определяет активную языковую локализацию клиентской сессии и формирует официальный защищенный файл спецификации (TXT) для предоставления ИТ-департаментам и комплаенс-контролю финансовых организаций.<br><br>Сгенерированный документ содержит полные архитектурные параметры платформы KvantumSafe Pro Framework, подробную разбивку коммерческой тарифной сетки (Global Scanner, ПО АнтиХакер AI, Quantum Web3) и легальное обоснование юридической чистоты софта перед государственными регуляторами. Файл принудительно сохраняется в локальное хранилище (папку Загрузки) ноутбука или персонального компьютера пользователя по протоколу контентной диспетчеризации (Content-Disposition)."
+	back := "← Назад / Back"
+
+	if lang == "kg" {
+		title = "Алтын Түйнөктүн Техникалык Регламенти"
+		desc = "Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги сервердин ядросу кардардын сессиясынын тилин аныктайт жана өзгөчөлөнгөн тексттик документти (TXT) түзөт."
+		back = "← Артка"
 	}
-
-	return `<!DOCTYPE html>
-<html lang='` + lang + `' dir='` + direction + `'>
-<head>
-	<meta charset='UTF-8'>
-	<title>KvantumSafe Pro</title>
-	<style>
-		body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
-		.navbar { background-color: #0a2540; color: white; padding: 35px 40px; text-align: center; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-		.navbar h1 { margin: 0; font-size: 26px; font-weight: 600; }
-		.navbar p { margin: 8px 0 15px 0; color: #94a3b8; font-size: 14px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); }
-		.lang-switcher { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
-		.lang-switcher a { color: #cbd5e1; text-decoration: none; font-weight: bold; font-size: 14px; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; }
-		.lang-switcher a:hover, .lang-switcher a.active { color: white; background: #004d40; }
-		.content { max-width: 850px; background: white; margin: 40px auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); }
-		.scan-container { background: #e0f2f1; padding: 35px; border-radius: 10px; border: 2px dashed #004d40; text-align: center; margin: 20px 0; }
-		.scan-input { width: 60%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; }
-		.scan-btn { background: #004d40; color: white; padding: 14px 30px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; direction: ` + direction + `; }
-		.tariff-table th, .tariff-table td { padding: 15px; border: 1px solid #cbd5e1; font-size: 14px; }
-		.tariff-free { background-color: #f8fafc; color: #64748b; }
-		.tariff-pro { background-color: #f0fdf4; color: #16a34a; font-weight: bold; }
-		.tariff-premium { background-color: #faf5ff; color: #7c3aed; }
-		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-		.btn-doc:hover { background-color: #f3cd44; }
-		.build-box { background-color: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 30px; text-align: ` + textAlign + `; }
-		.status-badge { background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 13px; }
-		.links-container { display: flex; justify-content: center; gap: 20px; margin-top: 15px; margin-bottom: 25px; }
-		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
-		.links-container a:hover { text-decoration: underline; }
-
-		.comp-heading { text-align: ` + textAlign + `; color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
-		.comp-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; background: white; font-size: 13.5px; }
-		html[dir="rtl"] .comp-table { text-align: right; }
-		.comp-table th, .comp-table td { padding: 12px 15px; border: 1px solid #e2e8f0; line-height: 1.4; }
-		.comp-table th { background-color: #0a2540; color: white; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
-		.comp-row:nth-child(even) { background-color: #f8fafc; }
-		.badge-yes { background-color: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; display: inline-block; }
-		.badge-no { background-color: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 4px; font-weight: normal; font-size: 11px; display: inline-block; }
-
-		.footer-corporate { background-color: #0f172a; color: #94a3b8; padding: 40px; border-radius: 10px; margin-top: 40px; border-top: 3px solid #d4af37; text-align: left; }
-		html[dir="rtl"] .footer-corporate { text-align: right; }
-		.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
-		.footer-section { flex: 1; min-width: 220px; }
-		.footer-section h4 { color: #f8fafc; font-size: 15px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; border-left: 3px solid #d4af37; padding-left: 8px; }
-		html[dir="rtl"] .footer-section h4 { border-left: none; border-right: 3px solid #d4af37; padding-left: 0; padding-right: 8px; }
-		.footer-section p { margin: 6px 0; font-size: 13.5px; }
-		.footer-link { color: #38bdf8; text-decoration: none; font-weight: 500; }
-		.footer-link:hover { text-decoration: underline; }
-		.btn-messenger { display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 6px; color: white; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 8px; margin-right: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: 0.2s; }
-		.btn-messenger:hover { transform: translateY(-1px); opacity: 0.9; }
-		.btn-tg { background-color: #0284c7; }
-		.btn-wa { background-color: #16a34a; }
-		.footer-bottom { border-top: 1px solid #334155; margin-top: 30px; padding-top: 20px; text-align: center; font-size: 12px; color: #64748b; }
-	</style>
-</head>
-<body>
-	<div class='navbar'>
-		<h1>` + getTranslation("nav_title", lang) + `</h1>
-		<p>` + getTranslation("nav_sub", lang) + `</p>
-		<div class='lang-switcher'>
-			<a href='/?lang=kg' class='` + activeClass(lang, "kg") + `'>KG</a>
-			<a href='/?lang=ru' class='` + activeClass(lang, "ru") + `'>RU</a>
-			<a href='/?lang=en' class='` + activeClass(lang, "en") + `'>EN</a>
-			<a href='/?lang=kz' class='` + activeClass(lang, "kz") + `'>KZ</a>
-			<a href='/?lang=ar' class='` + activeClass(lang, "ar") + `'>AR</a>
-		</div>
-	</div>
-	<div class='content'>
-		<div class='scan-container'>
-			<h3>` + getTranslation("scan_title", lang) + `</h3>
-			<form action='/report/mbank' method='GET'>
-				<input type='hidden' name='lang' value='` + lang + `'>
-				<input type='text' name='domain' class='scan-input' placeholder='domain.com...'>
-				<button type='submit' class='scan-btn'>` + getTranslation("scan_btn", lang) + `</button>
-			</form>
-		</div>
-		
-		<h2 style='text-align:` + textAlign + `; color:#0a2540; border-bottom:2px solid #e2e8f0; padding-bottom:10px;'>` + getTranslation("saas_title", lang) + `</h2>
-		<table class='tariff-table'>
-			<tr style='background:#f8fafc;'>
-				<th class='tariff-free' style='width:33%;'><b>Global Scanner</b><br><span>` + getTranslation("t1_free", lang) + `</span></th>
-				<th class='tariff-pro' style='width:33%; border: 2px solid #16a34a;'><b>ПО АнтиХакер AI</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
-				<th class='tariff-premium' style='width:33%;'><b>Quantum Web3 (SDK v2.6)</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
-			</tr>
-		</table>
-
-		<!-- ДИНАМИЧЕСКИЙ ПОДСТАВНОЙ ВЫЗОВ СРАВНИТЕЛЬНОЙ ТАБЛИЦЫ ИЗ ФАЙЛА STATIC_PAGES -->
-		` + GetComparisonTableHTML(textAlign) + `
-		
-		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
-		
-		<div class='links-container'>
-			<a href='/specification?lang=` + lang + `'>` + getTranslation("link_spec", lang) + `</a>
-			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>` + getTranslation("link_anti", lang) + `</a>
-		</div>
-
-		<div class='build-box'>
-			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
-			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
-		</div>
-
-		<div class='footer-corporate'>
-			<div class='footer-grid'>
-				<div class='footer-section'>
-					<h4>Правообладатель</h4>
-					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
-					<p>Государственная регистрация финансово-оборонного софта нового поколения.</p>
-					<p>г. Ош, Кыргызская Республика</p>
-				</div>
-				<div class='footer-section'>
-					<h4>Официальная связь</h4>
-					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
-					<p>Центральный узел: +996 (777) 57-99-70</p>
-				</div>
-				<div class='footer-section'>
-					<h4>Каналы прямого отклика</h4>
-					<p style='font-size:12px; margin-bottom:8px;'>Быстрая фиксация времени пилотных тестов:</p>
-					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
-					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
-				</div>
-			</div>
-			<div class='footer-bottom'>
-				<p>© 2026 ОсОО «Квантум Сейф». Все права защищены. Разработано в соответствии с международными стандартами безопасной архитектуры распределенных систем ядра.</p>
-			</div>
-		</div>
-
-	</div>
-</body>
-</html>`
+	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>" + back + "</a></p><h2 style='color:#0a2540; border-bottom:2px solid #cbd5e1; padding-bottom:10px;'>🛡️ " + title + "</h2><p style='font-size:16px; color:#334155; text-align:justify;'>" + desc + "</p></body></html>"
 }
 
-func activeClass(current, target string) string {
-	if current == target { return "active" }
-	return ""
+func GetAntiHackerPageHTML(lang string) string {
+	title := "KvantumSafe AI-AntiHacker (Guard Engine)"
+	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
+	back := "← Назад / Back"
+
+	if lang == "kg" {
+		title = "KvantumSafe AI-AntiHacker (Guard Engine)"
+		desc = "<b>Иштеп чыгуу статусу:</b> «Квантум Сейф» ОсООсунан жаңы муундагы өзүнчө автономдуу коргонуу программалык комплекси."
+		back = "← Артка"
+	}
+	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'>" + back + "</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
+}
+
+func GetComparisonTableHTML(textAlign string) string {
+	return `<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
+		<table class='comp-table'>
+			<tr>
+				<th style='width:40%;'>Критерий защиты инфраструктуры</th>
+				<th style='width:30%; background-color:#475569;'>Обычный антивирус / Серверный сканер</th>
+				<th style='width:30%; background-color:#1e3a8a;'>ПО «АнтиХакер AI» (KvantumSafe)</th>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Принцип обнаружения угроз</b></td>
+				<td><span class='badge-no'>Только по базам (Сигнатурный)</span><br><small style='color:#64748b;'>Ищет только старые, уже известные вирусы.</small></td>
+				<td><b><span class='badge-yes'>Проактивный нейросетевой TinyML</span></b><br><small style='color:#64748b;'>Выявляет новые угрозы нулевого дня на лету.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Защита от логических атак фрода</b></td>
+				<td><span class='badge-no'>Отсутствует полностью</span><br><small style='color:#64748b;'>Не видит манипуляции со смарт-контрактами.</small></td>
+				<td><b><span class='badge-yes'>Блокировка за 0.002 секунды</span></b><br><small style='color:#64748b;'>Останавливает Reentrancy и Flash-Loan атаки.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Защита оперативной памяти (RAM)</b></td>
+				<td><span class='badge-no'>Поверхностное фоновое сканирование</span><br><small style='color:#64748b;'>Пропускает скрытые инъекции вредоносного кода.</small></td>
+				<td><b><span class='badge-yes'>Stealth-изоляция секторов RAM</span></b><br><small style='color:#64748b;'>Мгновенно изолирует атакуемый сектор ядра.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Аппаратная верификация нод</b></td>
+				<td><span class='badge-no'>Отсутствует</span><br><small style='color:#64748b;'>Уязвим к подмене серверов хакерами (MitM).</small></td>
+				<td><b><span class='badge-yes'>Rust Device Fingerprinting</span></b><br><small style='color:#64748b;'>Жестко привязывается к неизменяемому ID процессора.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Юридическая чистота (Без СКЗИ)</b></td>
+				<td><span class='badge-no'>Требует госсистем лицензирования</span><br><small style='color:#64748b;'>Сложный комплаенс-контроль софта.</small></td>
+				<td><b><span class='badge-yes'>100% Свободное обращение</span></b><br><small style='color:#64748b;'>Не содержит СКЗИ, не требует лицензий регуляторов.</small></td>
+			</tr>
+		</table>`
+}
+
+func GetFullDownloadOffer(lang string) string {
+	return "ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И ТАРИФНАЯ СЕТКА КОРПОРАТИВНОГО B2B-ОФФЕРА\n" +
+		"Правообладатель: Общество с ограниченной ответственностью «Квантум Сейф» (ОсОО «Квантум Сейф», г. Ош, КР)\n\n" +
+		"ДОСТУПНЫЕ КОРПОРАТИВНЫЕ ЛИЦЕНЗИИ И СТОИМОСТЬ ПОДПИСКИ:\n\n" +
+		"1. ТАРИФ «GLOBAL SCANNER» — БЕСПЛАТНО / \$0\n" +
+		"Базовый инструмент для оперативного экспресс-анализа внешних сетевых шлюзов ИТ-инфраструктуры организации.\n\n" +
+		"2. ТАРИФ «ПО АНТИХАКЕР AI» — 19 000 долларов США / год\n" +
+		"Автономный оборонный программный комплекс СЕЙЧАС. Предназначен для развертывания внутри закрытого серверного контура финансовой организации. Включает в себя:\n" +
+		" - Модуль Hardware Device Fingerprinting (Стек Rust): опрашивает регистры процессоров, считывает неизменяемый аппаратный ID и предотвращает атаки типа 'Человек по средине' (MitM).\n" +
+		" - Модуль TinyML Аномалий (Стек Go): на лету анализирует тайминги транзакционных пакетов XML/ISO-20022 и блокирует логические атаки классов Reentrancy и Flash-Loan фрода за 0.002 секунды до списания средств.\n" +
+		" - Модуль Изоляции Памяти: осуществляет непрерывный фоновый контроль оперативной памяти (RAM) серверов банка и блокирует хакерские инъекции вредоносного кода.\n\n" +
+		"3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ ЗАЩИТА / КВАНТОВОЕ БЕССМЕРТИЕ) — 35 000 долларов США / год\n" +
+		"Максимальный оборонный комплекс на базе ядра KvantumSafe Pro Framework SDK (версия 2.6). Включает в себя полный пакет защитных модулей:\n" +
+		" - Все модули тарифа 'ПО АнтиХакер AI' для принудительного отражения текущих хакерских взломов и фрода в оперативной памяти СЕЙЧАС.\n" +
+		" - Модуль внутреннего сканера комплаенс-контроля (Stealth-сейф) для перманентного маскирования и принудительной изоляции резервных копий баз данных SQL под строгие права доступа стандарта POSIX 0600.\n" +
+		" - Интеллектуальный транзитный диспетчер и гибридный постквантовый оркестратор трансграничных платежей. Наше программное ядро осуществляет сквозную контейнеризацию и безопасную маршрутизацию потоков данных (SWIFT, XML) как в международных криптоконтейнерах на базе решеток нового поколения по стандартам NIST (ML-KEM), так и в суверенных азиатских шлюзах по государственным стандартам Китая GmSSL (алгоритмы семейства SM4-GCM). Гарантирует абсолютную защиту от скачивания данных сейчас и их последующего взлома сторонними вычислительными системами ПОТОМ.\n\n" +
+		"Поставляется на защищенном физическом Flash-носителе с жесткой привязкой к Hardware ID главного сервера Вашей организации."
 }
