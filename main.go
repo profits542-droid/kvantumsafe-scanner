@@ -21,9 +21,9 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	if err != nil { return info }
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ClientName = parts
+		info.ServerID = parts
+		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -41,66 +41,8 @@ func main() {
 		if r.URL.Path != "/" { http.NotFound(w, r); return }
 		lang := r.URL.Query().Get("lang")
 		if lang == "" { lang = "kg" }
-		
-		htmlPage := GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID), lang)
-		
-		direction := "right: 25px;"
-		if lang == "ar" { direction = "left: 25px;" }
-		
-		botWidget := `
-	<div style='position: fixed; bottom: 25px; ` + direction + ` width: 65px; height: 65px; background: #7c3aed; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: 0 4px 16px rgba(124,58,237,0.4); z-index: 1000; transition: 0.3s;' onclick='toggleChat()'>🤖</div>
-	<div style='position: fixed; bottom: 100px; ` + direction + ` width: 370px; height: 480px; background: white; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); display: none; flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #e2e8f0; font-size: 14px;' id='chatWindow'>
-		<div style='background: #0a2540; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;'>
-			<div>KvantumSafe AI Assistant <span style='font-size: 12px; background: #16a34a; padding: 2px 6px; border-radius: 4px; margin-left: 10px;'>Online</span></div>
-			<div style='cursor:pointer;' onclick='toggleChat()'>✕</div>
-		</div>
-		<div style='flex: 1; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px;' id='chatBody'>
-			<div style='max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-self: flex-start;'>` + getTranslation("bot_welcome", lang) + `</div>
-		</div>
-		<div style='padding: 10px; border-top: 1px solid #e2e8f0; display: flex; background: white;'>
-			<input type='text' style='flex: 1; border: none; padding: 10px; outline: none; font-size: 14px;' id='chatInput' placeholder='` + getTranslation("bot_placeholder", lang) + `' onkeypress='handleKey(event)'>
-			<button style='background: #0a2540; color: white; border: none; padding: 0 20px; font-weight: bold; cursor: pointer;' onclick='sendMessage()'>&gt;</button>
-		</div>
-	</div>
-	<script>
-		function toggleChat() {
-			var win = document.getElementById("chatWindow");
-			win.style.display = (win.style.display === "flex") ? "none" : "flex";
-		}
-		function handleKey(e) { if (e.key === "Enter") sendMessage(); }
-		function sendMessage() {
-			var input = document.getElementById("chatInput");
-			var text = input.value.trim();
-			if (!text) return;
-			var body = document.getElementById("chatBody");
-			var userMsg = document.createElement("div");
-			userMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #7c3aed; color: white; align-self: flex-end;";
-			userMsg.innerText = text;
-			body.appendChild(userMsg);
-			input.value = "";
-			body.scrollTop = body.scrollHeight;
-			setTimeout(function() {
-				var botMsg = document.createElement("div");
-				botMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-self: flex-start;";
-				var lowText = text.toLowerCase();
-				if (lowText.includes("nist") || lowText.includes("алгоритм") || lowText.includes("квант") || lowText.includes("algorithm")) {
-					botMsg.innerHTML = "` + getTranslation("bot_ans_nist", lang) + `";
-				} else if (lowText.includes("встреч") || lowText.includes("купить") || lowText.includes("цена") || lowText.includes("meet") || lowText.includes("buy")) {
-					botMsg.innerHTML = "` + getTranslation("bot_ans_meet", lang) + `";
-				} else {
-					botMsg.innerHTML = "` + getTranslation("bot_ans_default", lang) + `";
-				}
-				body.appendChild(botMsg);
-				body.scrollTop = body.scrollHeight;
-			}, 800);
-		}
-	</script>
-</body>
-</html>`
-		
-		htmlPage = strings.Replace(htmlPage, "</body>\n</html>", botWidget, 1)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(htmlPage))
+		_, _ = w.Write([]byte(GetDashboardHTML(html.EscapeString(license.ClientName), html.EscapeString(license.ServerID), lang)))
 	})
 
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
@@ -112,10 +54,30 @@ func main() {
 		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
 	})
 
+	// СТРАНИЦА: Развернутое и солидное описание функционала золотой кнопки (Скриншот 1)
 	http.HandleFunc("/specification", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetSpecificationPageHTML(lang)))
+		
+		title := "Функционал Золотой Кнопки / Yellow Button Logic"
+		desc := `Настоящий веб-интерфейс реализует функцию динамической генерации и криптографически безопасного депонирования технической документации. При активации триггера (нажатии на кнопку) ядро сервера на Go на лету определяет активную языковую локализацию клиентской сессии и формирует официальный защищенный файл спецификации (TXT) для предоставления ИТ-департаментам и комплаенс-контролю финансовых организаций.<br><br>
+		Сгенерированный документ содержит полные архитектурные параметры платформы KvantumSafe Pro Framework, подробную разбивку коммерческой тарифной сетки (Global Scanner, Compliance Pro, Quantum Web3) и легальное обоснование юридической чистоты софта перед государственными регуляторами. Файл принудительно сохраняется в локальное хранилище (папку Загрузки) ноутбука или персонального компьютера пользователя по протоколу контентной диспетчеризации (Content-Disposition).`
+		back := "← Назад / Back"
+		
+		if lang == "kg" {
+			title = "Алтын Түйнөктүн Функционалы"
+			desc = `Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги сервердин ядросу кардардын сессиясынын тилин аныктайт жана өзгөчөлөнгөн тексттик документти (TXT) түзөт.<br><br>
+			Документ KvantumSafe Pro Framework платформасынын толук архитектуралык параметрлерин, коммерциялык тарифтик торду (Global Scanner, Compliance Pro, Quantum Web3) жана мамлекеттик жөнгө салуучулардын алдында программалык камсыздоонун юридикалык тазалыгынын укуктук негиздемесин камтыйт. Файл автоматтык түрдө колдонуучунун ноутбугунун же компьютериний локалдык сактагычына (Жүктөлмөлөр папкасына) жүктөлөт.`
+			back = "← Артка"
+		} else if lang == "ar" {
+			title = "منطق الزر الأصفر العملي"
+			desc = `تنفذ هذه الواجهة وظيفة التوليد الديناميكي والإيداع الآمن للمستندات الفنية. عند الضغط على الزر، تحدد نواة الخادم المكتوبة بلغة Go لغة جلسة العميل فورًا وتقوم بإنشاء مستند نصي مخصص (TXT) لتقديمه إلى أقسام تكنولوجيا المعلومات والامتثال في البنوك.<br><br>
+			يحتوي المستند على معلمات الهيكل الكاملة لمنصة KvantumSafe Pro Framework، وتفاصيل مفصلة لشبكة الأسعار التجارية (Global Scanner, Compliance Pro, Quantum Web3) والمبررات القانونية لسلامة البرمجيات أمام الجهات التنظيمية الحكومية. يتم نقل الملف تلقائيًا إلى مجلد التنزيلات على جهاز الكمبيوتر الخاص للمستخدم عبر بروتوكول (Content-Disposition).`
+			back = "← عودة"
+		}
+		
+		htmlDoc := "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>" + back + "</a></p><h2 style='color:#0a2540; border-bottom:2px solid #cbd5e1; padding-bottom:10px;'>" + title + "</h2><p style='font-size:16px; color:#334155; text-align:justify;'>" + desc + "</p></body></html>"
+		_, _ = w.Write([]byte(htmlDoc))
 	})
 
 	http.HandleFunc("/antihacker", func(w http.ResponseWriter, r *http.Request) {
@@ -124,11 +86,42 @@ func main() {
 		_, _ = w.Write([]byte(GetAntiHackerPageHTML(lang)))
 	})
 
+	// ПОЛНАЯ ТАРИФНАЯ СЕТКА И БИЗНЕС-ОФФЕР ДЛЯ ЗОЛОТОЙ КНОПКИ
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		_, _ = w.Write([]byte(getTranslation("download_text", lang)))
+		
+		doc := "OFFICIAL B2B COMMERCIAL OFFER & PRICING\nCompany: Quantum Safe LLC (Osh, Kyrgyz Republic)\n\n" +
+			"AVAILABLE SAAS LICENSES AND PRICING TIERS:\n\n" +
+			"1. GLOBAL SCANNER — FREE / \$0\n" +
+			"Basic external vulnerability scanning of the corporate network infrastructure.\n\n" +
+			"2. COMPLIANCE PRO — \$15,000 / year\n" +
+			"Includes Product 1 (External perimeter audit) + Product 2 (Internal server vault file protection under POSIX 0600 strict policy).\n\n" +
+			"3. QUANTUM WEB3 (ENTERPRISE CORE) — \$35,000 / year\n" +
+			"Full software protection suite. Includes Product 1 (External Audit), Product 2 (Internal Vault), and Product 3 (Post-quantum Crypto-Agility route orchestrator for secure international transfers)."
+			
+		if lang == "ru" {
+			doc = "ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И ТАРИФНАЯ СЕТКА B2B-ОФФЕРА\nПравообладатель: Общество с ограниченной ответственностью «Квантум Сейф» (ОсОО «Квантум Сейф», г. Ош, КР)\n\n" +
+				"ДОСТУПНЫЕ КОРПОРАТИВНЫЕ ЛИЦЕНЗИИ И СТОИМОСТЬ ПОДПИСКИ:\n\n" +
+				"1. ТАРИФ «GLOBAL SCANNER» — БЕСПЛАТНО / \$0\n" +
+				"Базовый инструмент для экспресс-анализа внешних сетевых шлюзов ИТ-инфраструктуры организации.\n\n" +
+				"2. ТАРИФ «COMPLIANCE PRO» — 15 000 долларов США / год\n" +
+				"Включает в себя Продукт 1 (Внешний цифровой ревизор портов) и Продукт 2 (Внутренний сейф комплаенс-контроля серверов с принудительной изоляцией уязвимых бэкапов под POSIX-права 0600).\n\n" +
+				"3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ БЕЗОПАСНОСТЬ) — 35 000 долларов США / год\n" +
+				"Полный оборонный комплекс программного ядра Framework SDK. Включает в себя все три уровня защиты: Продукт 1 (Внешний аудит периметра), Продукт 2 (Внутренний сейф защиты файлов памяти) и Продукт 3 (Интеллектуальный транзитный диспетчер и постквантовый оркестратор трансграничных платежей NIST ML-KEM)."
+		} else if lang == "kg" {
+			doc = "ТЕХНИКАЛЫК СПЕЦИФИКАЦИЯСЫ ЖАНА ТАРИФТИК B2B СУНУШУ\nУкук ээси: «Квантум Сейф» ОсООсу (Ош ш., Кыргыз Республикасы)\n\n" +
+				"ЖЕТКИЛИКТҮҮ КОРПОРАТИВДИК ЛИЦЕНЗИЯЛАР ЖАНА БААЛАРЫ:\n\n" +
+				"1. «GLOBAL SCANNER» ТАРИФИ — БЕСПЛАТНО / \$0\n" +
+				"Уюмдун ИТ-инфраструктурасынын тышкы тармактык шлюздарын экспресс-анализдөө үчүн базалык курал.\n\n" +
+				"2. «COMPLIANCE PRO» ТАРИФИ — \$15,000 / жыл\n" +
+				"Продукт 1 (Тышкы санариптик ревизор) жана Продукт 2 (Ички файлдык тутумду комплаенс-контролдоо жана файлдарды 0600 коопсуздук стандартына которуу) кызматтарын камтыйт.\n\n" +
+				"3. «QUANTUM WEB3» ТАРИФИ (МАКСИМАЛДУУ КОРГОО) — \$35,000 / жыл\n" +
+				"Программалык камсыздоонун толук коргонуу комплекси. Курамына Продукт 1 (Тышкы аудит), Продукт 2 (Ички сейф) жана Продукт 3 (Трансчегаралык төлөмдөрдү жаңы посткванттык коопсуздук контейнерлерине NIST ML-KEM салып коопсуз багыттоочу акылдуу диспетчер) кызматтары толугу менен кирет."
+		}
+		
+		_, _ = w.Write([]byte(doc))
 	})
 
 	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
