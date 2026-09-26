@@ -1,4 +1,3 @@
-```go
 package main
 
 import (
@@ -22,9 +21,9 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	if err != nil { return info }
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts
-		info.ServerID = parts
-		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
+		info.ClientName = parts[0]
+		info.ServerID = parts[2]
+		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
