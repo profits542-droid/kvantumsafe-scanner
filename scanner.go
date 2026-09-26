@@ -124,7 +124,6 @@ func GetPerimeterReportHTML(lang, domain string) string {
 		<div class='meta-info'>
 			<b>` + getReportTranslation("rep_obj", cleanLang) + `:</b> <span style='color:#004d40; font-weight:bold;'>` + domain + `</span>
 		</div>
-		
 		<div class='metric-box'>
 			<div class='metric-title'>` + getReportTranslation("rep_m1_t", cleanLang) + `</div>
 			<p class='metric-desc'>` + getReportTranslation("rep_m1_d", cleanLang) + `</p>
