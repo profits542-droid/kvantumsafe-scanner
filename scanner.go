@@ -1,4 +1,3 @@
-```go
 package main
 
 func GetDashboardHTML(clientName, serverID, lang string) string {
@@ -94,7 +93,6 @@ func activeClass(current, target string) string {
 }
 
 func GetPerimeterReportHTML(lang, domain string) string {
-	// Безопасный фолбэк для казахского и арабского на русский язык внутри отчета
 	cleanLang := lang
 	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" {
 		cleanLang = "ru"
