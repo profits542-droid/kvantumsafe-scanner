@@ -1,88 +1,5 @@
 package main
 
-func getTranslation(key, lang string) string {
-	translations := map[string]map[string]string{
-		"nav_title": {
-			"kg": "🛡️ KvantumSafe Pro Эл аралык ИТ-Платформасы",
-			"ru": "🛡️ Международная ИТ-Платформа KvantumSafe Pro",
-			"en": "🛡️ KvantumSafe Pro International IT Platform",
-			"kz": "🛡️ KvantumSafe Pro Халықаралық ИТ-Платформасы",
-			"ar": "🛡️ منصة كيفانتوم سيف برو الدولية لتكنولوجيا المعلومات",
-		},
-		"nav_sub": {
-			"kg": "Тармак коопсуздугун автоматтык түрдө тексеру жана маалыматтарды коргоону акылдуу башкаруу",
-			"ru": "Автоматическая проверка сетевой безопасности и умное управление защитой данных",
-			"en": "Automatic network security audit and smart data protection management",
-			"kz": "Желілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару",
-			"ar": "التدقيق الآلي لأمن الشبكات والإدارة الذكية لحماية البيانات",
-		},
-		"scan_title": {
-			"kg": "🔍 Сетевой периметрди реалдуу убакытта экспресс-аудиттөө",
-			"ru": "🔍 Проверить безопасность сайта / Check Website Security",
-			"en": "🔍 Check Website Security / Verify Perimeter",
-			"kz": "🔍 Желілік қауіпсіздікті тексеру / Периметрді аудиттеу",
-			"ar": "🔍 تحقق من أمن الموقع / تدقيق محيط الشبكة",
-		},
-		"scan_btn": {
-			"kg": "Аудитти баштоо",
-			"ru": "Сканировать",
-			"en": "Scan Now",
-			"kz": "Сканерлеу",
-			"ar": "فحص الآن",
-		},
-		"doc_btn": {
-			"kg": "📄 Программалык камсыздоо спецификациясын жүктөө (TXT)",
-			"ru": "📄 Скачать спецификацию ПО и B2B-оффер (TXT)",
-			"en": "📄 Download Software Specification (TXT)",
-			"kz": "📄 Бағдарламалық құралдың сипаттамасын жүктеу (TXT)",
-			"ar": "📄 تنزيل مواصفات البرامج (TXT)",
-		},
-		"build_title": {
-			"kg": "⚙️ Ядронун коддук базасынын коопсуздук жана тазалык статусу:",
-			"ru": "⚙️ Статус верификации и чистоты кодовой базы ядра:",
-			"en": "⚙️ Core Codebase Verification and Purity Status:",
-			"kz": "⚙️ Ядролық код базасының қауіпсіздігі мен тазалығының мәртебесі:",
-			"ar": "⚙️ حالة التحقق ونقاء قاعدة كود النواة الأساسية:",
-		},
-		"build_desc": {
-			"kg": "Render булуттук платформасы архитектуранын эң катуу калысы катары иштейт. Ал расмий, нативдүү Go компиляторун колдонот. Расмий өндүрүштүк Live статусу өзөктө синтаксистик каталар же калтырылган логикалык структуралар жок экендигин далилдейт. Жыйнак 100% туруктуу, жарамдуу жана таза деп таанылды.",
-			"ru": "Облачная платформа Render выступает в роли самого строгого судьи архитектуры. Она использует официальный, нативный компилятор Go. Наличие статуса Live подтверждает, что в ядре распределенной системы отсутствуют синтаксические помарки, нестыковки типов данных или пропущенные логические структуры. Сборка признана на 100% стабильной, валидной и чистой.",
-			"en": "The Render cloud platform acts as the strictest architecture judge. It utilizes the official, native Go compiler. The official production status Live verifies that the distributed system core contains zero syntax errors, data type mismatches, or missing logical structures. The build is certified 100% stable, valid, and clean.",
-			"kz": "Render бұлттық платформасы архитектураның ең қатал төрешісі рөлін атқарады. Ол ресми, нативті Go компиляторын пайдаланады. Ресми өндірістік Live мәртебесінің болуы таратылған жүйе ядросында синтаксистік қателер, деректер түрлерінің сәйкессіздігіне жол бермейді.",
-			"ar": "عمل منصة Render السحابية كأكثر حكم صارم في تقييم بنيتنا التكنولوجية. وهي تستخدم مترجم Go الرسمي الأصلي. إن وجود حالة الإنتاج الرسمية Live يؤكد أن نواة النظام الموزع خالية تمامًا من أي أخطاء برمجية أو عدم تطابق في أنواع البيانات.",
-		},
-		"saas_title": {
-			"kg": "💰 SaaS Лицензиялары",
-			"ru": "💰 SaaS Лицензии / Licenses",
-			"en": "💰 SaaS Corporate Subscription Licenses",
-			"kz": "💰 SaaS корпоративтік жазылым лицензиялары",
-			"ar": "💰 تراخيص الشركات لاشتراك SaaS",
-		},
-		"t1_free": {
-			"kg": "Жылдык / $0",
-			"ru": "FREE / $0",
-			"en": "FREE / $0",
-			"kz": "FREE / $0",
-			"ar": "مجاني / $0",
-		},
-		"t2_pro": {
-			"kg": "$15,000 / жыл",
-			"ru": "$15,000 / год",
-			"en": "$15,000 / year",
-			"kz": "$15,000 / жыл",
-			"ar": "$15,000 / سنوياً",
-		},
-		"t3_web3": {
-			"kg": "$35,000 / жыл",
-			"ru": "$35,000 / год",
-			"en": "$35,000 / year",
-			"kz": "$35,000 / жыл",
-			"ar": "$35,000 / سنوياً",
-		},
-	}
-	return translations[key][lang]
-}
-
 func GetDashboardHTML(clientName, serverID, lang string) string {
 	direction := "ltr"
 	textAlign := "left"
@@ -176,3 +93,5 @@ func activeClass(current, target string) string {
 }
 
 func GetPerimeterReportHTML(lang, domain string) string {
+	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Назад / Back</a></p><h2>Жыйынтык / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;font-size:18px;'>⚠️ КОРКУНУЧ ТУУДУРГАН АБАЛ / CRITICAL THREAT DETECTED</p><p><b>Объект:</b> " + domain + "</p></body></html>"
+}
