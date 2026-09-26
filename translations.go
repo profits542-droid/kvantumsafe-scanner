@@ -39,7 +39,7 @@ func getTranslation(key, lang string) string {
 		},
 		"build_title": {
 			"kg": "⚙️ Коддук базанын коопсуздук жана тазалык статусу:",
-			"ru": "⚙️ Верификация архитектуры и безопасности ядра ПО:",
+			"ru": "⚙️ Верификация architecture и безопасности ядра ПО:",
 			"en": "⚙️ Core Codebase Verification and Architecture Security Status:",
 			"kz": "⚙️ Ядролық код базасының қауіпсіздігі мен тазалығының мәртебесі:",
 			"ar": "⚙️ حالة التحقق ونقاء قاعدة كود النваة الأساسية:",
@@ -101,11 +101,11 @@ func getTranslation(key, lang string) string {
 			"ar": "🤖 برمجيات 'مضاد الاختراق بالذكاء الاصطناعي'",
 		},
 		"footer_text": {
-			"kg": "© 2026 «Квантум Сейф» ОсООсу. Бардык укуктар корголгон.",
-			"ru": "© 2026 ОсОО «Квантум Сейф». Все права защищены.",
-			"en": "© 2026 Quantum Safe LLC. All rights reserved.",
-			"kz": "© 2026 «Квантум Сейф» ЖШС. Барлық құқықтар қорғалған.",
-			"ar": "© 2026 شركة ذ.م.م 'كوانتوم سيف'. جميع الحقوق محفوظة.",
+			"kg": "© 2026 «Квантум Сейф» ОсООсу. Байланыш: info@kvantumsafe.tech | TG/WA: +996777579970",
+			"ru": "© 2026 ОсОО «Квантум Сейф». Все права защищены. Контакты: info@kvantumsafe.tech | Telegram/WhatsApp: +996777579970",
+			"en": "© 2026 Quantum Safe LLC. All rights reserved. Contacts: info@kvantumsafe.tech | TG/WA: +996777579970",
+			"kz": "© 2026 «Квантум Сейф» ЖШС. Байланыс: info@kvantumsafe.tech | TG/WA: +996777579970",
+			"ar": "© 2026 شركة ذ.م.م 'كوانتوم سيف'. info@kvantumsafe.tech | +996777579970",
 		},
 		"bot_welcome": {
 			"kg": "Саламатсызбы! Мен ОсОО «Квантум Сейф» ИИ-консультантымын. Суроолоруңузду берсеңиз болот.",
@@ -123,7 +123,7 @@ func getTranslation(key, lang string) string {
 		},
 		"bot_ans_nist": {
 			"kg": "KvantumSafe Pro ядросу NIST ML-KEM посткванттык алгоритмдерин оркестрациялайт.",
-			"ru": "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта NIST ML-KEM и суверенные азиатские криптопротоколы GmSSL (SM4-GCM).",
+			"ru": "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта NIST ML-KEM и суверенные азиатские криптопротоколы GmSSL (SM4-GCM). Система автоматически выбирает оптимальный маршрут данных, исключая риски дешифрования транзакций хакерами.",
 			"en": "The KvantumSafe Pro core orchestrates next-generation post-quantum lattice algorithms (NIST ML-KEM) and Asian sovereign protocols (GmSSL SM4-GCM).",
 			"kz": "<b>NIST (ML-KEM)</b> — хакерлер мен болашақ кванттық компьютерлердің транзакцияларды дешифрлеуінен қорғайтын халықаралық посткванттық тор криптографиясының стандарты.",
 			"ar": "تنسق نواة KvantumSafe Pro خوارزميات الشبكة لما بعد العصر الكمي المعتمدة من قبل NIST ML-KEM وبروتوكولات GmSSL (SM4-GCM) الآسيوية.",
