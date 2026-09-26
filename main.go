@@ -66,17 +66,13 @@ func main() {
 		_, _ = w.Write([]byte(GetAntiHackerPageHTML(lang)))
 	})
 
-	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
+		lang := r.URL.Query().Get("lang")
+		if lang == "" { lang = "kg" }
 		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		englishDoc := "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\n" +
-			"Company: Kvantum Safe LLC\n\n" +
-			"KvantumSafe Pro functions as an intelligent network coordinator.\n" +
-			"The software does not independently develop cryptographic algorithms and is not an encryption tool.\n" +
-			"It orchestrates pre-existing certified hardware security modules (HSM) inside your organization's server infrastructure."
-		_, _ = w.Write([]byte(englishDoc))
+		_, _ = w.Write([]byte(getTranslation("download_text", lang)))
 	})
-
 	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
 	_ = server.ListenAndServe()
 }
