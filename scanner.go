@@ -38,7 +38,16 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
 
-		/* СТИЛЬНЫЙ СТРУКТУРИРОВАННЫЙ B2B ПОДВАЛ */
+		/* СТИЛИ КОРПОРАТИВНОЙ ТАБЛИЦЫ СРАВНЕНИЯ */
+		.comp-heading { text-align: ` + textAlign + `; color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
+		.comp-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; background: white; font-size: 13.5px; }
+		html[dir="rtl"] .comp-table { text-align: right; }
+		.comp-table th, .comp-table td { padding: 12px 15px; border: 1px solid #e2e8f0; line-height: 1.4; }
+		.comp-table th { background-color: #0a2540; color: white; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+		.comp-row:nth-child(even) { background-color: #f8fafc; }
+		.badge-yes { background-color: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; display: inline-block; }
+		.badge-no { background-color: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 4px; font-weight: normal; font-size: 11px; display: inline-block; }
+
 		.footer-corporate { background-color: #0f172a; color: #94a3b8; padding: 40px; border-radius: 10px; margin-top: 40px; border-top: 3px solid #d4af37; text-align: left; }
 		html[dir="rtl"] .footer-corporate { text-align: right; }
 		.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
@@ -85,51 +94,43 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				<th class='tariff-premium' style='width:33%;'><b>Quantum Web3 (SDK v2.6)</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
 			</tr>
 		</table>
+
+		<!-- НОВАЯ УБОЙНАЯ ТАБЛИЦА СРАВНЕНИЯ ДЛЯ БАНКИРОВ -->
+		<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
+		<table class='comp-table'>
+			<tr>
+				<th style='width:40%;'>Критерий защиты инфраструктуры</th>
+				<th style='width:30%; background-color:#475569;'>Обычный антивирус / Серверный сканер</th>
+				<th style='width:30%; background-color:#1e3a8a;'>ПО «АнтиХакер AI» (KvantumSafe)</th>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Принцип обнаружения угроз</b></td>
+				<td><span class='badge-no'>Только по базам (Сигнатурный)</span><br><small style='color:#64748b;'>Ищет только старые, уже известные вирусы.</small></td>
+				<td><span class='badge-yes'>Проактивный нейросетевой TinyML</span><br><small style='color:#64748b;'>Выявляет новые угрозы нулевого дня на лету.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Защита от логических атак фрода</b></td>
+				<td><span class='badge-no'>Отсутствует полностью</span><br><small style='color:#64748b;'>Не видит манипуляции со смарт-контрактами.</small></td>
+				<td><span class='badge-yes'>Блокировка за 0.002 секунды</span><br><small style='color:#64748b;'>Останавливает Reentrancy и Flash-Loan атаки.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Защита оперативной памяти (RAM)</b></td>
+				<td><span class='badge-no'>Поверхностное фоновое сканирование</span><br><small style='color:#64748b;'>Пропускает скрытые инъекции вредоносного кода.</small></td>
+				<td><span class='badge-yes'>Stealth-изоляция секторов RAM</span><br><small style='color:#64748b;'>Мгновенно изолирует атакуемый сектор ядра.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Аппаратная верификация нод</b></td>
+				<td><span class='badge-no'>Отсутствует</span><br><small style='color:#64748b;'>Уязвим к подмене серверов хакерами (MitM).</small></td>
+				<td><span class='badge-yes'>Rust Device Fingerprinting</span><br><small style='color:#64748b;'>Жестко привязывается к неизменяемому ID процессора.</small></td>
+			</tr>
+			<tr class='comp-row'>
+				<td><b>Юридическая чистота (Без СКЗИ)</b></td>
+				<td><span class='badge-no'>Требует госсистем лицензирования</span><br><small style='color:#64748b;'>Сложный комплаенс-контроль софта.</small></td>
+				<td><span class='badge-yes'>100% Свободное обращение</span><br><small style='color:#64748b;'>Не содержит СКЗИ, не требует лицензий регуляторов.</small></td>
+			</tr>
+		</table>
 		
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
 		
 		<div class='links-container'>
 			<a href='/specification?lang=` + lang + `'>` + getTranslation("link_spec", lang) + `</a>
-			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>` + getTranslation("link_anti", lang) + `</a>
-		</div>
-
-		<div class='build-box'>
-			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
-			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
-		</div>
-
-		<!-- НОВЫЙ СОЛИДНЫЙ КОРПОРАТИВНЫЙ ПОДВАЛ -->
-		<div class='footer-corporate'>
-			<div class='footer-grid'>
-				<div class='footer-section'>
-					<h4>Правообладатель</h4>
-					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
-					<p>Государственная регистрация финансово-оборонного софта нового поколения.</p>
-					<p>г. Ош, Кыргызская Республика</p>
-				</div>
-				<div class='footer-section'>
-					<h4>Официальная связь</h4>
-					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
-					<p>Центральный узел: +996 (777) 57-99-70</p>
-				</div>
-				<div class='footer-section'>
-					<h4>Каналы прямого отклика</h4>
-					<p style='font-size:12px; margin-bottom:8px;'>Быстрая фиксация времени пилотных тестов:</p>
-					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
-					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
-				</div>
-			</div>
-			<div class='footer-bottom'>
-				<p>© 2026 ОсОО «Квантум Сейф». Все права защищены. Разработано в соответствии с международными стандартами безопасной архитектуры распределенных систем ядра.</p>
-			</div>
-		</div>
-
-	</div>
-</body>
-</html>`
-}
-
-func activeClass(current, target string) string {
-	if current == target { return "active" }
-	return ""
-}
