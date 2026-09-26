@@ -1,4 +1,3 @@
-```go
 package main
 
 import (
@@ -23,9 +22,9 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	if err != nil { return info }
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts
-		info.ServerID = parts
-		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
+		info.ClientName = parts[0]
+		info.ServerID = parts[2]
+		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -36,7 +35,7 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 }
 
 func main() {
-	premiumLicenseKey := "T0FPIEtvbW1лcmNoZXNreWkgYmFuayBLWVJHWVpTVEFOIChNQkFOSyl8MjAyNy0wOS0yMHxDb3JlLU5vZGUtMDE="
+	premiumLicenseKey := "T0FPIEtvbW1lcmNoZXNreWkgYmFuayBLWVJHWVpTVEFOIChNQkFOSyl8MjAyNy0wOS0yMHxDb3JlLU5vZGUtMDE="
 	license := VerifyLicenseKey(premiumLicenseKey)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +55,6 @@ func main() {
 		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
 	})
 
-	// Роутер страницы спецификации золотой кнопки
 	http.HandleFunc("/specification", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		if lang == "" { lang = "kg" }
@@ -64,7 +62,6 @@ func main() {
 		_, _ = w.Write([]byte(GetSpecificationPageHTML(lang)))
 	})
 
-	// Роутер страницы презентации ПО АнтиХакер AI
 	http.HandleFunc("/antihacker", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		if lang == "" { lang = "kg" }
@@ -72,16 +69,13 @@ func main() {
 		_, _ = w.Write([]byte(GetAntiHackerPageHTML(lang)))
 	})
 
-	// Точное скачивание английского текста спецификации по вашему ТЗ
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		
 		englishDoc := "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\n" +
 			"Company: Kvantum Safe LLC\n\n" +
 			"KvantumSafe Pro functions as an intelligent network coordinator. " +
 			"The software does not independently develop cryptographic algorithms and is not an encryption tool."
-			
 		_, _ = w.Write([]byte(englishDoc))
 	})
 
