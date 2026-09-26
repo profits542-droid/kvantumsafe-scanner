@@ -25,7 +25,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.scan-container { background: #e0f2f1; padding: 35px; border-radius: 10px; border: 2px dashed #004d40; text-align: center; margin: 20px 0; }
 		.scan-input { width: 60%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; }
 		.scan-btn { background: #004d40; color: white; padding: 14px 30px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-		.footer { text-align: center; margin-top: 40px; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
 		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; direction: ` + direction + `; }
 		.tariff-table th, .tariff-table td { padding: 15px; border: 1px solid #cbd5e1; font-size: 14px; }
 		.tariff-free { background-color: #f8fafc; color: #64748b; }
@@ -35,9 +34,25 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.btn-doc:hover { background-color: #f3cd44; }
 		.build-box { background-color: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 30px; text-align: ` + textAlign + `; }
 		.status-badge { background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 13px; }
-		.links-container { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
+		.links-container { display: flex; justify-content: center; gap: 20px; margin-top: 15px; margin-bottom: 25px; }
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
+
+		/* СТИЛЬНЫЙ СТРУКТУРИРОВАННЫЙ B2B ПОДВАЛ */
+		.footer-corporate { background-color: #0f172a; color: #94a3b8; padding: 40px; border-radius: 10px; margin-top: 40px; border-top: 3px solid #d4af37; text-align: left; }
+		html[dir="rtl"] .footer-corporate { text-align: right; }
+		.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
+		.footer-section { flex: 1; min-width: 220px; }
+		.footer-section h4 { color: #f8fafc; font-size: 15px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; border-left: 3px solid #d4af37; padding-left: 8px; }
+		html[dir="rtl"] .footer-section h4 { border-left: none; border-right: 3px solid #d4af37; padding-left: 0; padding-right: 8px; }
+		.footer-section p { margin: 6px 0; font-size: 13.5px; }
+		.footer-link { color: #38bdf8; text-decoration: none; font-weight: 500; }
+		.footer-link:hover { text-decoration: underline; }
+		.btn-messenger { display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 6px; color: white; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 8px; margin-right: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: 0.2s; }
+		.btn-messenger:hover { transform: translateY(-1px); opacity: 0.9; }
+		.btn-tg { background-color: #0284c7; }
+		.btn-wa { background-color: #16a34a; }
+		.footer-bottom { border-top: 1px solid #334155; margin-top: 30px; padding-top: 20px; text-align: center; font-size: 12px; color: #64748b; }
 	</style>
 </head>
 <body>
@@ -82,7 +97,33 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
 			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
 		</div>
-		<div class='footer'><p>` + getTranslation("footer_text", lang) + `</p></div>
+
+		<!-- НОВЫЙ СОЛИДНЫЙ КОРПОРАТИВНЫЙ ПОДВАЛ -->
+		<div class='footer-corporate'>
+			<div class='footer-grid'>
+				<div class='footer-section'>
+					<h4>Правообладатель</h4>
+					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
+					<p>Государственная регистрация финансово-оборонного софта нового поколения.</p>
+					<p>г. Ош, Кыргызская Республика</p>
+				</div>
+				<div class='footer-section'>
+					<h4>Официальная связь</h4>
+					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
+					<p>Центральный узел: +996 (777) 57-99-70</p>
+				</div>
+				<div class='footer-section'>
+					<h4>Каналы прямого отклика</h4>
+					<p style='font-size:12px; margin-bottom:8px;'>Быстрая фиксация времени пилотных тестов:</p>
+					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
+					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
+				</div>
+			</div>
+			<div class='footer-bottom'>
+				<p>© 2026 ОсОО «Квантум Сейф». Все права защищены. Разработано в соответствии с международными стандартами безопасной архитектуры распределенных систем ядра.</p>
+			</div>
+		</div>
+
 	</div>
 </body>
 </html>`
