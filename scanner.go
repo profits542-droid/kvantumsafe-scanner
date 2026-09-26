@@ -38,7 +38,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
 
-		/* СТИЛИ КОРПОРАТИВНОЙ ТАБЛИЦЫ СРАВНЕНИЯ */
 		.comp-heading { text-align: ` + textAlign + `; color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
 		.comp-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; background: white; font-size: 13.5px; }
 		html[dir="rtl"] .comp-table { text-align: right; }
@@ -95,7 +94,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			</tr>
 		</table>
 
-		<!-- НОВАЯ УБОЙНАЯ ТАБЛИЦА СРАВНЕНИЯ ДЛЯ БАНКИРОВ -->
 		<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
 		<table class='comp-table'>
 			<tr>
@@ -134,3 +132,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		
 		<div class='links-container'>
 			<a href='/specification?lang=` + lang + `'>` + getTranslation("link_spec", lang) + `</a>
+			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>` + getTranslation("link_anti", lang) + `</a>
+		</div>
+
