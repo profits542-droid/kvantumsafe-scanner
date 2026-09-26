@@ -19,11 +19,11 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	info := LicenseInfo{IsValid: false, DaysLeft: 0}
 	decodedBytes, err := base64.StdEncoding.DecodeString(encodedKey)
 	if err != nil { return info }
-	parts := strings.Split(string(decodedBytes) , "|")
+	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ClientName = parts
+		info.ServerID = parts
+		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -80,7 +80,7 @@ func main() {
 			body.scrollTop = body.scrollHeight;
 			setTimeout(function() {
 				var botMsg = document.createElement("div");
-				botMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-start: flex-start;";
+				botMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-self: flex-start;";
 				var lowText = text.toLowerCase();
 				if (lowText.includes("nist") || lowText.includes("немене") || lowText.includes("алгоритм") || lowText.includes("квант") || lowText.includes("algorithm")) {
 					botMsg.innerHTML = "` + getTranslation("bot_ans_nist", lang) + `";
@@ -97,8 +97,8 @@ func main() {
 </body>
 </html>`
 		
-		// ВСТАВЛЯЕМ КРАСИВЫЙ СТАТУС ВЕРИФИКАЦИИ С КЛИКАБЕЛЬНЫМ ТЕКСТОМ
-		verificationBadge := `<span style='background:#1e3a8a; color:#93c5fd; padding:3px 8px; border-radius:4px; font-size:12px; margin-left:10px; font-weight:normal;'>Verified by Render Cloud Security (Passed)</span>`
+		// ПОДКЛЮЧАЕМ МУЛЬТИЯЗЫЧНУЮ ВЕРИФИКАЦИОННУЮ ПЛАШКУ К СЛОВАРЮ
+		verificationBadge := `<span style='background:#1e3a8a; color:#93c5fd; padding:3px 8px; border-radius:4px; font-size:12px; margin-left:10px; font-weight:normal;'>` + getTranslation("render_badge", lang) + `</span>`
 		htmlPage = strings.Replace(htmlPage, "✓ Live", "✓ Live " + verificationBadge, 1)
 		htmlPage = strings.Replace(htmlPage, "</body>\n</html>", botWidget, 1)
 		
