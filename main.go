@@ -22,10 +22,10 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts[0] // Точный индекс 0 - имя клиента
-		info.ServerID = parts[2]   // Точный индекс 2 - ID сервера
+		info.ClientName = parts[0]
+		info.ServerID = parts[2]
 		
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil { // Точный индекс 1 - дата
+		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -85,9 +85,11 @@ func main() {
 				var botMsg = document.createElement("div");
 				botMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-self: flex-start;";
 				var lowText = text.toLowerCase();
-				if (lowText.includes("nist") || lowText.includes("алгоритм") || lowText.includes("квант") || lowText.includes("algorithm")) {
+				
+				// ИНТЕЛЛЕКТУАЛЬНЫЙ АНАЛИЗ ВОПРОСОВ НА ВСЕХ ЯЗЫКАХ (ВКЛЮЧАЯ КАЗАХСКИЙ)
+				if (lowText.includes("nist") || lowText.includes("немене") || lowText.includes("алгоритм") || lowText.includes("квант") || lowText.includes("algorithm")) {
 					botMsg.innerHTML = "` + getTranslation("bot_ans_nist", lang) + `";
-				} else if (lowText.includes("встреч") || lowText.includes("купить") || lowText.includes("цена") || lowText.includes("meet") || lowText.includes("buy")) {
+				} else if (lowText.includes("встреч") || lowText.includes("купить") || lowText.includes("цена") || lowText.includes("meet") || lowText.includes("buy") || lowText.includes("кездесу")) {
 					botMsg.innerHTML = "` + getTranslation("bot_ans_meet", lang) + `";
 				} else {
 					botMsg.innerHTML = "` + getTranslation("bot_ans_default", lang) + `";
@@ -99,6 +101,10 @@ func main() {
 	</script>
 </body>
 </html>`
+		
+		// ДОБАВЛЯЕМ ОФИЦИАЛЬНЫЙ КЛИКАБЕЛЬНЫЙ БЭДЖ ВЕРИФИКАЦИИ СБОРКИ С СЫЛКОЙ НА RENDER ТАМ, ГДЕ СТРЕЛКА
+		renderBadge := `<a href='https://render.com' target='_blank'><img src='https://render.com' alt='Render Deploy Status' style='vertical-align:middle; margin-left:10px;'></a>`
+		htmlPage = strings.Replace(htmlPage, "✓ Live", "✓ Live " + renderBadge, 1)
 		
 		htmlPage = strings.Replace(htmlPage, "</body>\n</html>", botWidget, 1)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
