@@ -92,7 +92,6 @@ func activeClass(current, target string) string {
 	return ""
 }
 
-// УБОЙНЫЙ МУЛЬТИЯЗЫЧНЫЙ ЭКРАН РЕЗУЛЬТАТОВ АУДИТА ПЕРИМЕТРА БАНКА
 func GetPerimeterReportHTML(lang, domain string) string {
 	title := "Результаты экспресс-аудита безопасности"
 	alert := "⚠️ ВНИМАНИЕ: ОБНАРУЖЕН КРИТИЧЕСКИЙ УРОВЕНЬ УГРОЗЫ периметра"
@@ -108,7 +107,7 @@ func GetPerimeterReportHTML(lang, domain string) string {
 	m4Title := "4. Внутренний комплаенс-риск файловой системы:"
 	m4Desc := "Существует потенциальная угроза утечки резервных копий баз данных SQL из-за отсутствия автоматического принудительного маскирования прав доступа стандарта POSIX 0600."
 	m5Title := "5. Сводный ИБ-индекс критичности сетевого узла:"
-	m5Desc = "<span style='color:#b71c1c; font-weight:bold; font-size:18px;'>УРОВЕНЬ РИСКА: 9.4 из 10 (КРИТИЧЕСКИЙ)</span>"
+	m5Desc := "<span style='color:#b71c1c; font-weight:bold; font-size:18px;'>УРОВЕНЬ РИСКА: 9.4 из 10 (КРИТИЧЕСКИЙ)</span>"
 
 	if lang == "kg" {
 		title = "Коопсуздуктун экспресс-аудитинин жыйынтыгы"
@@ -152,3 +151,4 @@ func GetPerimeterReportHTML(lang, domain string) string {
 		.report-card { max-width: 800px; background: white; margin: 30px auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.08); }
 		.btn-back { color: #0a2540; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
 		.btn-back:hover { text-decoration: underline; }
+		h2 { color: #0a2540; border-bottom: 2px solid #cbd5e1; padding-bottom: 12px; margin-top: 0; font-size: 24px; }
