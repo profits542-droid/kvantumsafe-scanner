@@ -37,22 +37,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
-
-		/* СТИЛИ ИИ-ЧАТА GEMINI GEM BOT */
-		.chat-widget { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background: #7c3aed; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: 0 4px 16px rgba(124,58,237,0.4); z-index: 1000; transition: 0.3s; }
-		html[dir="rtl"] .chat-widget { right: auto; left: 25px; }
-		.chat-widget:hover { transform: scale(1.1); background: #6d28d9; }
-		.chat-window { position: fixed; bottom: 100px; right: 25px; width: 370px; height: 480px; background: white; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); display: none; flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #e2e8f0; font-size: 14px; }
-		html[dir="rtl"] .chat-window { right: auto; left: 25px; }
-		.chat-header { background: #0a2540; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-		.chat-header span { font-size: 12px; background: #16a34a; padding: 2px 6px; border-radius: 4px; margin-left: 10px; }
-		.chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
-		.msg { max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; }
-		.msg.bot { background: #e2e8f0; color: #1e293b; align-self: flex-start; }
-		.msg.user { background: #7c3aed; color: white; align-self: flex-end; }
-		.chat-input-area { pading: 10px; border-top: 1px solid #e2e8f0; display: flex; background: white; }
-		.chat-input { flex: 1; border: none; padding: 15px; outline: none; font-size: 14px; }
-		.chat-send { background: #0a2540; color: white; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; }
 	</style>
 </head>
 <body>
@@ -99,66 +83,23 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		</div>
 		<div class='footer'><p>` + getTranslation("footer_text", lang) + `</p></div>
 	</div>
-
-	<!-- ВИДЖЕТ ИИ-КОНСУЛЬТАНТА GEMINI GEM BOT -->
-	<div class='chat-widget' onclick='toggleChat()'>🤖</div>
-	<div class='chat-window' id='chatWindow'>
-		<div class='chat-header'>
-			<div>KvantumSafe AI Assistant <span>Online</span></div>
-			<div style='cursor:pointer;' onclick='toggleChat()'>✕</div>
-		</div>
-		<div class='chat-body' id='chatBody'>
-			<div class='msg bot'>Саламатсызбы! Мен KvantumSafe компаниясынын ИИ-консультантымын. Программалык камсыздоо, NIST посткванттык стандарттары же азиялык GmSSL алгоритмдери боюнча суроолоруңуз болсо, берсеңиз болот. Мен жардам берүүгө даярмын!</div>
-		</div>
-		<div class='chat-input-area'>
-			<input type='text' class='chat-input' id='chatInput' placeholder='Задать вопрос ИИ... / Текст жазыңыз...' onkeypress='handleKey(event)'>
-			<button class='chat-send' onclick='sendMessage()'>&gt;</button>
-		</div>
-	</div>
-
-	<script>
-		function toggleChat() {
-			var win = document.getElementById("chatWindow");
-			win.style.display = (win.style.display === "flex") ? "none" : "flex";
-		}
-		function handleKey(e) {
-			if (e.key === "Enter") sendMessage();
-		}
-		function sendMessage() {
-			var input = document.getElementById("chatInput");
-			var text = input.value.trim();
-			if (!text) return;
-			
-			var body = document.getElementById("chatBody");
-			
-			// Добавляем сообщение пользователя
-			var userMsg = document.createElement("div");
-			userMsg.className = "msg user";
-			userMsg.innerText = text;
-			body.appendChild(userMsg);
-			input.value = "";
-			body.scrollTop = body.scrollHeight;
-			
-			// Симуляция интеллектуального ответа Gemini
-			setTimeout(function() {
-				var botMsg = document.createElement("div");
-				botMsg.className = "msg bot";
-				
-				var lowText = text.toLowerCase();
-				if (lowText.includes("nist") || lowText.includes("алгоритм") || lowText.includes("квант")) {
-					botMsg.innerHTML = "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта <b>NIST ML-KEM</b> и суверенные азиатские криптопротоколы <b>GmSSL (SM4-GCM)</b>. Система автоматически выбирает оптимальный маршрут данных, исключая риски дешифрования транзакций хакерами.";
-				} else if (lowText.includes("встреч") || lowText.includes("купить") || lowText.includes("цена")) {
-					botMsg.innerHTML = "Отличное решение! Наш Генеральный директор готов провести личную техническую презентацию контура безопасности. Оставьте ваши контакты или напишите нам на почту, и мы зафиксируем удобное время встречи.";
-				} else {
-					botMsg.innerHTML = "Платформа разработанная ОсОО «Квантум Сейф» на языке Go, обеспечивает автоматический комплаенс-контроль, сканирование внешнего периметра (порт 443) и фоновую изоляцию файлов под права POSIX 0600. Программа юридически чиста и не требует лицензий СКЗИ.";
-				}
-				
-				body.appendChild(botMsg);
-				body.scrollTop = body.scrollHeight;
-			}, 800);
-		}
-	</script>
 </body>
 </html>`
 }
 
+func activeClass(current, target string) string {
+	if current == target { return "active" }
+	return ""
+}
+
+func GetPerimeterReportHTML(lang, domain string) string {
+	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Назад / Back</a></p><h2>Жыйынтык / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;font-size:18px;'>⚠️ КОРКУНУЧ ТУУДУРГАН АБАЛ / CRITICAL THREAT DETECTED</p><p><b>Объект:</b> " + domain + "</p></body></html>"
+}
+
+func GetSpecificationPageHTML(lang string) string {
+	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>← Назад / Back</a></p><h2>Функционал Золотой Кнопки / Yellow Button Logic</h2><p>При нажатии на главную кнопку сервер Go автоматически генерирует и отдает защищенный файл спецификации программного комплекса KvantumSafe Pro Framework SDK для ИТ-департаментов и комплаенс-контроля финансовых организаций.</p></body></html>"
+}
+
+func GetAntiHackerPageHTML(lang string) string {
+	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'>← Назад / Back</a></p><h2 style='color:#d4af37;'>🤖 KvantumSafe AI-AntiHacker (Guard Engine)</h2><p><b>Статус разработки:</b> Отдельный автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».</p><p>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций.</p></body></html>"
+}
