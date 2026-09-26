@@ -94,39 +94,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			</tr>
 		</table>
 
-		<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
-		<table class='comp-table'>
-			<tr>
-				<th style='width:40%;'>Критерий защиты инфраструктуры</th>
-				<th style='width:30%; background-color:#475569;'>Обычный антивирус / Серверный сканер</th>
-				<th style='width:30%; background-color:#1e3a8a;'>ПО «АнтиХакер AI» (KvantumSafe)</th>
-			</tr>
-			<tr class='comp-row'>
-				<td><b>Принцип обнаружения угроз</b></td>
-				<td><span class='badge-no'>Только по базам (Сигнатурный)</span><br><small style='color:#64748b;'>Ищет только старые, уже известные вирусы.</small></td>
-				<td><span class='badge-yes'>Проактивный нейросетевой TinyML</span><br><small style='color:#64748b;'>Выявляет новые угрозы нулевого дня на лету.</small></td>
-			</tr>
-			<tr class='comp-row'>
-				<td><b>Защита от логических атак фрода</b></td>
-				<td><span class='badge-no'>Отсутствует полностью</span><br><small style='color:#64748b;'>Не видит манипуляции со смарт-контрактами.</small></td>
-				<td><span class='badge-yes'>Блокировка за 0.002 секунды</span><br><small style='color:#64748b;'>Останавливает Reentrancy и Flash-Loan атаки.</small></td>
-			</tr>
-			<tr class='comp-row'>
-				<td><b>Защита оперативной памяти (RAM)</b></td>
-				<td><span class='badge-no'>Поверхностное фоновое сканирование</span><br><small style='color:#64748b;'>Пропускает скрытые инъекции вредоносного кода.</small></td>
-				<td><span class='badge-yes'>Stealth-изоляция секторов RAM</span><br><small style='color:#64748b;'>Мгновенно изолирует атакуемый сектор ядра.</small></td>
-			</tr>
-			<tr class='comp-row'>
-				<td><b>Аппаратная верификация нод</b></td>
-				<td><span class='badge-no'>Отсутствует</span><br><small style='color:#64748b;'>Уязвим к подмене серверов хакерами (MitM).</small></td>
-				<td><span class='badge-yes'>Rust Device Fingerprinting</span><br><small style='color:#64748b;'>Жестко привязывается к неизменяемому ID процессора.</small></td>
-			</tr>
-			<tr class='comp-row'>
-				<td><b>Юридическая чистота (Без СКЗИ)</b></td>
-				<td><span class='badge-no'>Требует госсистем лицензирования</span><br><small style='color:#64748b;'>Сложный комплаенс-контроль софта.</small></td>
-				<td><span class='badge-yes'>100% Свободное обращение</span><br><small style='color:#64748b;'>Не содержит СКЗИ, не требует лицензий регуляторов.</small></td>
-			</tr>
-		</table>
+		` + GetComparisonTableHTML(textAlign) + `
 		
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
 		
@@ -135,3 +103,42 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>` + getTranslation("link_anti", lang) + `</a>
 		</div>
 
+		<div class='build-box'>
+			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
+			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
+		</div>
+
+		<div class='footer-corporate'>
+			<div class='footer-grid'>
+				<div class='footer-section'>
+					<h4>Правообладатель</h4>
+					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
+					<p>Государственная регистрация финансово-оборонного софта нового поколения.</p>
+					<p>г. Ош, Кыргызская Республика</p>
+				</div>
+				<div class='footer-section'>
+					<h4>Официальная связь</h4>
+					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
+					<p>Центральный узел: +996 (777) 57-99-70</p>
+				</div>
+				<div class='footer-section'>
+					<h4>Каналы прямого отклика</h4>
+					<p style='font-size:12px; margin-bottom:8px;'>Быстрая фиксация времени пилотных тестов:</p>
+					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
+					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
+				</div>
+			</div>
+			<div class='footer-bottom'>
+				<p>© 2026 ОсОО «Квантум Сейф». Все права защищены. Разработано в соответствии с международными стандартами безопасной архитектуры распределенных систем ядра.</p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>`
+}
+
+func activeClass(current, target string) string {
+	if current == target { return "active" }
+	return ""
+}
