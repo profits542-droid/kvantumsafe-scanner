@@ -22,8 +22,8 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
 		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ServerID = parts[1]
+		if expTime, err := time.Parse("2006-01-02", parts[2]); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -71,24 +71,33 @@ func main() {
 		w.Header().Set("Content-Disposition", "attachment; filename=KvantumSafe_Specification.txt")
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		
-		doc := "OFFICIAL B2B COMMERCIAL OFFER\nCompany: Quantum Safe LLC (Osh, Kyrgyz Republic)\n\n" +
-			"1. External Auditor Layer: Scanning perimeter on port 443.\n" +
-			"2. Internal Vault Layer: Hardening files under POSIX 0600 strict policy.\n" +
-			"3. Route Orchestrator Layer: Post-quantum Crypto-Agility dispatcher (NIST ML-KEM).\n\n" +
-			"Annual Corporate SaaS License Cost: $35,000 USD."
+		doc := "OFFICIAL B2B COMMERCIAL OFFER & PRICING\nCompany: Quantum Safe LLC (Osh, Kyrgyz Republic)\n\n" +
+			"AVAILABLE SAAS LICENSES AND PRICING TIERS:\n\n" +
+			"1. GLOBAL SCANNER — FREE / $0\n" +
+			"Basic external vulnerability scanning of the corporate network infrastructure.\n\n" +
+			"2. COMPLIANCE PRO — $15,000 / year\n" +
+			"Includes Product 1 (External perimeter audit) + Product 2 (Internal server vault file protection under POSIX 0600 strict policy).\n\n" +
+			"3. QUANTUM WEB3 (ENTERPRISE CORE) — $35,000 / year\n" +
+			"Full software protection suite. Includes Product 1 (External Audit), Product 2 (Internal Vault), and Product 3 (Post-quantum Crypto-Agility route orchestrator for secure international transfers)."
 			
 		if lang == "ru" {
-			doc = "ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И КОРПОРАТИВНЫЙ B2B-ОФФЕР\nПравообладатель: ОсОО «Квантум Сейф» (г. Ош, КР)\n\n" +
-				"1. Продукт 1. Внешний цифровой ревизор: Сканирует сетевые шлюзы банковских приложений и выявляет уязвимости OpenSSL.\n" +
-				"2. Продукт 2. Внутренний невидимый сейф: Изолирует критические бэкапы баз данных под POSIX-права стандарта 0600.\n" +
-				"3. Продукт 3. Транзитный диспетчер: Оркестрирует трансграничные переводы по постквантовым алгоритмам NIST ML-KEM.\n\n" +
-				"Стоимость годовой корпоративной лицензии контура «Quantum Web3»: 35 000 долларов США."
+			doc = "ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И ТАРИФНАЯ СЕТКА B2B-ОФФЕРА\nПравообладатель: ОсОО «Квантум Сейф» (г. Ош, Кыргызская Республика)\n\n" +
+				"ДОСТУПНЫЕ КОРПОРАТИВНЫЕ ЛИЦЕНЗИИ И СТОИМОСТЬ ПОДПИСКИ:\n\n" +
+				"1. ТАРИФ «GLOBAL SCANNER» — БЕСПЛАТНО / $0\n" +
+				"Базовый инструмент для экспресс-анализа внешних сетевых шлюзов ИТ-инфраструктуры организации.\n\n" +
+				"2. ТАРИФ «COMPLIANCE PRO» — 15 000 долларов США / год\n" +
+				"Включает в себя Продукт 1 (Внешний цифровой ревизор портов) и Продукт 2 (Внутренний невидимый сейф комплаенс-контроля серверов с принудительной изоляцией уязвимых бэкапов под POSIX-права 0600).\n\n" +
+				"3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ БЕЗОПАСНОСТЬ) — 35 000 долларов США / год\n" +
+				"Полный оборонный комплекс программного ядра Framework SDK. Включает в себя все три уровня защиты: Продукт 1 (Внешний аудит периметра), Продукт 2 (Внутренний сейф защиты файлов памяти) и Продукт 3 (Интеллектуальный транзитный диспетчер и постквантовый оркестратор трансграничных платежей NIST ML-KEM)."
 		} else if lang == "kg" {
-			doc = "ТЕХНИКАЛЫК СПЕЦИФИКАЦИЯСЫ ЖАНА КОРПОРАТИВДИК B2B СУНУШУ\nУкук ээси: «Квантум Сейф» ОсООсу (Кыргыз Республикасы)\n\n" +
-				"1. Тышкы ревизор: Банктын тиркемелерин сырттан чабуулдардан коргойт.\n" +
-				"2. Ички санариптик сейф: Сервердеги паролдорду заматта жашырып, катуу 0600 стандартына өткөрөт.\n" +
-				"3. Акылдуу транзиттик диспетчер: Эл аралык которууларды жаңы посткванттык коопсуздук контейнерлерине (NIST ML-KEM) салып багыттайт.\n\n" +
-				"Жылдык корпоративдик лицензиянын баасы: $35,000 АКШ доллары."
+			doc = "ТЕХНИКАЛЫК СПЕЦИФИКАЦИЯСЫ ЖАНА ТАРИФТИК B2B СУНУШУ\nУкук ээси: «Квантум Сейф» ОсООсу (Ош ш., Кыргыз Республикасы)\n\n" +
+				"ЖЕТКИЛИКТҮҮ КОРПОРАТИВДИК ЛИЦЕНЗИЯЛАР ЖАНА БААЛАРЫ:\n\n" +
+				"1. «GLOBAL SCANNER» ТАРИФИ — БЕСПЛАТНО / $0\n" +
+				"Уюмдун ИТ-инфраструктурасынын тышкы тармактык шлюздарын экспресс-анализдөө үчүн базалык курал.\n\n" +
+				"2. «COMPLIANCE PRO» ТАРИФИ — $15,000 / жыл\n" +
+				"Продукт 1 (Тышкы санариптик ревизор) жана Продукт 2 (Ички файлдык тутумду комплаенс-контролдоо жана файлдарды 0600 коопсуздук стандартына которуу) кызматтарын камтыйт.\n\n" +
+				"3. «QUANTUM WEB3» ТАРИФИ (МАКСИМАЛДУУ КОРГОО) — $35,000 / жыл\n" +
+				"Программалык камсыздоонун толук коргонуу комплекси. Курамына Продукт 1 (Тышкы аудит), Продукт 2 (Ички сейф) жана Продукт 3 (Трансчегаралык төлөмдөрдү жаңы посткванттык коопсуздук контейнерлерине NIST ML-KEM салып коопсуз багыттоочу акылдуу диспетчер) кызматтары толугу менен кирет."
 		}
 		
 		_, _ = w.Write([]byte(doc))
