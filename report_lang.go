@@ -57,6 +57,14 @@ func GetPerimeterReportHTML(lang, domain string) string {
 </html>`
 }
 
+func GetSpecificationPageHTML(lang string) string {
+	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>← Назад / Back</a></p><h2>Функционал Золотой Кнопки / Yellow Button Logic</h2><p>При нажатии на главную кнопку сервер Go автоматически генерирует и отдает защищенный файл спецификации программного комплекса KvantumSafe Pro Framework SDK для ИТ-департаментов и комплаенс-контроля финансовых организаций.</p></body></html>"
+}
+
+func GetAntiHackerPageHTML(lang string) string {
+	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'>← Назад / Back</a></p><h2 style='color:#d4af37;'>🤖 KvantumSafe AI-AntiHacker (Guard Engine)</h2><p><b>Статус разработки:</b> Отдельный автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».</p><p>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций.</p></body></html>"
+}
+
 func getReportTranslation(key, lang string) string {
 	reportText := map[string]map[string]string{
 		"rep_title": { 
@@ -88,7 +96,7 @@ func getReportTranslation(key, lang string) string {
 			"ar": "← العودة إلى الصفحة الرئيسية",
 		},
 		"rep_m1_t": { 
-			"ru": "1. Сетевой периметр и открытые шлюзы:", 
+			"ru": "1. Сетевой периметр и open шлюзы:", 
 			"kg": "1. Тармактын периметри жана ачык шлюздар:", 
 			"en": "1. Network Perimeter & Open Gateways:",
 			"kz": "1. Желілік периметр және ашық шлюздер:",
@@ -120,7 +128,7 @@ func getReportTranslation(key, lang string) string {
 			"kg": "3. Посткванттык коркунучтарга даярдык (Crypto-Agility индекси):", 
 			"en": "3. Post-Quantum Readiness Index (Crypto-Agility Score):",
 			"kz": "3. Посткванттық қауіптерге дайындық (Crypto-Agility индексі):",
-			"ar": "3. مؤشر الجاهзية لتهديدات الحوسبة الكمية (Crypto-Agility):",
+			"ar": "3. مؤشر الجاهزية لتهديدات الحوسبة الكمية (Crypto-Agility):",
 		},
 		"rep_m3_d": { 
 			"ru": "<b>Уровень готовности: 0%.</b> Каналы передачи финансовых пакетов данных (SWIFT, XML) уязвимы для дешифрования.", 
@@ -144,19 +152,3 @@ func getReportTranslation(key, lang string) string {
 			"ar": "هناك تهديد محتمل لتسريب النسخ الاحتياطية لقواعد البيانات نتيجة الغياب التام لفرض قيود نظام الحماية الصارم POSIX 0600 автоматически.",
 		},
 		"rep_m5_t": { 
-			"ru": "5. Сводный ИБ-индекс критичности сетевого узла:", 
-			"kg": "5. Тармактык түйүндүн жалпы критикалык индекси:", 
-			"en": "5. Consolidated Security Risk Score:",
-			"kz": "5. Желілік тораптың жиынтық қауіпсіздік индексі:",
-			"ar": "5. المؤشر الموحد لمستوى خطورة العقدة الشبكية:",
-		},
-		"rep_m5_d": { 
-			"ru": "УРОВЕНЬ РИСКА: 9.4 из 10 (КРИТИЧЕСКИЙ)", 
-			"kg": "ТОБОКЕЛДИК ДЕҢГЭЭЛИ: 10дон 9.4 (КРИТИКАЛЫК)", 
-			"en": "RISK SCORE: 9.4 out of 10 (CRITICAL)",
-			"kz": "ҚАУІП ДЕҢГЕЙІ: 10-нан 9.4 (КРИТИКАЛЫҚ)",
-			"ar": "مستوى الخطورة الإجمالي: 9.4 من 10 (خطير للغاية)",
-		},
-	}
-	return reportText[key][lang]
-}
