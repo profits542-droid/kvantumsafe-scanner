@@ -15,7 +15,7 @@ func GetSpecificationPageHTML(lang string) string {
 
 func GetAntiHackerPageHTML(lang string) string {
 	title := "KvantumSafe AI-AntiHacker (Guard Engine)"
-	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
+	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) and на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
 	back := "← Назад / Back"
 
 	if lang == "kg" {
@@ -30,7 +30,7 @@ func GetComparisonTableHTML(textAlign string) string {
 	return `<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
 		<table class='comp-table'>
 			<tr>
-				<th style='width:40%;'>Критерий защиты инфраструктуры</th>
+				<th style='width:40%;'>Критерий защиты infrastructure</th>
 				<th style='width:30%; background-color:#475569;'>Обычный антивирус / Серверный сканер</th>
 				<th style='width:30%; background-color:#1e3a8a;'>ПО «АнтиХакер AI» (KvantumSafe)</th>
 			</tr>
