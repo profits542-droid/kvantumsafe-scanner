@@ -1,3 +1,4 @@
+```go
 package main
 
 func GetDashboardHTML(clientName, serverID, lang string) string {
@@ -93,52 +94,10 @@ func activeClass(current, target string) string {
 }
 
 func GetPerimeterReportHTML(lang, domain string) string {
-	title := "Результаты экспресс-аудита безопасности"
-	alert := "⚠️ ВНИМАНИЕ: ОБНАРУЖЕН КРИТИЧЕСКИЙ УРОВЕНЬ УГРОЗЫ периметра"
-	object := "Целевой объект проверки"
-	btnBack := "← Вернуться на главную"
-	
-	m1Title := "1. Сетевой периметр и открытые шлюзы:"
-	m1Desc := "Зафиксированы открытые порты 443 (HTTPS) и 8443 (API-Gateway). Обнаружена трансляция версий используемого ПО веб-серверов в открытый интернет."
-	m2Title := "2. Экспресс-анализ уязвимости криптографии (SSL/TLS):"
-	m2Desc := "Обнаружены признаки использования устаревших криптографических библиотек, потенциально подверженных атакам класса перехвата сессий сотрудников."
-	m3Title := "3. Готовность к постквантовым угрозам (Crypto-Agility индекс):"
-	m3Desc := "<b>Уровень готовности: 0%.</b> Каналы трансграничной передачи финансовых пакетов данных (SWIFT, XML) уязвимы для перспективного дешифрования хакерами."
-	m4Title := "4. Внутренний комплаенс-риск файловой системы:"
-	m4Desc := "Существует потенциальная угроза утечки резервных копий баз данных SQL из-за отсутствия автоматического принудительного маскирования прав доступа стандарта POSIX 0600."
-	m5Title := "5. Сводный ИБ-индекс критичности сетевого узла:"
-	m5Desc := "<span style='color:#b71c1c; font-weight:bold; font-size:18px;'>УРОВЕНЬ РИСКА: 9.4 из 10 (КРИТИЧЕСКИЙ)</span>"
-
-	if lang == "kg" {
-		title = "Коопсуздуктун экспресс-аудитинин жыйынтыгы"
-		alert = "⚠️ КӨҢҮЛ БУРУҢУЗДАР: Периметрдин КРИТИКАЛЫК КОРКУНУЧУ аныкталды"
-		object = "Текшерилген объект"
-		btnBack = "← Башкы бетке кайтуу"
-		m1Title = "1. Тармактын периметри жана ачык шлюздар:"
-		m1Desc = "Ачык 443 (HTTPS) жана 8443 (API-Gateway) порттору катталды. Веб-серверлердин программалык камсыздоосунун версиялары интернетке ачык көрсөтүлүп турат."
-		m2Title = "2. Криптографиянын (SSL/TLS) алсыздыгын экспресс-талдоо:"
-		m2Desc = "Кызматкерлердин сессияларын уурдап алуу чабуулдарына кабылышы мүмкүн болгон эскирген криптографиялык китепканалардын белгилери табылды."
-		m3Title = "3. Посткванттык коркунучтарга даярдык (Crypto-Agility индекси):"
-		m3Desc = "<b>Даярдык деңгээли: 0%.</b> Каржылык маалыматтарды (SWIFT, XML) трансчегаралык берүү каналдары келечекте хакерлер тарабынан чечмелөөгө дуушар болот."
-		m4Title = "4. Ички файлдык тутумдун комплаенс-тобокелдиги:"
-		m4Desc = "POSIX 0600 стандартындагы кирүү укуктарын автоматтык түрдө мажбурлап маскалоо жок болгондуктан, SQL маалымат базаларынын камдык көчүрмөлөрүнүн агып кетүү коркунучу бар."
-		m5Title = "5. Тармактык түйүндүн жалпы критикалык индекси:"
-		m5Desc = "<span style='color:#b71c1c; font-weight:bold; font-size:18px;'>ТОБОКЕЛДИК ДЕҢГЭЭЛИ: 10дон 9.4 (КРИТИКАЛЫК)</span>"
-	} else if lang == "en" {
-		title = "Express Security Audit Results"
-		alert = "⚠️ WARNING: CRITICAL PERIMETER THREAT LEVEL DETECTED"
-		object = "Target Verification Node"
-		btnBack = "← Back to Dashboard"
-		m1Title = "1. Network Perimeter & Open Gateways:"
-		m1Desc = "Open ports 443 (HTTPS) and 8443 (API-Gateway) detected. Web-server software versions are openly broadcasted to the public internet."
-		m2Title = "2. Cryptographic Vulnerability Audit (SSL/TLS):"
-		m2Desc = "Traces of outdated cryptographic libraries detected, making employee active sessions vulnerable to interception attacks."
-		m3Title = "3. Post-Quantum Readiness Index (Crypto-Agility Score):"
-		m3Desc = "<b>Readiness Level: 0%.</b> Cross-border financial data streams (SWIFT, XML) are highly vulnerable to future decryption exploits."
-		m4Title = "4. Internal File System Compliance Exposure:"
-		m4Desc = "Potential threat of SQL database backup leak due to the complete lack of automated POSIX 0600 strict access token enforcement."
-		m5Title = "5. Consolidated Security Risk Score:"
-		m5Desc = "<span style='color:#b71c1c; font-weight:bold; font-size:18px;'>RISK SCORE: 9.4 out of 10 (CRITICAL)</span>"
+	// Безопасный фолбэк для казахского и арабского на русский язык внутри отчета
+	cleanLang := lang
+	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" {
+		cleanLang = "ru"
 	}
 
 	return `<!DOCTYPE html>
@@ -152,3 +111,49 @@ func GetPerimeterReportHTML(lang, domain string) string {
 		.btn-back { color: #0a2540; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
 		.btn-back:hover { text-decoration: underline; }
 		h2 { color: #0a2540; border-bottom: 2px solid #cbd5e1; padding-bottom: 12px; margin-top: 0; font-size: 24px; }
+		.alert-banner { background-color: #fef2f2; border-left: 5px solid #ef4444; color: #b91c1c; padding: 15px; font-weight: bold; border-radius: 4px; margin: 20px 0; font-size: 15px; }
+		.meta-info { font-size: 15px; margin-bottom: 30px; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
+		.metric-box { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #e2e8f0; }
+		.metric-title { font-weight: bold; color: #0a2540; font-size: 15px; margin-bottom: 6px; }
+		.metric-desc { font-size: 14px; color: #475569; margin: 0; text-align: justify; }
+	</style>
+</head>
+<body>
+	<div class='report-card'>
+		<a href='/?lang=` + lang + `' class='btn-back'>` + getTranslation("rep_back", cleanLang) + `</a>
+		<h2>🛡️ ` + getTranslation("rep_title", cleanLang) + `</h2>
+		<div class='alert-banner'>` + getTranslation("rep_alert", cleanLang) + `</div>
+		<div class='meta-info'>
+			<b>` + getTranslation("rep_obj", cleanLang) + `:</b> <span style='color:#004d40; font-weight:bold;'>` + domain + `</span>
+		</div>
+		
+		<div class='metric-box'>
+			<div class='metric-title'>` + getTranslation("rep_m1_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getTranslation("rep_m1_d", cleanLang) + `</p>
+		</div>
+		<div class='metric-box'>
+			<div class='metric-title'>` + getTranslation("rep_m2_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getTranslation("rep_m2_d", cleanLang) + `</p>
+		</div>
+		<div class='metric-box'>
+			<div class='metric-title'>` + getTranslation("rep_m3_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getTranslation("rep_m3_d", cleanLang) + `</p>
+		</div>
+		<div class='metric-box'>
+			<div class='metric-title'>` + getTranslation("rep_m4_t", cleanLang) + `</div>
+			<p class='metric-desc'>` + getTranslation("rep_m4_d", cleanLang) + `</p>
+		</div>
+		<div class='metric-box' style='border-bottom:none; background:#fff5f5; padding:15px; border-radius:6px; border:1px solid #fee2e2;'>
+			<div class='metric-title' style='color:#b71c1c; margin-bottom:4px;'>` + getTranslation("rep_m5_t", cleanLang) + `</div>
+			<p class='metric-desc' style='color:#b71c1c; font-weight:bold; font-size:16px;'>` + getTranslation("rep_m5_d", cleanLang) + `</p>
+		</div>
+	</div>
+</body>
+</html>`
+}
+
+func GetSpecificationPageHTML(lang string) string {
+	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>← Назад / Back</a></p><h2>Функционал Золотой Кнопки / Yellow Button Logic</h2><p>При нажатии на главную кнопку сервер Go автоматически генерирует и отдает защищенный файл спецификации программного комплекса KvantumSafe Pro Framework SDK для ИТ-департаментов и комплаенс-контроля финансовых организаций.</p></body></html>"
+}
+
+func GetAntiHackerPageHTML(lang string) string {
