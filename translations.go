@@ -48,8 +48,15 @@ func getTranslation(key, lang string) string {
 			"kg": "Программалык камсыздоонун ядросу автоматтык түрдө толук текшерүүдөн өттү. Расмий Live компиляция статусу синтаксистик каталардын жоктугун тастыктайт.",
 			"ru": "Исходный программный код ядра полностью прошёл автоматическую верификацию облачной компиляцией Render. Наличие официального статуса Live подтверждает абсолютное отсутствие синтаксических ошибок, уязвимостей переполнения буфера памяти и гарантирует строгое соответствие кодовой базы стандартам безопасности.",
 			"en": "The production source code of the core has successfully passed automated verification. The official Live compilation status verifies the absolute absence of syntax flaws.",
-			"kz": "Бағдарламалық құралдың ядросу автоматты түрде толук тексеруден өтті. Ресми Live компиляция мәртебесі синтаксистик қателердин жоктугун растайды.",
-			"ar": "لقد اجتاز الكود البرمجي الأساسي لنواة النظام عملية التحقق التلقائي بنجاح.",
+			"kz": "Бағдарламалық құралдың ядросу автоматты түрде толук тексеруден өттү. Ресми Live компиляция мәртебесі синтаксистик қателердин жоктугун растайды.",
+			"ar": "لقд اجتاز الكود البرمجي الأساسي لنواة النظام عملية التحقق التلقائي بنجاح.",
+		},
+		"render_badge": {
+			"ru": "Проверено безопасной сборкой Render Cloud (Passed)",
+			"kg": "Render Cloud коопсуз жыйындысы тарабынан текшерилди (Passed)",
+			"en": "Verified by Render Cloud Security (Passed)",
+			"kz": "Render Cloud қауіпсіз жинағымен тексерілді (Passed)",
+			"ar": "تم التحقق منه بواسطة أمان Render السحابي",
 		},
 		"saas_title": {
 			"kg": "💰 SaaS Лицензиялары",
@@ -105,7 +112,7 @@ func getTranslation(key, lang string) string {
 			"ru": "Здравствуйте! Я ИИ-консультант ОсОО «Квантум Сейф». Готов ответить на ваши вопросы по ПО, NIST или GmSSL!",
 			"en": "Hello! I am the AI Assistant of Quantum Safe LLC. Feel free to ask about our software, NIST or GmSSL.",
 			"kz": "Сәлеметсіз бе! Мен «Квантум Сейф» ЖШС ИИ-консультантымын. Сұрақтарыңыз болса, қоя аласыз.",
-			"ar": "مرحباً! أنا المستشار الذكي لشركة 'كوانتوم سيف'. لا تتردد في طرح أي أسئلة حول برامجنا или معايير NIST أو بروتوكول GmSSL.",
+			"ar": "مرحباً! أنا المستشار الذكي لشركة 'كوانتوم سيف'. لا تتردد في طرح أي أسئلة حول برامجنا أو معايير NIST أو بروتوكول GmSSL.",
 		},
 		"bot_placeholder": {
 			"kg": "Текст жазыңыз...",
@@ -116,7 +123,7 @@ func getTranslation(key, lang string) string {
 		},
 		"bot_ans_nist": {
 			"kg": "KvantumSafe Pro ядросу NIST ML-KEM посткванттык алгоритмдерин оркестрациялайт.",
-			"ru": "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта <b>NIST ML-KEM</b> и суверенные азиатские криптопротоколы <b>GmSSL (SM4-GCM)</b>. Система автоматически выбирает оптимальный маршрут данных, исключая риски дешифрования транзакций хакерами.",
+			"ru": "Ядро KvantumSafe Pro оркестрирует постквантовые алгоритмы решеток стандарта NIST ML-KEM и суверенные азиатские криптопротоколы GmSSL (SM4-GCM).",
 			"en": "The KvantumSafe Pro core orchestrates next-generation post-quantum lattice algorithms (NIST ML-KEM) and Asian sovereign protocols (GmSSL SM4-GCM).",
 			"kz": "<b>NIST (ML-KEM)</b> — хакерлер мен болашақ кванттық компьютерлердің транзакцияларды дешифрлеуінен қорғайтын халықаралық посткванттық тор криптографиясының стандарты. KvantumSafe Pro ядросы осы NIST стандарттарын және азиялық <b>GmSSL</b> хаттамаларын толығымен қолдайды және автоматты түрде басқарады.",
 			"ar": "تنسق نواة KvantumSafe Pro خوارزميات الشبكة لما بعد العصر الكمي المعتمدة من قبل NIST ML-KEM وبروتوكولات GmSSL (SM4-GCM) الآسيوية.",
@@ -140,7 +147,7 @@ func getTranslation(key, lang string) string {
 			"ru": "ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И ТАРИФНАЯ СЕТКА B2B-ОФФЕРА\nПравообладатель: Общество с ограниченной ответственностью «Квантум Сейф» (ОсОО «Квантум Сейф», г. Ош, КР)\n\nСтоимость годовой корпоративной лицензии контура «Quantum Web3» составляет: 35 000 долларов США. Программный комплекс поставляется на защищенном физическом Flash-носителе.",
 			"en": "OFFICIAL TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Quantum Safe LLC (Osh, Kyrgyz Republic)\n\nAnnual Corporate SaaS License Cost: $35,000 USD. Delivered on a secure physical flash drive with strict hardware binding.",
 			"kz": "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Quantum Safe LLC\n\nKvantumSafe Pro Framework SDK жабық контурды талдау және желілік комплаенс-бақылау модулі ретінде жұмыс ідейді. Жылдық корпоративтік лицензия құны: $35,000 АКШ доллары.",
-			"ar": "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Quantum Safe LLC\n\nيعمل البرنامج KvantumSafe Pro كمنسق شبكة ذكي ومدير للمسارات الرقمية. قيمة ترخيص اشتрак SaaS السнوي هي: 35,000 دولار أمريكي.",
+			"ar": "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Quantum Safe LLC\n\nيعمل البرنامج KvantumSafe Pro كمنسق شبكة ذكي ومدير للمسارات الرقمية. قيمة ترخيص اشتрак SaaS السنوي هي: 35,000 دولار أمريكي.",
 		},
 	}
 	return translations[key][lang]
