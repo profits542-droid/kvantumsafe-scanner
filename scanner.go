@@ -10,7 +10,7 @@ func getTranslation(key, lang string) string {
 			"ar": "🛡️ منصة كيفانتوم سيف برو الدولية لتكنولوجيا المعلومات",
 		},
 		"nav_sub": {
-			"kg": "Тармак коопсуздугун автоматтык түрде тексеру жана маалыматтарды коргоону акылдуу башкаруу",
+			"kg": "Тармак коопсуздугун автоматтык түрдө тексеру жана маалыматтарды коргоону акылдуу башкаруу",
 			"ru": "Автоматическая проверка сетевой безопасности и умное управление защитой данных",
 			"en": "Automatic network security audit and smart data protection management",
 			"kz": "Желілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару",
@@ -48,8 +48,36 @@ func getTranslation(key, lang string) string {
 			"kg": "Render булуттук платформасы архитектуранын эң катуу калысы катары иштейт. Ал расмий, нативдүү Go компиляторун колдонот. Расмий өндүрүштүк Live статусу өзөктө синтаксистик каталар же калтырылган логикалык структуралар жок экендигин далилдейт. Жыйнак 100% туруктуу, жарамдуу жана таза деп таанылды.",
 			"ru": "Облачная платформа Render выступает в роли самого строгого судьи архитектуры. Она использует официальный, нативный компилятор Go. Наличие статуса Live подтверждает, что в ядре распределенной системы отсутствуют синтаксические помарки, нестыковки типов данных или пропущенные логические структуры. Сборка признана на 100% стабильной, валидной и чистой.",
 			"en": "The Render cloud platform acts as the strictest architecture judge. It utilizes the official, native Go compiler. The official production status Live verifies that the distributed system core contains zero syntax errors, data type mismatches, or missing logical structures. The build is certified 100% stable, valid, and clean.",
-			"kz": "Render бұлттық платформасы архитектураның ең қатал төрешісі рөлін атқарады. Ол ресми, нативті Go компиляторын пайдаланады. Ресми өндірістік Live мәртебесінің болуы таратылған жүйе ядросында синтаксистік қателер, деректер түрлерінің сәйкессіздігі немесе жіберіп алынған логикалық құрылымдардың жоқтығын дәлелдейді. Жинақ 100% тұрақты.",
-			"ar": "عمل منصة Render السحابية كأكثر حكم صارم في تقييم بنيتنا التكنولوجية. وهي تستخدم مترجم Go الرسمي الأصلي. إن وجود حالة الإنتاج الرسمية Live يؤكد أن نواة النظام الموزع خالية تمامًا من أي أخطاء برمجية أو عدم تطابق في أنواع البيانات. تم اعتماد البناء كمستقر بنسبة 100%.",
+			"kz": "Render бұлттық платформасы архитектураның ең қатал төрешісі рөлін атқарады. Ол ресми, нативті Go компиляторын пайдаланады. Ресми өндірістік Live мәртебесінің болуы таратылған жүйе ядросында синтаксистік қателер, деректер түрлерінің сәйкессіздігіне жол бермейді.",
+			"ar": "عمل منصة Render السحابية كأكثر حكم صارم في تقييم بنيتنا التكنولوجية. وهي تستخدم مترجم Go الرسمي الأصلي. إن وجود حالة الإنتاج الرسمية Live يؤكد أن نواة النظام الموزع خالية تمامًا من أي أخطاء برمجية أو عدم تطابق في أنواع البيانات.",
+		},
+		"saas_title": {
+			"kg": "💰 SaaS Лицензиялары",
+			"ru": "💰 SaaS Лицензии / Licenses",
+			"en": "💰 SaaS Corporate Subscription Licenses",
+			"kz": "💰 SaaS корпоративтік жазылым лицензиялары",
+			"ar": "💰 تراخيص الشركات لاشتراك SaaS",
+		},
+		"t1_free": {
+			"kg": "Жылдык / $0",
+			"ru": "FREE / $0",
+			"en": "FREE / $0",
+			"kz": "FREE / $0",
+			"ar": "مجاني / $0",
+		},
+		"t2_pro": {
+			"kg": "$15,000 / жыл",
+			"ru": "$15,000 / год",
+			"en": "$15,000 / year",
+			"kz": "$15,000 / жыл",
+			"ar": "$15,000 / سنوياً",
+		},
+		"t3_web3": {
+			"kg": "$35,000 / жыл",
+			"ru": "$35,000 / год",
+			"en": "$35,000 / year",
+			"kz": "$35,000 / жыл",
+			"ar": "$35,000 / سنوياً",
 		},
 	}
 	return translations[key][lang]
@@ -57,7 +85,12 @@ func getTranslation(key, lang string) string {
 
 func GetDashboardHTML(clientName, serverID, lang string) string {
 	direction := "ltr"
-	if lang == "ar" { direction = "rtl" }
+	textAlign := "left"
+	if lang == "ar" { 
+		direction = "rtl" 
+		textAlign = "right"
+	}
+
 	return `<!DOCTYPE html>
 <html lang='` + lang + `' dir='` + direction + `'>
 <head>
@@ -76,13 +109,17 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.scan-input { width: 60%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; }
 		.scan-btn { background: #004d40; color: white; padding: 14px 30px; font-size: 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
 		.footer { text-align: center; margin-top: 40px; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
-		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; }
+		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; direction: ` + direction + `; }
 		.tariff-table th, .tariff-table td { padding: 15px; border: 1px solid #cbd5e1; font-size: 14px; }
-		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+		.tariff-free { background-color: #f0fdf4; color: #16a34a; }
+		.tariff-premium { background-color: #faf5ff; color: #7c3aed; }
+		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 		.btn-doc:hover { background-color: #f3cd44; }
-		.build-box { background-color: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 30px; text-align: left; }
-		html[dir="rtl"] .build-box { text-align: right; }
+		.build-box { background-color: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 30px; text-align: ` + textAlign + `; }
 		.status-badge { background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 13px; }
+		.links-container { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
+		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
+		.links-container a:hover { text-decoration: underline; }
 	</style>
 </head>
 <body>
@@ -106,22 +143,28 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				<button type='submit' class='scan-btn'>` + getTranslation("scan_btn", lang) + `</button>
 			</form>
 		</div>
-		<h2 style='color:#0a2540; border-bottom:2px solid #e2e8f0; padding-bottom:10px;'>💰 SaaS Лицензии / Licenses</h2>
+		
+		<h2 style='text-align:` + textAlign + `; color:#0a2540; border-bottom:2px solid #e2e8f0; padding-bottom:10px;'>` + getTranslation("saas_title", lang) + `</h2>
 		<table class='tariff-table'>
 			<tr style='background:#f8fafc;'>
-				<th><b>Global Scanner</b><br><span style='color:#16a34a;'>FREE</span></th>
-				<th><b>Compliance Pro</b><br><span>$15,000 / год</span></th>
-				<th style='background:#faf5ff;'><b>Quantum Web3</b><br><span style='color:#7c3aed;'>$35,000 / год</span></th>
+				<th class='tariff-free'><b>Global Scanner</b><br><span>` + getTranslation("t1_free", lang) + `</span></th>
+				<th><b>Compliance Pro</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
+				<th class='tariff-premium'><b>Quantum Web3</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
 			</tr>
 		</table>
+		
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
+		
+		<div class='links-container'>
+			<a href='/specification?lang=` + lang + `'>📄 Описание кнопки / Specification Info</a>
+			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>🤖 ПО «АнтиХакер AI» / AI-AntiHacker</a>
+		</div>
+
 		<div class='build-box'>
 			<h4 style='margin-top:0; color:#0a2540; font-size:16px;'>` + getTranslation("build_title", lang) + ` <span class='status-badge'>✓ Live</span></h4>
 			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
 		</div>
-		<div class='footer'>
-			<p>© 2026 KvantumSafe Pro.</p>
-		</div>
+		<div class='footer'><p>© 2026 ОсОО «Квантум Сейф». Все права защищены.</p></div>
 	</div>
 </body>
 </html>`
@@ -132,20 +175,4 @@ func activeClass(current, target string) string {
 	return ""
 }
 
-func GetSpecificationText(lang string) string {
-	if lang == "kg" {
-		return "ПРОГРАММАЛЫК КАМСЫЗДООНУН ТЕХНИКАЛЫК СПЕЦИФИКАЦИЯСЫ\nУкук ээси: ОсОО 'Kvantum Safe' (Кыргыз Республикасы)\n\nПК 'KvantumSafe Pro' коопсуздук стандарттарына ылайык тармактык комплаенсти контролдоо жана маалыматтардын транспорттук каттамдарын Crypto-Agility технологиялары боюнча акылды башкаруу үчүн иштелип чыккан. Программалык камсыздоо криптографиялык алгоритмдерди өз алдынча иштеп чыкпайт жана шифрлөө каражаты (СКЗИ) болуп эсептелбейт."
-	}
-	if lang == "kz" {
-		return "БАҒДАРЛАМАЛЫҚ ҚҰРАЛДЫҢ ТЕХНИКАЛЫҚ СИПАТТАМАСЫ\nҚұқық иеленуші: ОсОО 'Kvantum Safe'\n\nЖелілік қауіпсіздікті автоматты түрде тексеру және деректерді қорғауды ақылды басқару модулі."
-	}
-	return "TECHNICAL SPECIFICATION & B2B COMMERCIAL OFFER\nCompany: Kvantum Safe LLC\n\nKvantumSafe Pro functions as an intelligent network coordinator. The software does not independently develop cryptographic algorithms and is not an encryption tool."
-}
-
 func GetPerimeterReportHTML(lang, domain string) string {
-	return "<html><head><meta charset='UTF-8'></head><body style='font-family:sans-serif;padding:40px;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='color:#0a2540;font-weight:bold;text-decoration:none;'>← Артка / Назад / Back</a></p><h2>Жыйынтык / Audit Report</h2><p style='color:#b71c1c;font-weight:bold;font-size:18px;'>⚠️ КОРКУНУЧ ТУУДУРГАН АБАЛ / CRITICAL THREAT DETECTED</p><p><b>Объект:</b> " + domain + "</p></body></html>"
-}
-
-func GetBillingPageHTML(clientName, lang string) string {
-	return "<html><body><h2>Billing Panel (" + lang + ")</h2></html>"
-}
