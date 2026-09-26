@@ -73,8 +73,8 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
 		
 		<div class='links-container'>
-			<a href='/specification?lang=` + lang + `'>📄 Описание кнопки / Specification Info</a>
-			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>🤖 ПО «АнтиХакер AI» / AI-AntiHacker</a>
+			<a href='/specification?lang=` + lang + `'>` + getTranslation("link_spec", lang) + `</a>
+			<a href='/antihacker?lang=` + lang + `' style='color:#7c3aed;'>` + getTranslation("link_anti", lang) + `</a>
 		</div>
 
 		<div class='build-box'>
