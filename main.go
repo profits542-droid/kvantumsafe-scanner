@@ -86,7 +86,6 @@ func main() {
 				botMsg.style = "max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; background: #e2e8f0; color: #1e293b; align-self: flex-start;";
 				var lowText = text.toLowerCase();
 				
-				// ИНТЕЛЛЕКТУАЛЬНЫЙ АНАЛИЗ ВОПРОСОВ НА ВСЕХ ЯЗЫКАХ (ВКЛЮЧАЯ КАЗАХСКИЙ)
 				if (lowText.includes("nist") || lowText.includes("немене") || lowText.includes("алгоритм") || lowText.includes("квант") || lowText.includes("algorithm")) {
 					botMsg.innerHTML = "` + getTranslation("bot_ans_nist", lang) + `";
 				} else if (lowText.includes("встреч") || lowText.includes("купить") || lowText.includes("цена") || lowText.includes("meet") || lowText.includes("buy") || lowText.includes("кездесу")) {
@@ -102,7 +101,6 @@ func main() {
 </body>
 </html>`
 		
-		// ДОБАВЛЯЕМ ОФИЦИАЛЬНЫЙ КЛИКАБЕЛЬНЫЙ БЭДЖ ВЕРИФИКАЦИИ СБОРКИ С СЫЛКОЙ НА RENDER ТАМ, ГДЕ СТРЕЛКА
 		renderBadge := `<a href='https://render.com' target='_blank'><img src='https://render.com' alt='Render Deploy Status' style='vertical-align:middle; margin-left:10px;'></a>`
 		htmlPage = strings.Replace(htmlPage, "✓ Live", "✓ Live " + renderBadge, 1)
 		
