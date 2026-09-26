@@ -21,9 +21,9 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	if err != nil { return info }
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts[0]
-		info.ServerID = parts[2]
-		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil {
+		info.ClientName = parts
+		info.ServerID = parts
+		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -78,4 +78,7 @@ func main() {
 			"It orchestrates pre-existing certified hardware security modules (HSM) inside your organization's server infrastructure."
 		_, _ = w.Write([]byte(englishDoc))
 	})
+
+	server := &http.Server{Addr: ":8080", ReadHeaderTimeout: 3 * time.Second}
+	_ = server.ListenAndServe()
 }
