@@ -19,11 +19,13 @@ func VerifyLicenseKey(encodedKey string) LicenseInfo {
 	info := LicenseInfo{IsValid: false, DaysLeft: 0}
 	decodedBytes, err := base64.StdEncoding.DecodeString(encodedKey)
 	if err != nil { return info }
+	
 	parts := strings.Split(string(decodedBytes), "|")
 	if len(parts) == 3 {
-		info.ClientName = parts
-		info.ServerID = parts
-		if expTime, err := time.Parse("2006-01-02", parts); err == nil {
+		info.ClientName = parts[0] // Первый элемент массива - имя клиента
+		info.ServerID = parts[2]   // Третий элемент массива - ID сервера
+		
+		if expTime, err := time.Parse("2006-01-02", parts[1]); err == nil { // Второй элемент - дата
 			if time.Now().Before(expTime) {
 				info.IsValid = true
 				info.DaysLeft = int(expTime.Sub(time.Now()).Hours() / 24)
@@ -54,7 +56,6 @@ func main() {
 		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
 	})
 
-	// Страница описания золотой кнопки (Автономный HTML)
 	http.HandleFunc("/specification", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -62,7 +63,6 @@ func main() {
 		_, _ = w.Write([]byte(htmlDoc))
 	})
 
-	// Страница презентации АнтиХакер AI (Автономный HTML)
 	http.HandleFunc("/antihacker", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -70,7 +70,6 @@ func main() {
 		_, _ = w.Write([]byte(htmlDoc))
 	})
 
-	// Умный роутер скачивания текстовых документов по языку сессии
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		if lang == "" { lang = "kg" }
