@@ -55,18 +55,20 @@ func main() {
 		_, _ = w.Write([]byte(GetPerimeterReportHTML(lang, html.EscapeString(domainName))))
 	})
 
+	// Страница описания золотой кнопки (Вшита прямо в ядро)
 	http.HandleFunc("/specification", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
-		if lang == "" { lang = "kg" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetSpecificationPageHTML(lang)))
+		htmlDoc := "<html><head><meta charset='UTF-8'><title>Specification Info</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;'><p><a href='/?lang=" + lang + "'>← Назад / Back</a></p><h2>Функционал Золотой Кнопки / Yellow Button Logic</h2><p>При нажатии на главную кнопку система автоматически генерирует официальный защищенный файл спецификации софта (TXT) для предоставления ИТ-департаментам банков.</p></body></html>"
+		_, _ = w.Write([]byte(htmlDoc))
 	})
 
+	// Страница презентации АнтиХакер AI (Вшита прямо в ядро)
 	http.HandleFunc("/antihacker", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
-		if lang == "" { lang = "kg" }
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(GetAntiHackerPageHTML(lang)))
+		htmlDoc := "<html><head><meta charset='UTF-8'><title>KvantumSafe AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:800px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;'>← Назад / Back</a></p><h2 style='color:#d4af37;'>🤖 KvantumSafe AI-AntiHacker (Guard Engine)</h2><p><b>Статус разработки:</b> Автономный оборонный комплекс нового поколения от ОсОО «Квантум Сейф».</p><p>ПО построено на гибридном стеке <b>Go + Rust</b> с привлечением локальных самообучающихся ИИ-моделей TinyML. Комплекс осуществляет низкоуровневый контроль оперативной памяти, выполняет Device Fingerprinting и блокирует любые попытки логического фрода транзакций в реальном времени.</p></body></html>"
+		_, _ = w.Write([]byte(htmlDoc))
 	})
 
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
