@@ -23,7 +23,8 @@ func GetAntiHackerPageHTML(lang string) string {
 		desc = "<b>Иштеп чыгуу статусу:</b> «Квантум Сейф» ОсООсунан жаңы муундагы өзүнчө автономдуу коргонуу программалык комплекси."
 		back = "← Артка"
 	}
-	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'>← Назад / Back</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
+	// Ювелирно подставляем переменную back вместо статического текста
+	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'> " + back + "</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
 }
 
 func GetComparisonTableHTML(textAlign string) string {
@@ -72,7 +73,7 @@ func GetFullDownloadOffer(lang string) string {
 Базовый инструмент для оперативного экспресс-анализа внешних сетевых шлюзов ИТ-инфраструктуры организации.
 
 2. ТАРИФ «ПО АНТИХАКЕР AI» — 19 000 долларов США / год
-Автономный оборонный программный комплекс СЕЙЧАС. Предназначен для развертывания внутри закрытого серверного контура financial организации. Включает в себя:
+Автономный оборонный программный комплекс СЕЙЧАС. Предназначен для развертывания внутри закрытого серверного контура финансовой организации. Включает в себя:
  - Модуль Hardware Device Fingerprinting (Стек Rust): опрашивает регистры процессоров, считывает неизменяемый аппаратный ID и предотвращает атаки типа 'Человек по средине' (MitM).
  - Модуль TinyML Аномалий (Стек Go): на лету анализирует тайминги транзакционных пакетов XML/ISO-20022 и блокирует логические атаки классов Reentrancy и Flash-Loan фрода за 0.002 секунды до списания средств.
  - Модуль Изоляции Памяти: осуществляет непрерывный фоновый контроль оперативной памяти (RAM) серверов банка и блокирует хакерские инъекции вредоносного кода.
