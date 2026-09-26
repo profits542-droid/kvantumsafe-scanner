@@ -17,7 +17,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
 		.navbar { background-color: #0a2540; color: white; padding: 35px 40px; text-align: center; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 		.navbar h1 { margin: 0; font-size: 26px; font-weight: 600; }
-		.navbar p { margin: 8px 0 15px 0; color: #cbd5e1; font-size: 15px; }
+		.navbar p { margin: 8px 0 15px 0; color: #94a3b8; font-size: 14px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); }
 		.lang-switcher { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
 		.lang-switcher a { color: #cbd5e1; text-decoration: none; font-weight: bold; font-size: 14px; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; }
 		.lang-switcher a:hover, .lang-switcher a.active { color: white; background: #004d40; }
@@ -28,7 +28,8 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.footer { text-align: center; margin-top: 40px; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
 		.tariff-table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; direction: ` + direction + `; }
 		.tariff-table th, .tariff-table td { padding: 15px; border: 1px solid #cbd5e1; font-size: 14px; }
-		.tariff-free { background-color: #f0fdf4; color: #16a34a; }
+		.tariff-free { background-color: #f8fafc; color: #64748b; }
+		.tariff-pro { background-color: #f0fdf4; color: #16a34a; font-weight: bold; }
 		.tariff-premium { background-color: #faf5ff; color: #7c3aed; }
 		.btn-doc { display: block; width: 80%; margin: 30px auto 10px auto; background-color: #d4af37; color: #0a2540; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 		.btn-doc:hover { background-color: #f3cd44; }
@@ -64,9 +65,9 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		<h2 style='text-align:` + textAlign + `; color:#0a2540; border-bottom:2px solid #e2e8f0; padding-bottom:10px;'>` + getTranslation("saas_title", lang) + `</h2>
 		<table class='tariff-table'>
 			<tr style='background:#f8fafc;'>
-				<th class='tariff-free'><b>Global Scanner</b><br><span>` + getTranslation("t1_free", lang) + `</span></th>
-				<th><b>Compliance Pro</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
-				<th class='tariff-premium'><b>Quantum Web3</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
+				<th class='tariff-free' style='width:33%;'><b>Global Scanner</b><br><span>` + getTranslation("t1_free", lang) + `</span></th>
+				<th class='tariff-pro' style='width:33%; border: 2px solid #16a34a;'><b>ПО АнтиХакер AI</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
+				<th class='tariff-premium' style='width:33%;'><b>Quantum Web3 (SDK v2.6)</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
 			</tr>
 		</table>
 		
