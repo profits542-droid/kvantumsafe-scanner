@@ -46,13 +46,13 @@ func GetComparisonTableHTML(lang string) string {
 			</tr>
 			<tr class='comp-row'>
 				<td><b>` + getTableTranslation("tbl_r2_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
 				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r2_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
 				<td><b>` + getTableTranslation("tbl_r3_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r3_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_yes", cleanLang) + `</small></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r3_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r3_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r3_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
 				<td><b>` + getTableTranslation("tbl_r4_c1", cleanLang) + `</b></td>
@@ -96,3 +96,15 @@ func GetFullDownloadOffer(lang string) string {
 
 Программный комплекс поставляется на физической защищенной Flash-карте с жесткой привязкой к оборудованию Вашего банка.`
 }
+
+// ПЕРЕНЕСЕННАЯ ФУНКЦИЯ ДЛЯ 100% СТАКОВКИ ФАЙЛОВ ПАКЕТА
+func getFooterTranslation(key, lang string) string {
+	footerTexts := map[string]map[string]string{
+		"f_h1": { "ru": "Правообладатель", "kg": "Укук ээси", "en": "Copyright Owner", "kz": "Құқық иеленуші", "ar": "صاحب الحقوق" },
+		"f_p1": { 
+			"ru": "Государственная регистрация финансово-оборонного софта нового поколения.", 
+			"kg": "Жаңы муундагы каржылык-коргонуу программалык камсыздоосун мамлекеттик каттоо.", 
+			"en": "State registration of next-generation financial and defense software.", 
+			"kz": "Жаңа буынның қаржылық және қорғаныс бағдарламалық құралын мемлекеттік тіркеу.", 
+			"ar": "التسجيل الحكومي لبرامج الدفاع والمالية من الجيل الجديد.",
+		},
