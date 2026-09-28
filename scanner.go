@@ -118,8 +118,8 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				</div>
 				<div class='footer-section'>
 					<h4>` + getFooterTranslation("f_h2", lang) + `</h4>
-					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
-					<p>Центральный узел: +996 (777) 57-99-70</p>
+					<p>` + getFooterTranslation("f_dept", lang) + ` <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
+					<p>` + getFooterTranslation("f_node", lang) + ` +996 (777) 57-99-70</p>
 				</div>
 				<div class='footer-section'>
 					<h4>` + getFooterTranslation("f_h3", lang) + `</h4>
