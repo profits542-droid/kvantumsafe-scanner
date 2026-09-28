@@ -111,25 +111,25 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		<div class='footer-corporate'>
 			<div class='footer-grid'>
 				<div class='footer-section'>
-					<h4>` + getTranslation("f_h1", lang) + `</h4>
+					<h4>` + getFooterTranslation("f_h1", lang) + `</h4>
 					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
-					<p>` + getTranslation("f_p1", lang) + `</p>
-					<p>` + getTranslation("f_loc", lang) + `</p>
+					<p>` + getFooterTranslation("f_p1", lang) + `</p>
+					<p>` + getFooterTranslation("f_loc", lang) + `</p>
 				</div>
 				<div class='footer-section'>
-					<h4>` + getTranslation("f_h2", lang) + `</h4>
+					<h4>` + getFooterTranslation("f_h2", lang) + `</h4>
 					<p>B2B Департамент: <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
 					<p>Центральный узел: +996 (777) 57-99-70</p>
 				</div>
 				<div class='footer-section'>
-					<h4>` + getTranslation("f_h3", lang) + `</h4>
-					<p style='font-size:12px; margin-bottom:8px;'>` + getTranslation("f_p2", lang) + `</p>
+					<h4>` + getFooterTranslation("f_h3", lang) + `</h4>
+					<p style='font-size:12px; margin-bottom:8px;'>` + getFooterTranslation("f_p2", lang) + `</p>
 					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
 					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
 				</div>
 			</div>
 			<div class='footer-bottom'>
-				<p>` + getTranslation("f_bottom", lang) + `</p>
+				<p>` + getFooterTranslation("f_bottom", lang) + `</p>
 			</div>
 		</div>
 
