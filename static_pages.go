@@ -1,3 +1,5 @@
+
+```go
 package main
 
 func GetSpecificationPageHTML(lang string) string {
@@ -7,7 +9,7 @@ func GetSpecificationPageHTML(lang string) string {
 
 	if lang == "kg" {
 		title = "Алтын Түйнөктүн Техникалык Регламенти"
-		desc = "Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги сервердин ядросу кардардын сессиясынын тилин аныктайт жана өзгчөлөнгөн тексттик документти (TXT) түзөт."
+		desc = "Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги сервердин ядросу кардардын сессиясынын тилин аныктайт жана өзгөчөлөнгөн тексттик документти (TXT) түзөт."
 		back = "← Артка"
 	}
 	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>" + back + "</a></p><h2 style='color:#0a2540; border-bottom:2px solid #cbd5e1; padding-bottom:10px;'>🛡️ " + title + "</h2><p style='font-size:16px; color:#334155; text-align:justify;'>" + desc + "</p></body></html>"
@@ -26,69 +28,63 @@ func GetAntiHackerPageHTML(lang string) string {
 	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'> " + back + "</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
 }
 
-func GetComparisonTableHTML(textAlign string) string {
-	return `<h3 class='comp-heading'>📊 Сравнение технологий: Обычные антивирусы vs ПО «АнтиХакер AI»</h3>
+// УЛЬТРА-ЧИСТАЯ ПОЛНОСТЬЮ ЛОКАЛИЗОВАННАЯ МАТРИЦА СРАВНЕНИЯ ТЕХНОЛОГИЙ БЕЗ ОБРЕЗАНИЙ КАВЫЧЕК
+func GetComparisonTableHTML(lang string) string {
+	return `<h3 class='comp-heading'>` + getTranslation("tbl_main_title", lang) + `</h3>
 		<table class='comp-table'>
 			<tr>
-				<th style='width:40%;'>Критерий защиты инфраструктуры</th>
-				<th style='width:30%; background-color:#475569;'>Обычный антивирус / Серверный сканер</th>
-				<th style='width:30%; background-color:#1e3a8a;'>ПО «АнтиХакер AI» (KvantumSafe)</th>
+				<th style='width:40%;'>` + getTranslation("tbl_h1", lang) + `</th>
+				<th style='width:30%; background-color:#475569;'>` + getTranslation("tbl_h2", lang) + `</th>
+				<th style='width:30%; background-color:#1e3a8a;'>` + getTranslation("tbl_h3", lang) + `</th>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>Принцип обнаружения угроз</b></td>
-				<td><span class='badge-no'>Только по базам (Сигнатурный)</span><br><small style='color:#64748b;'>Ищет только старые, уже известные вирусы.</small></td>
-				<td><b><span class='badge-yes'>Проактивный нейросетевой TinyML</span></b><br><small style='color:#64748b;'>Выявляет новые угрозы нулевого дня на лету.</small></td>
+				<td><b>` + getTranslation("tbl_c1_t", lang) + `</b></td>
+				<td><span class='badge-no'>` + getTranslation("tbl_c1_no", lang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_c1_no_sub", lang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTranslation("tbl_c1_yes", lang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_c1_yes_sub", lang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>Защита от логических атак фрода</b></td>
-				<td><span class='badge-no'>Отсутствует полностью</span><br><small style='color:#64748b;'>Не видит манипуляции со смарт-контрактами.</small></td>
-				<td><b><span class='badge-yes'>Блокировка за 0.002 секунды</span></b><br><small style='color:#64748b;'>Останавливает Reentrancy и Flash-Loan атаки.</small></td>
+				<td><b>` + getTranslation("tbl_c2_t", lang) + `</b></td>
+				<td><span class='badge-no'>` + getTranslation("tbl_c2_no", lang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_c2_no_sub", lang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTranslation("tbl_c2_yes", lang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_c2_yes_sub", lang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>Защита оперативной памяти (RAM)</b></td>
-				<td><span class='badge-no'>Поверхностное фоновое сканирование</span><br><small style='color:#64748b;'>Пропускает скрытые инъекции вредоносного кода.</small></td>
-				<td><b><span class='badge-yes'>Stealth-изоляция секторов RAM</span></b><br><small style='color:#64748b;'>Мгновенно изолирует атакуемый сектор ядра.</small></td>
+				<td><b>` + getTranslation("tbl_c3_t", lang) + `</b></td>
+				<td><span class='badge-no'>` + getTranslation("tbl_c3_no", lang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_c3_no_sub", lang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTranslation("tbl_c3_yes", lang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_c3_yes_sub", lang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>Аппаратная верификация нод</b></td>
-				<td><span class='badge-no'>Отсутствует</span><br><small style='color:#64748b;'>Уязвим к подмене серверов хакерами (MitM).</small></td>
-				<td><b><span class='badge-yes'>Rust Device Fingerprinting</span></b><br><small style='color:#64748b;'>Жестко привязывается к неизменяемому ID процессора.</small></td>
+				<td><b>` + getTranslation("tbl_c4_t", lang) + `</b></td>
+				<td><span class='badge-no'>` + getTranslation("tbl_c4_no", lang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_c4_no_sub", lang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTranslation("tbl_c4_yes", lang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_c4_yes_sub", lang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>Юридическая чистота (Без СКЗИ)</b></td>
-				<td><span class='badge-no'>Требует госсистем лицензирования</span><br><small style='color:#64748b;'>Сложный комплаенс-контроль софта.</small></td>
-				<td><b><span class='badge-yes'>100% Свободное обращение</span></b><br><small style='color:#64748b;'>Не содержит СКЗИ, не требует лицензий регуляторов.</small></td>
+				<td><b>` + getTranslation("tbl_c5_t", lang) + `</b></td>
+				<td><span class='badge-no'>` + getTranslation("tbl_c5_no", lang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_c5_no_sub", lang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTranslation("tbl_c5_yes", lang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_c5_yes_sub", lang) + `</small></td>
 			</tr>
 		</table>`
 }
 
 func GetFullDownloadOffer(lang string) string {
-	// Дорогой, понятный любому нетехническому руководителю B2B-оффер без сложных ИТ-терминов
-	return `ОФИЦИАЛЬНОЕ КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ И ТАРИФНАЯ СЕТКА ДЛЯ РУКОВОДСТВА БАНКА
-Разработчик и правообладатель: ОсОО «Квантум Сейф» (г. Ош, Кыргызская Республика)
+	return `ОФИЦИАЛЬНАЯ ТЕХНИЧЕСКАЯ СПЕЦИФИКАЦИЯ И ТАРИФНАЯ СЕТКА КОРПОРАТИВНОГО B2B-ОФФЕРА
+Правообладатель: Общество с ограниченной ответственностью «Квантум Сейф» (ОсОО «Квантум Сейф», г. Ош, КР)
 
-Уважаемый Председатель Правления / Директор по безопасности! 
-Ниже представлена простая и понятная расшифровка защитных программных пакетов, которые оградят ваш банк от финансовых потерь, кражи денег со счетов и репутационных рисков.
-
-ДОСТУПНЫЕ ВАРИАНТЫ КОРПОРАТИВНЫХ ЛИЦЕНЗИЙ И СТОИМОСТЬ:
+ДОСТУПНЫЕ КОРПОРАТИВНЫЕ ЛИЦЕНЗИИ И СТОИМОСТЬ ПОДПИСКИ:
 
 1. ТАРИФ «GLOBAL SCANNER» — БЕСПЛАТНО / USD 0
-- ЧТО ЭТО ТАКОЕ: Базовый поверхностный инструмент («экспресс-термометр»).
-- КАК ПОМОГАЕТ БАНКУ: Проверяет внешние двери вашего сайта в реальном времени. Показывает, какие шлюзы забыли закрыть ваши ИТ-специалисты и где хакеры могут начать прощупывать систему.
+Базовый инструмент для оперативного экспресс-анализа внешних сетевых шлюзов ИТ-инфраструктуры организации.
 
 2. ТАРИФ «ПО АНТИХАКЕР AI» — 19 000 долларов США / год
-- ЧТО ЭТО ТАКОЕ: Мощный невидимый щит, который ставится внутрь серверов банка для защиты от взломов и воровства денег ПРЯМО СЕЙЧАС.
-- КАК ПОМОГАЕТ БАНКУ:
-  - Цифровой паспорт компьютерного железа: Программа намертво привязывается к заводскому номеру процессора вашего банка. Хакер не сможет подменить сервер или перехватить управление транзакциями снаружи.
-  - Скоростная блокировка умного мошенничества: Искусственный интеллект проверяет платежи и за 0.002 секунды автоматически останавливает хитрые хакерские схемы по выводу балансов со счетов до того, как деньги уйдут.
-  - Невидимый охранник оперативной памяти: Круглосуточно следит за памятью серверов и блокирует любые попытки злоумышленников внедрить вирусный код прямо в работающие процессы банка.
+Автономный оборонный программный комплекс СЕЙЧАС. Предназначен для развертывания внутри закрытого серверного контура финансовой организации. Включает в себя:
+ - Модуль Hardware Device Fingerprinting (Стек Rust): опрашивает регистры процессоров, считывает неизменяемый аппаратный ID и предотвращает атаки типа 'Человек по средине' (MitM).
+ - Модуль TinyML Аномалий (Стек Go): на лету анализирует тайминги транзакционных пакетов XML/ISO-20022 и блокирует логические атаки классов Reentrancy и Flash-Loan фрода за 0.002 секунды до списания средств.
+ - Модуль Изоляции Памяти: осуществляет непрерывный фоновый контроль оперативной памяти (RAM) серверов банка и блокирует хакерские инъекции вредоносного кода.
 
-3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ ЗАЩИТА И БЕЗОПАСНОСТЬ) — 35 000 долларов США / год
-- ЧТО ЭТО ТАКОЕ: Абсолютная защита высшего уровня на базе системы KvantumSafe Pro Framework SDK (версия 2.6). Включает в себя вообще все наши технологии в один клик.
-- ЧТО ВХОДИТ В ПАКЕТ:
-  - Все защитные модули от взломов и кражи денег из тарифа «ПО АнтиХакер AI» (Защита ПРЯМО СЕЙЧАС).
-  - Умный комплаенс-сейф (Внутренний сканер контроля баз данных): Автоматический фоновый ревизор. Он на лету находит важные резервные копии баз данных SQL, мгновенно стирает их из общей видимости и прячет под строжайшие права доступа стандарта POSIX 0600. Если хакер проникнет внутрь сети, он физически не сможет скопировать или стереть ваши бэкапы клиентов.
-  - Защитный бронеконтейнер против суперкомпьютеров будущего (Защита ПОТОМ): Упаковывает международные переводы (SWIFT, XML) в новые защитные криптоконтейнеры по строгим стандартам США (NIST ML-KEM) и суверенным стандартам Китая GmSSL (SM4-GCM). Это гарантирует, что хакеры не смогут украсть ваши данные сейчас, чтобы расшифровать их потом на квантовых компьютерах.
+3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ ЗАЩИТА / КВАНТОВОЕ БЕССМЕРТИЕ) — 35 000 долларов США / год
+Максимальный оборонный комплекс на базе ядра KvantumSafe Pro Framework SDK (версия 2.6). Включает в себя полный пакет защитных модулей:
+ - Все модули тарифа 'ПО АнтиХакер AI' для принудительного отражения текущих хакерских взломов и фрода в оперативной памяти СЕЙЧАС.
+ - Модуль внутреннего сканера комплаенс-контроля (Stealth-сейф) для перманентного маскирования и принудительной изоляции резервных копий баз данных SQL под строгие права доступа стандарта POSIX 0600.
+ - Интеллектуальный транзитный диспетчер и гибридный постквантовый оркестратор трансграничных платежей. Наше программное ядро осуществляет сквозную контейнеризацию и безопасную маршрутизацию потоков данных (SWIFT, XML) как в международных криптоконтейнерах на базе решеток нового поколения по стандартам NIST (ML-KEM), так и в суверенных азиатских шлюзах по государственным стандартам Китая GmSSL (алгоритмы семейства SM4-GCM). Гарантирует абсолютную защиту от скачивания данных сейчас и их последующего взлома сторонними вычислительными системами ПОТОМ.
 
-Программный комплекс поставляется на физической защищенной Flash-карте с жесткой привязкой к оборудованию Вашего банка.`
+Поставляется на защищенном физическом Flash-носителе с жесткой привязкой к Hardware ID главного сервера Вашей организации.`
 }
