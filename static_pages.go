@@ -7,7 +7,7 @@ func GetSpecificationPageHTML(lang string) string {
 
 	if lang == "kg" {
 		title = "Алтын Түйнөктүн Техникалык Регламенти"
-		desc = "Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги serverдин ядросу кардардын сессиясынын тилин аныктайт жана өзгөчөлөнгөн тексттик документти (TXT) түзөт."
+		desc = "Бул веб-интерфейс программалык камсыздоонун техникалык документтерин динамикалык түрдө генерациялоо жана криптографиялык коопсуз депонирлөө функциясын аткарат. Түймени басканда, Go тилиндеги serverдин ядросу кардардын сессиясынын тилин аныктайт жана өзгчөлөнгөн тексттик документти (TXT) түзөт."
 		back = "← Артка"
 	}
 	return "<html><head><meta charset='UTF-8'><title>Specification</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#f4f7f6;'><p><a href='/?lang=" + lang + "' style='font-weight:bold;text-decoration:none;color:#0a2540;'>" + back + "</a></p><h2 style='color:#0a2540; border-bottom:2px solid #cbd5e1; padding-bottom:10px;'>🛡️ " + title + "</h2><p style='font-size:16px; color:#334155; text-align:justify;'>" + desc + "</p></body></html>"
@@ -15,7 +15,7 @@ func GetSpecificationPageHTML(lang string) string {
 
 func GetAntiHackerPageHTML(lang string) string {
 	title := "KvantumSafe AI-AntiHacker (Guard Engine)"
-	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
+	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) and на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
 	back := "← Назад / Back"
 
 	if lang == "kg" {
@@ -65,8 +65,4 @@ func GetComparisonTableHTML(lang string) string {
 				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r5_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r5_d_yes", cleanLang) + `</small></td>
 			</tr>
 		</table>`
-}
-
-func GetFullDownloadOffer(lang string) string {
-	return getTranslation("download_b2b_text", lang)
 }
