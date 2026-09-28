@@ -89,7 +89,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		<table class='tariff-table'>
 			<tr style='background:#f8fafc;'>
 				<th class='tariff-free' style='width:33%;'><b>Global Scanner</b><br><span>` + getTranslation("t1_free", lang) + `</span></th>
-				<th class='tariff-pro' style='width:33%; border: 2px solid #16a34a;'><b>ПО АнтиХакер AI</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
+				<th class='tariff-pro' style='width:33%; border: 2px solid #16a34a;'><b>AI-AntiHacker</b><br><span>` + getTranslation("t2_pro", lang) + `</span></th>
 				<th class='tariff-premium' style='width:33%;'><b>Quantum Web3 (SDK v2.6)</b><br><span>` + getTranslation("t3_web3", lang) + `</span></th>
 			</tr>
 		</table>
