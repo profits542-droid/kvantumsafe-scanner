@@ -32,37 +32,37 @@ func GetComparisonTableHTML(lang string) string {
 		cleanLang = "en"
 	}
 
-	return `<h3 class='comp-heading'>` + getTranslation("tbl_main_title", cleanLang) + `</h3>
+	return `<h3 class='comp-heading'>` + getTableTranslation("tbl_main_title", cleanLang) + `</h3>
 		<table class='comp-table'>
 			<tr>
-				<th style='width:40%;'>` + getTranslation("tbl_h1", cleanLang) + `</th>
-				<th style='width:30%; background-color:#475569;'>` + getTranslation("tbl_h2", cleanLang) + `</th>
-				<th style='width:30%; background-color:#1e3a8a;'>` + getTranslation("tbl_h3", cleanLang) + `</th>
+				<th style='width:40%;'>` + getTableTranslation("tbl_h1", cleanLang) + `</th>
+				<th style='width:30%; background-color:#475569;'>` + getTableTranslation("tbl_h2", cleanLang) + `</th>
+				<th style='width:30%; background-color:#1e3a8a;'>` + getTableTranslation("tbl_h3", cleanLang) + `</th>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>` + getTranslation("tbl_r1_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTranslation("tbl_r1_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r1_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTranslation("tbl_r1_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_r1_d_yes", cleanLang) + `</small></td>
+				<td><b>` + getTableTranslation("tbl_r1_c1", cleanLang) + `</b></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r1_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r1_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>` + getTranslation("tbl_r2_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTranslation("tbl_r2_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_r2_d_yes", cleanLang) + `</small></td>
+				<td><b>` + getTableTranslation("tbl_r2_c1", cleanLang) + `</b></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r2_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>` + getTranslation("tbl_r3_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r3_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTranslation("tbl_r3_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_r3_d_yes", cleanLang) + `</small></td>
+				<td><b>` + getTableTranslation("tbl_r3_c1", cleanLang) + `</b></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r3_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r1_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>` + getTranslation("tbl_r4_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTranslation("tbl_r4_d_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r4_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTranslation("tbl_r4_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_r4_d_yes", cleanLang) + `</small></td>
+				<td><b>` + getTableTranslation("tbl_r4_c1", cleanLang) + `</b></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r4_d_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r4_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r4_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r4_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
-				<td><b>` + getTranslation("tbl_r5_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTranslation("tbl_r5_d_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r5_d_no", cleanLang) + `</small></td>
-				<td><b><span class='badge-yes'>` + getTranslation("tbl_r5_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTranslation("tbl_r5_d_yes", cleanLang) + `</small></td>
+				<td><b>` + getTableTranslation("tbl_r5_c1", cleanLang) + `</b></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r5_d_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r5_d_no", cleanLang) + `</small></td>
+				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r5_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r5_d_yes", cleanLang) + `</small></td>
 			</tr>
 		</table>`
 }
@@ -84,7 +84,7 @@ func GetFullDownloadOffer(lang string) string {
 - ЧТО ЭТО ТАКОЕ: Мощный невидимый щит, который ставится внутрь серверов банка для защиты от взломов и воровства денег ПРЯМО СЕЙЧАС.
 - КАК ПОМОГАЕТ БАНКУ:
   - Цифровой паспорт компьютерного железа: Программа намертво привязывается к заводскому номеру процессора вашего банка. Хакер не сможет подменить сервер или перехватить управление транзакциями снаружи.
-  - Скоростная блокировка умного мошенничества: Искусственный интеллект проверяет платежи и за 0.002 секунды автоматически останавливает хитрые хакерские схемы по выводу балансов со счетов до того, как деньги уйдут.
+  - Скоростной блокировщик умного мошенничества: Искусственный интеллект проверяет платежи и за 0.002 секунды автоматически останавливает хитрые хакерские схемы по выводу балансов со счетов до того, как деньги уйдут.
   - Невидимый охранник оперативной памяти: Круглосуточно следит за памятью серверов и блокирует любые попытки злоумышленников внедрить вирусный код прямо в работающие процессы банка.
 
 3. ТАРИФ «QUANTUM WEB3» (МАКСИМАЛЬНАЯ ЗАЩИТА И БЕЗОПАСНОСТЬ) — 35 000 долларов США / год
