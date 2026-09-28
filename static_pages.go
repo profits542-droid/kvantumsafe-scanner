@@ -1,4 +1,3 @@
-```go
 package main
 
 func GetSpecificationPageHTML(lang string) string {
@@ -27,9 +26,7 @@ func GetAntiHackerPageHTML(lang string) string {
 	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'> " + back + "</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
 }
 
-// ВЫСОКОИНТЕЛЛЕКТУАЛЬНАЯ ДИНАМИЧЕСКАЯ ТАБЛИЦА СРАВНЕНИЯ НА 5 ЯЗЫКАХ
 func GetComparisonTableHTML(lang string) string {
-	// Безопасный фолбэк для арабского и казахского на английский язык внутри технической сетки таблицы
 	cleanLang := lang
 	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" && cleanLang != "kz" && cleanLang != "ar" {
 		cleanLang = "en"
@@ -77,7 +74,7 @@ func GetFullDownloadOffer(lang string) string {
 Уважаемый Председатель Правления / Директор по безопасности! 
 Ниже представлена простая и понятная расшифровка защитных программных пакетов, которые оградят ваш банк от финансовых потерь, кражи денег со счетов и репутационных рисков.
 
-ДОСТУПНЫЕ ВАРИАНТЫ КОРПОРАТИВНЫХ ЛИЦЕНЗИИ И СТОИМОСТЬ:
+ДОСТУПНЫЕ ВАРИАНТЫ КОРПОРАТИВНЫХ ЛИЦЕНЗИЙ И СТОИМОСТЬ:
 
 1. ТАРИФ «GLOBAL SCANNER» — БЕСПЛАТНО / USD 0
 - ЧТО ЭТО ТАКОЕ: Базовый поверхностный инструмент («экспресс-термометр»).
