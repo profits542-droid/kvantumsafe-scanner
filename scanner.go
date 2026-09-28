@@ -94,7 +94,8 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			</tr>
 		</table>
 
-		` + GetComparisonTableHTML(textAlign) + `
+		<!-- ПЕРЕДАЕМ ПАРАМЕТР LANG ДЛЯ ДИНАМИЧЕСКОГО ПЕРЕВОДА ТАБЛИЦЫ СРАВНЕНИЯ -->
+		` + GetComparisonTableHTML(lang) + `
 		
 		<a href='/download?lang=` + lang + `' class='btn-doc'>` + getTranslation("doc_btn", lang) + `</a>
 		
