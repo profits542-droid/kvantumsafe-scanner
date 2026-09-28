@@ -46,7 +46,7 @@ func GetComparisonTableHTML(lang string) string {
 			</tr>
 			<tr class='comp-row'>
 				<td><b>` + getTableTranslation("tbl_r2_c1", cleanLang) + `</b></td>
-				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
+				<td><span class='badge-no'>` + getTableTranslation("tbl_r2_b_no", cleanLang) + `</span><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_no", cleanLang) + `</small></td>
 				<td><b><span class='badge-yes'>` + getTableTranslation("tbl_r2_b_yes", cleanLang) + `</span></b><br><small style='color:#64748b;'>` + getTableTranslation("tbl_r2_d_yes", cleanLang) + `</small></td>
 			</tr>
 			<tr class='comp-row'>
@@ -97,7 +97,6 @@ func GetFullDownloadOffer(lang string) string {
 Программный комплекс поставляется на физической защищенной Flash-карте с жесткой привязкой к оборудованию Вашего банка.`
 }
 
-// ПЕРЕНЕСЕННАЯ ФУНКЦИЯ ДЛЯ 100% СТАКОВКИ ФАЙЛОВ ПАКЕТА
 func getFooterTranslation(key, lang string) string {
 	footerTexts := map[string]map[string]string{
 		"f_h1": { "ru": "Правообладатель", "kg": "Укук ээси", "en": "Copyright Owner", "kz": "Құқық иеленуші", "ar": "صاحب الحقوق" },
