@@ -38,6 +38,18 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
 
+		.comp-heading { text-align: ` + textAlign + `; color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
+		.comp-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; background: white; font-size: 13.5px; }
+		html[dir="rtl"] .comp-table { text-align: right; }
+		.comp-table th, .comp-table td { padding: 12px 15px; border: 1px solid #e2e8f0; line-height: 1.4; }
+		
+		/* КРИТИЧЕСКИЙ ФИКС ЦВЕТА БУКВ ШАПКИ СРАВНЕНИЯ ТЕХНОЛОГИЙ */
+		.comp-table th { color: white !important; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+		
+		.comp-row:nth-child(even) { background-color: #f8fafc; }
+		.badge-yes { background-color: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; display: inline-block; }
+		.badge-no { background-color: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 4px; font-weight: normal; font-size: 11px; display: inline-block; }
+
 		.footer-corporate { background-color: #0f172a; color: #94a3b8; padding: 40px; border-radius: 10px; margin-top: 40px; border-top: 3px solid #d4af37; text-align: left; }
 		html[dir="rtl"] .footer-corporate { text-align: right; }
 		.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
@@ -107,7 +119,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 					<p>` + getFooterTranslation("f_p1", lang) + `</p>
 					<p>` + getFooterTranslation("f_loc", lang) + `</p>
 				</div>
-				<div class='footer-section'>
+				<div class='navbar-section'>
 					<h4>` + getFooterTranslation("f_h2", lang) + `</h4>
 					<p>` + getFooterTranslation("f_dept", lang) + ` <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
 					<p>` + getFooterTranslation("f_node", lang) + ` +996 (777) 57-99-70</p>
