@@ -20,7 +20,7 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.navbar p { margin: 8px 0 15px 0; color: #94a3b8; font-size: 14px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); }
 		.lang-switcher { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
 		.lang-switcher a { color: #cbd5e1; text-decoration: none; font-weight: bold; font-size: 14px; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; }
-		.lang-switcher a:hover, .lang-switcher a.active { color: white; background: #004d40; }
+		.lang-switcher a:hover { color: white; background: #004d40; }
 		.content { max-width: 850px; background: white; margin: 40px auto; padding: 40px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); }
 		.scan-container { background: #e0f2f1; padding: 35px; border-radius: 10px; border: 2px dashed #004d40; text-align: center; margin: 20px 0; }
 		.scan-input { width: 60%; padding: 14px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 6px; margin-right: 10px; outline: none; }
@@ -70,11 +70,11 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		<h1>` + getTranslation("nav_title", lang) + `</h1>
 		<p>` + getTranslation("nav_sub", lang) + `</p>
 		<div class='lang-switcher'>
-			<a href='/?lang=kg' class='` + activeClass(lang, "kg") + `'>KG</a>
-			<a href='/?lang=ru' class='` + activeClass(lang, "ru") + `'>RU</a>
-			<a href='/?lang=en' class='` + activeClass(lang, "en") + `'>EN</a>
-			<a href='/?lang=kz' class='` + activeClass(lang, "kz") + `'>KZ</a>
-			<a href='/?lang=ar' class='` + activeClass(lang, "ar") + `'>AR</a>
+			<a href='/?lang=kg'>KG</a>
+			<a href='/?lang=ru'>RU</a>
+			<a href='/?lang=en'>EN</a>
+			<a href='/?lang=kz'>KZ</a>
+			<a href='/?lang=ar'>AR</a>
 		</div>
 	</div>
 	<div class='content'>
@@ -143,3 +143,12 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				</div>
 			</div>
 			<div class='footer-bottom'>
+				<p>` + getFooterTranslation("f_bottom", lang) + `</p>
+			</div>
+		</div>
+
+	<script>
+		function sendPrompt() {
+			var input = document.getElementById('chatInput');
+			var body = document.getElementById('chatBody');
+			var text = input.value.trim();
