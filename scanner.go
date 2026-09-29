@@ -38,17 +38,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
 
-		/* СТИЛИ КОРПОРАТИВНОГО ИИ ЧАТ-БОТА */
-		.chat-widget { position: fixed; bottom: 25px; right: 25px; width: 350px; background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); border: 1px solid #cbd5e1; display: flex; flex-direction: column; overflow: hidden; font-size: 14px; z-index: 9999; }
-		html[dir="rtl"] .chat-widget { right: auto; left: 25px; }
-		.chat-header { background: #0a2540; color: white; padding: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-		.chat-body { padding: 15px; height: 200px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
-		.msg-bot { background: #e2e8f0; padding: 10px; border-radius: 8px; border-bottom-left-radius: 0; color: #1e293b; max-width: 85%; align-self: flex-start; text-align: ` + textAlign + `; }
-		.msg-user { background: #004d40; color: white; padding: 10px; border-radius: 8px; border-bottom-right-radius: 0; max-width: 85%; align-self: flex-end; text-align: ` + textAlign + `; }
-		.chat-footer { padding: 10px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: white; }
-		.chat-input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; outline: none; }
-		.chat-send-btn { background: #0a2540; color: white; border: none; padding: 8px 14px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-
 		.footer-corporate { background-color: #0f172a; color: #94a3b8; padding: 40px; border-radius: 10px; margin-top: 40px; border-top: 3px solid #d4af37; text-align: left; }
 		html[dir="rtl"] .footer-corporate { text-align: right; }
 		.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
@@ -110,18 +99,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			<p style='font-size:14px; color:#475569; margin-bottom:0;'>` + getTranslation("build_desc", lang) + `</p>
 		</div>
 
-		<!-- ИНТЕГРАЦИЯ ИИ АССИСТЕНТА КВАНТУМ СЕЙФ -->
-		<div class='chat-widget'>
-			<div class='chat-header'>🤖 KvantumSafe AI Assistant</div>
-			<div class='chat-body' id='chatBody'>
-				<div class='msg-bot'>` + getTranslation("bot_welcome", lang) + `</div>
-			</div>
-			<div class='chat-footer'>
-				<input type='text' id='chatInput' class='chat-input' placeholder='` + getTranslation("bot_placeholder", lang) + `...'>
-				<button class='chat-send-btn' onclick='sendPrompt()'>&gt;</button>
-			</div>
-		</div>
-
 		<div class='footer-corporate'>
 			<div class='footer-grid'>
 				<div class='footer-section'>
@@ -146,9 +123,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 				<p>` + getFooterTranslation("f_bottom", lang) + `</p>
 			</div>
 		</div>
-
-	<script>
-		function sendPrompt() {
-			var input = document.getElementById('chatInput');
-			var body = document.getElementById('chatBody');
-			var text = input.value.trim();
+</body>
+</html>`
+}
