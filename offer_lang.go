@@ -1,6 +1,6 @@
 package main
-
-func GetFullDownloadOffer(lang string) string {
+func getOfferTranslationFromB2B(lang string) string {
+// ... далее идет весь текст условий if lang == ...
 	if lang == "kg" {
 		return `ПРОГРАММАЛЫК КАМСЫЗДООНУН ТЕХНИКАЛЫК СПЕЦИФИКАЦИЯСЫ ЖАНА КОРПОРАТИВДИК B2B СУНУШУ
 Укук ээси: «Квантум Сейф» ОсООсу (Ош ш., Кыргыз Республикасы)
