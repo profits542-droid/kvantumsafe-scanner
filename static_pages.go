@@ -37,15 +37,15 @@ func GetAntiHackerPageHTML(lang string) string {
 </head>
 <body style='font-family:sans-serif; padding:40px; line-height:1.6; max-width:850px; margin:auto; background:#0a2540; color:white; text-align:justify;'>
 	<p><a href='/?lang=` + cleanLang + `' style='color:#cbd5e1; text-decoration:none; font-weight:bold;'>` + backText + `</a></p>
-	<h2 style='color:#d4af37; margin-bottom:25px;'>🤖 ` + getTableTranslation("ah_title", cleanLang) + `</h2>
-	<p style='font-size:15px; color:#cbd5e1; margin-bottom:20px;'>` + getTableTranslation("ah_status", cleanLang) + `</p>
-	<p style='font-size:16px; color:#f1f5f9; margin-bottom:25px;'>` + getTableTranslation("ah_sub", cleanLang) + `</p>
+	<h2 style='color:#d4af37; margin-bottom:25px;'>🤖 ` + getAntiHackerPageText("ah_title", cleanLang) + `</h2>
+	<p style='font-size:15px; color:#cbd5e1; margin-bottom:20px;'>` + getAntiHackerPageText("ah_status", cleanLang) + `</p>
+	<p style='font-size:16px; color:#f1f5f9; margin-bottom:25px;'>` + getAntiHackerPageText("ah_sub", cleanLang) + `</p>
 	
 	<div style='background:rgba(255,255,255,0.05); padding:25px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; gap:18px;'>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p1", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p2", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p3", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p4", cleanLang) + `</p>
+		<p style='margin:0; font-size:15.5px;'>` + getAntiHackerPageText("ah_p1", cleanLang) + `</p>
+		<p style='margin:0; font-size:15.5px;'>` + getAntiHackerPageText("ah_p2", cleanLang) + `</p>
+		<p style='margin:0; font-size:15.5px;'>` + getAntiHackerPageText("ah_p3", cleanLang) + `</p>
+		<p style='margin:0; font-size:15.5px;'>` + getAntiHackerPageText("ah_p4", cleanLang) + `</p>
 	</div>
 </body>
 </html>`
