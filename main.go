@@ -35,19 +35,19 @@ func main() {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		fmt.Fprint(w, GetAntiHackerPageHTML(lang))
 	})
-
-		// 4. ИСПРАВЛЕННЫЙ МУЛЬТИЯЗЫЧНЫЙ ШЛЮЗ ЗОЛОТОЙ КНОПКИ (Прямой стабильный редирект)
+	// 4. ВОССТАНОВЛЕННЫЙ АВТОНОМНЫЙ ШЛЮЗ ЗОЛОТОЙ КНОПКИ (Прямая отдача текста в Загрузки)
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		lang := r.URL.Query().Get("lang")
 		if lang == "" {
 			lang = "ru"
 		}
-		// Получаем прямую надежную ссылку на файл спецификации
-		fileURL := getOfferTranslationFromB2B(lang)
+		offerContent := getOfferTranslationFromB2B(lang)
 		
-		// Перенаправляем браузер пользователя на мгновенное скачивание документа
-		http.Redirect(w, r, fileURL, http.StatusSeeOther)
+		w.Header().Set("Content-Disposition", "attachment; filename=kvantumsafe_specification_"+lang+".txt")
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		fmt.Fprint(w, offerContent)
 	})
+
 
 
 	// Имитация отчета сканирования периметра (Для демонстрации банкирам)
