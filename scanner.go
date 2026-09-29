@@ -38,15 +38,6 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 		.links-container a { color: #2563eb; font-weight: bold; text-decoration: none; font-size: 14px; }
 		.links-container a:hover { text-decoration: underline; }
 
-		.comp-heading { text-align: ` + textAlign + `; color: #0a2540; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
-		.comp-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; background: white; font-size: 13.5px; }
-		html[dir="rtl"] .comp-table { text-align: right; }
-		.comp-table th, .comp-table td { padding: 12px 15px; border: 1px solid #e2e8f0; line-height: 1.4; }
-		.comp-table th { background-color: #0a2540; color: white; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
-		.comp-row:nth-child(even) { background-color: #f8fafc; }
-		.badge-yes { background-color: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; display: inline-block; }
-		.badge-no { background-color: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 4px; font-weight: normal; font-size: 11px; display: inline-block; }
-
 		/* СТИЛИ КОРПОРАТИВНОГО ИИ ЧАТ-БОТА */
 		.chat-widget { position: fixed; bottom: 25px; right: 25px; width: 350px; background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); border: 1px solid #cbd5e1; display: flex; flex-direction: column; overflow: hidden; font-size: 14px; z-index: 9999; }
 		html[dir="rtl"] .chat-widget { right: auto; left: 25px; }
@@ -135,3 +126,20 @@ func GetDashboardHTML(clientName, serverID, lang string) string {
 			<div class='footer-grid'>
 				<div class='footer-section'>
 					<h4>` + getFooterTranslation("f_h1", lang) + `</h4>
+					<p style='font-weight:bold; color:#f1f5f9;'>ОсОО «Квантум Сейф»</p>
+					<p>` + getFooterTranslation("f_p1", lang) + `</p>
+					<p>` + getFooterTranslation("f_loc", lang) + `</p>
+				</div>
+				<div class='footer-section'>
+					<h4>` + getFooterTranslation("f_h2", lang) + `</h4>
+					<p>` + getFooterTranslation("f_dept", lang) + ` <a href='mailto:info@kvantumsafe.tech' class='footer-link'>info@kvantumsafe.tech</a></p>
+					<p>` + getFooterTranslation("f_node", lang) + ` +996 (777) 57-99-70</p>
+				</div>
+				<div class='footer-section'>
+					<h4>` + getFooterTranslation("f_h3", lang) + `</h4>
+					<p style='font-size:12px; margin-bottom:8px;'>` + getFooterTranslation("f_p2", lang) + `</p>
+					<a href='https://t.me' target='_blank' class='btn-messenger btn-tg'>Telegram</a>
+					<a href='https://wa.me' target='_blank' class='btn-messenger btn-wa'>WhatsApp</a>
+				</div>
+			</div>
+			<div class='footer-bottom'>
