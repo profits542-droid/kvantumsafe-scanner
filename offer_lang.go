@@ -1,11 +1,18 @@
 package main
 
-// Функция связи перенаправляет золотую кнопку на прямые стабильные файлы спецификаций
+// Функция связи возвращает точные прямые ссылки на сырые текстовые файлы репозитория
 func getOfferTranslationFromB2B(lang string) string {
-	return "https://githubusercontent.com_" + lang + ".txt"
+	if lang == "kg" {
+		return "https://githubusercontent.com"
+	}
+	if lang == "en" || lang == "ar" || lang == "kz" {
+		return "https://githubusercontent.com"
+	}
+	// Базовый фолбэк для русской локализации
+	return "https://githubusercontent.com"
 }
 
-// Легкая функция переводов для страницы АнтиХакера, без тяжелых текстовых массивов
+// Легкая функция переводов для страницы АнтиХакера
 func getAntiHackerPageText(key, lang string) string {
 	texts := map[string]map[string]string{
 		"ah_title": {
@@ -16,7 +23,7 @@ func getAntiHackerPageText(key, lang string) string {
 			"ar": "KvantumSafe AI-AntiHacker (Guard Engine)",
 		},
 		"ah_status": {
-			"ru": "<b>Статус разработки:</b> Действующий автономный программный комплекс нового поколения.",
+			"ru": "<b>Статус разработки:</b> Действующий автономный оборонный программный комплекс нового поколения.",
 			"kg": "<b>Иштеп чыгуу статусу:</b> Жаңы муундагы өзүнчө автономдуу коргонуу программалык комплекси.",
 			"en": "<b>Development Status:</b> Active next-generation autonomous cyber-defense software suite.",
 			"kz": "<b>Әзірлеу мәртебесі:</b> Жаңа буындағы автономды қорғаныс бағдарламалық кешені.",
@@ -27,7 +34,7 @@ func getAntiHackerPageText(key, lang string) string {
 			"kg": "<b>«AI-AntiHacker»</b> программалык комплекси <b>Web3-долбоорлорун, криптобиржаларды, необанктарды жана блокчейн-транзакцияларды</b> коргоо үчүн иштелип чыккан! 🚀🛡️",
 			"en": "The <b>'AI-AntiHacker'</b> software suite perfectly fits the defense of <b>Web3 projects, crypto exchanges, neobanks, and blockchain transactions!</b> 🚀🛡️",
 			"kz": "<b>«AI-AntiHacker»</b> кешені <b>Web3 жобаларын, криптобиржаларды, необанктерді және блокчейн-транзакцияларды</b> қорғауға арналған! 🚀🛡️",
-			"ar": "تم تصميم المنظومة البرمجية <b>'AI-AntiHacker'</b> كحل أمني شامل يناسب حماية <b>مشاريع Web3، منصات العملات الرقمية، البنوك الرقمية، ومعاملات блокчейн!</b> 🚀🛡️",
+			"ar": "تم تصميم المنظومة البرمجية <b>'AI-AntiHacker'</b> كحل أمني شامل يناسب حماية <b>مشاريع Web3، منصات العملات الرقمية, البنوك الرقمية، ومعاملات блокчейн!</b> 🚀🛡️",
 		},
 		"ah_p1": { "ru": "🔹 <b>Защита Web3:</b> Пресекает атаки Reentrancy на смарт-контракты за 0.002 сек.", "kg": "🔹 <b>Web3 Коргоо:</b> Смарт-контракттардагы Reentrancy чабуулдарын 0.002 секундда бөгөттөө.", "en": "🔹 <b>Web3 Safety:</b> Stops smart contract Reentrancy attacks within 0.002 seconds.", "kz": "🔹 <b>Web3 Қорғау:</b> Смарт-келісімшарттардағы Reentrancy шабуылдарын 0.002 секундта тоқтату.", "ar": "🔹 <b>حماية Web3:</b> تمنع هجمات Reentrancy على العقود الذكية خلال 0.002 ثانية." },
 		"ah_p2": { "ru": "🔹 <b>Криптобиржи:</b> Верификация и блокировка Flash-Loan фрода пулов ликвидности.", "kg": "🔹 <b>Криптобиржалар:</b> Ири ликвиддүүлүк пулдары менен аномалдуу фродду бөгөттөө.", "en": "🔹 <b>Crypto Exchanges:</b> Real-time Flash-Loan fraud detection and ledger isolation.", "kz": "🔹 <b>Криптобиржалар:</b> Ликвидтілік пулдарымен аномальды фродты заматта бұғаттау.", "ar": "🔹 <b>منصات التداول:</b> كشف ومنع احتيال القروض الخاطفة Flash-Loan فوراً." },
