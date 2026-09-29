@@ -14,41 +14,16 @@ func GetSpecificationPageHTML(lang string) string {
 }
 
 func GetAntiHackerPageHTML(lang string) string {
-	cleanLang := lang
-	if cleanLang != "ru" && cleanLang != "kg" && cleanLang != "en" && cleanLang != "kz" && cleanLang != "ar" {
-		cleanLang = "en"
+	title := "KvantumSafe AI-AntiHacker (Guard Engine)"
+	desc := "<b>Статус разработки:</b> Автономный оборонный программный комплекс нового поколения от ОсОО «Квантум Сейф».<br><br>Уникальное ИТ-решение на гибридном стеке <b>Go + Rust</b> с привлечением нейросетевых ИИ-моделей TinyML. Комплекс осуществляет фоновый контроль оперативной памяти, считывает уникальный аппаратный ID процессоров (Device Fingerprinting) и на лету блокирует хакерские логические атаки Reentrancy и Flash-Loan фрода транзакций финансовых организаций."
+	back := "← Назад / Back"
+
+	if lang == "kg" {
+		title = "KvantumSafe AI-AntiHacker (Guard Engine)"
+		desc = "<b>Иштеп чыгуу статусу:</b> «Квантум Сейф» ОсООсунан жаңы муундагы өзүнчө автономдуу коргонуу программалык комплекси."
+		back = "← Артка"
 	}
-
-	direction := "ltr"
-	if cleanLang == "ar" {
-		direction = "rtl"
-	}
-
-	backText := "← Назад / Back"
-	if cleanLang == "kg" { backText = "← Артка" }
-	if cleanLang == "kz" { backText = "← Артқа" }
-	if cleanLang == "ar" { backText = "عودة →" }
-
-	return `<!DOCTYPE html>
-<html lang='` + cleanLang + `' dir='` + direction + `'>
-<head>
-	<meta charset='UTF-8'>
-	<title>AI-AntiHacker Presentation</title>
-</head>
-<body style='font-family:sans-serif; padding:40px; line-height:1.6; max-width:850px; margin:auto; background:#0a2540; color:white; text-align:justify;'>
-	<p><a href='/?lang=` + cleanLang + `' style='color:#cbd5e1; text-decoration:none; font-weight:bold;'>` + backText + `</a></p>
-	<h2 style='color:#d4af37; margin-bottom:25px;'>🤖 ` + getTableTranslation("ah_title", cleanLang) + `</h2>
-	<p style='font-size:15px; color:#cbd5e1; margin-bottom:20px;'>` + getTableTranslation("ah_status", cleanLang) + `</p>
-	<p style='font-size:16px; color:#f1f5f9; margin-bottom:25px;'>` + getTableTranslation("ah_sub", cleanLang) + `</p>
-	
-	<div style='background:rgba(255,255,255,0.05); padding:25px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; gap:18px;'>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p1", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p2", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p3", cleanLang) + `</p>
-		<p style='margin:0; font-size:15.5px;'>` + getTableTranslation("ah_p4", cleanLang) + `</p>
-	</div>
-</body>
-</html>`
+	return "<html><head><meta charset='UTF-8'><title>AI-AntiHacker</title></head><body style='font-family:sans-serif;padding:40px;line-height:1.6;max-width:850px;margin:auto;background:#0a2540;color:white;'><p><a href='/?lang=" + lang + "' style='color:#cbd5e1;text-decoration:none;font-weight:bold;'> " + back + "</a></p><h2 style='color:#d4af37;'>🤖 " + title + "</h2><p style='font-size:16px; text-align:justify; line-height:1.7; color:#f1f5f9;'>" + desc + "</p></body></html>"
 }
 
 func GetComparisonTableHTML(lang string) string {
@@ -92,7 +67,6 @@ func GetComparisonTableHTML(lang string) string {
 		</table>`
 }
 
-// ПРЯМАЯ ИСПРАВЛЕННАЯ СВЯЗЬ С НАШЕЙ РАЗГРУЖЕННОЙ БАЗОЙ ОФФЕРОВ
 func GetFullDownloadOffer(lang string) string {
-	return getOfferTranslationFromB2B(lang)
+	return getTranslation("download_b2b_text", lang)
 }
