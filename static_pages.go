@@ -92,6 +92,7 @@ func GetComparisonTableHTML(lang string) string {
 		</table>`
 }
 
+// ПРЯМАЯ ИСПРАВЛЕННАЯ СВЯЗЬ С НАШЕЙ РАЗГРУЖЕННОЙ БАЗОЙ ОФФЕРОВ
 func GetFullDownloadOffer(lang string) string {
-	return getTranslation("download_b2b_text", lang)
+	return getOfferTranslationFromB2B(lang)
 }
