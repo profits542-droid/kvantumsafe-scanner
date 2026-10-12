@@ -26,7 +26,8 @@ func CheckDomainSecurity(domain string) TLSReport {
 		report.ErrorMsg = "Ошибка DNS: Не удалось разрешить IP-адрес домена."
 		return report
 	}
-	report.IPAddress = ips.String()
+	// Исправлено: берем первый IP-адрес из массива и переводим в строку
+	report.IPAddress = ips[0].String()
 
 	dialer := &net.Dialer{Timeout: 3 * time.Second}
 	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
@@ -50,9 +51,14 @@ func CheckDomainSecurity(domain string) TLSReport {
 
 	report.CipherSuite = tls.CipherSuiteName(state.CipherSuite)
 	if len(state.PeerCertificates) > 0 {
-		cert := state.PeerCertificates
-		report.Issuer = cert[0].Issuer.Organization
-		report.ExpiryDate = cert[0].NotAfter.Format("2006-01-02")
+		cert := state.PeerCertificates[0]
+		// Исправлено: корректно извлекаем имя организации эмитента
+		if len(cert.Issuer.Organization) > 0 {
+			report.Issuer = cert.Issuer.Organization[0]
+		} else {
+			report.Issuer = cert.Issuer.CommonName
+		}
+		report.ExpiryDate = cert.NotAfter.Format("2006-01-02")
 	}
 
 	return report
@@ -113,7 +119,7 @@ func RenderDownloadPage() string {
 			</ul>
 			<br><center>
 				<p style='color:#aaa;'>Полная техническая документация и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p>
-				<a href='/report/mbank' class='btn'>← Вернуться в动态 панель аудита</a>
+				<a href='/report/mbank' class='btn'>← Вернуться в панель аудита</a>
 			</center>
 		</div></body></html>`
 }
