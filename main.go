@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"os"
 	"time"
-)
 )
 
 type ScanResult struct {
@@ -37,7 +35,6 @@ func main() {
 		port = "8080"
 	}
 
-	// Обрабатываем роутинг /report/mbank строго под вашу структуру ссылок
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
 		domain := r.URL.Query().Get("domain")
 		if domain == "" {
@@ -66,6 +63,8 @@ func main() {
 		fmt.Fprintf(w, "</pre></div></body></html>")
 	})
 
-	log.Printf("[SUCCESS] Сканер-сервер развернут на порту: %s\n", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	fmt.Printf("[SUCCESS] Сканер-сервер успешно развернут на порту: %s\n", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		fmt.Printf("Ошибка запуска сервера: %v\n", err)
+	}
 }
