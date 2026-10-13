@@ -28,7 +28,8 @@ func CheckDomainSecurity(domain string) TLSReport {
 		report.ErrorMsg = "Ошибка DNS: Не удалось разрешить IP-адрес домена."
 		return report
 	}
-	report.IPAddress = ips.String()
+	// Ювелирно переводим первый IP-адрес из массива в читаемую строку
+	report.IPAddress = ips[0].String()
 
 	dialer := &net.Dialer{Timeout: 3 * time.Second}
 	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
@@ -52,12 +53,16 @@ func CheckDomainSecurity(domain string) TLSReport {
 
 	report.CipherSuite = tls.CipherSuiteName(state.CipherSuite)
 	if len(state.PeerCertificates) > 0 {
-		cert := state.PeerCertificates
+		// Берём самый первый корневой сертификат из цепочки узлов
+		cert := state.PeerCertificates[0]
+		
+		// Извлекаем название организации эмитента сертификата
 		if len(cert.Issuer.Organization) > 0 {
-			report.Issuer = cert.Issuer.Organization
+			report.Issuer = cert.Issuer.Organization[0]
 		} else {
 			report.Issuer = cert.Issuer.CommonName
 		}
+		// Записываем точную дату окончания действия
 		report.ExpiryDate = cert.NotAfter.Format("2006-01-02")
 	}
 
@@ -133,7 +138,7 @@ func main() {
 				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Резидент Парка высоких технологий Кыргызской Республики).</p>
 				<div class='tech-box'>
 					<h3>📋 Назначение платформы:</h3>
-					<p>Автономный комплекс высокоскоростного контроля, комплаенс-мониторинга трансграничных финансовых ISO-20022 потоков данных и проактивной защиты serverной памяти АБС банков.</p>
+					<p>Автономный комплекс высокоскоростного контроля, комплаенс-мониторинга трансграничных финансовых ISO-20022 потоков данных и проактивной защиты серверной памяти АБС банков.</p>
 				</div>
 				<h3>⚙️ Проектируемые модули нашей Enterprise-экосистемы:</h3>
 				<ul>
