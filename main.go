@@ -33,7 +33,7 @@ func CheckDomainSecurity(domain string) TLSReport {
 	dialer := &net.Dialer{Timeout: 3 * time.Second}
 	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
 	if err != nil {
-		report.ErrorMsg = fmt.Sprintf("Ошибка подключения: Порт 443 закрыт или заблокирован (%v)", err)
+		report.ErrorMsg = fmt.Sprintf("Ошибка подключения: Порт 443 закрыт (%v)", err)
 		return report
 	}
 	defer conn.Close()
@@ -108,13 +108,75 @@ func main() {
 			logHTML += fmt.Sprintf("[ERROR] Сетевая сессия прервана: %s\n", report.ErrorMsg)
 		}
 
-		fmt.Fprintf(w, "<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} th,td{padding:12px;text-align:left;border-bottom:1px solid #444;} table{width:100%%;border-collapse:collapse;margin:20px 0;} pre{background:#000;color:#00ff00;padding:15px;border-radius:4px;font-family:monospace;} .pvt-header{background:#3d3d3d;padding:20px;border-radius:8px;border-left:4px solid #b39212;margin-bottom:30px;line-height:1.6;}</style></head><body><div class='card'><div class='pvt-header'><b>📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР:</b><br>Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.</div><h2>🛡️ Расширенный отчет аудита периметра: %s</h2>%s<table><tr style='background:#3d3d3d;'><th>Контур проверки</th><th>Параметр системы</th><th>Статус / Риск</th></tr>%s<tr><td>Защита памяти RAM (AI-AntiHacker)</td><td>Комплаенс-контроль активен</td><td><span style='color:#aaa;'>On-Premise / По запросу</span></td></tr><tr><td>Санкционный скрининг (OFAC)</td><td>Граф связей Минюста КР</td><td><span style='color:#aaa;'>Enterprise / Подключение по API</span></td></tr></table><h3>💻 Технический лог сетевого рукопожатия (System Logs):</h3><pre>%s</pre><br><center><a href='/download' style='color:#00ff00;text-decoration:none;font-weight:bold;'>🏆 Нажми сюда для просмотра спецификации ПО</a></center></div></body></html>", report.Domain, statusHTML, tableHTML, logHTML)
+		// Выводим HTML без опасного использования % внутри строк шаблона Go
+		w.Write([]byte(fmt.Sprintf(`<html><head><style>
+			body{font-family:Arial,sans-serif;margin:40px;background:#1a1a1a;color:#fff;} 
+			.card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} 
+			th,td{padding:12px;text-align:left;border-bottom:1px solid #444;} 
+			table{width:100%%;border-collapse:collapse;margin:20px 0;} 
+			pre{background:#000;color:#00ff00;padding:15px;border-radius:4px;font-family:monospace;} 
+			.pvt-header{background:#3d3d3d;padding:20px;border-radius:8px;border-left:4px solid #b39212;margin-bottom:30px;line-height:1.6;}
+		</style></head><body>
+			<div class='card'>
+				<div class='pvt-header'>
+					<b>📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР:</b><br>
+					Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
+				</div>
+				<h2>🛡️ Расширенный отчет аудита периметра: %s</h2>
+				%s
+				<table>
+					<tr style='background:#3d3d3d;'><th>Контур проверки</th><th>Параметр системы</th><th>Статус / Риск</th></tr>
+					%s
+					<tr><td>Защита памяти RAM (AI-AntiHacker)</td><td>Комплаенс-контроль активен</td><td><span style='color:#aaa;'>On-Premise / По запросу</span></td></tr>
+					<tr><td>Санкционный скрининг (OFAC)</td><td>Граф связей Минюста КР</td><td><span style='color:#aaa;'>Enterprise / Подключение по API</span></td></tr>
+				</table>
+				<h3>💻 Технический лог сетевого рукопожатия (System Logs):</h3>
+				<pre>%s</pre>
+				<br><center><a href='/download' style='color:#00ff00;text-decoration:none;font-weight:bold;'>🏆 Нажми сюда для просмотра спецификации ПО</a></center>
+			</div>
+		</body></html>`, report.Domain, statusHTML, tableHTML, logHTML)))
 	})
 
 	// Роут честной спецификации
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:750px;margin:0 auto;} .tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} ul{line-height:1.6;} .btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;}</style></head><body><div class='card'><h2>🏛️ Спецификация программного обеспечения «Квантум Сейф Compliance Gateway»</h2><p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Резидент Парка высоких технологий Кыргызской Республики).</p><div class='tech-box'><h3>📋 Назначение платформы:</h3><p>Автономный комплекс высокоскоростного контроля, комплаенс-мониторинга трансграничных финансовых ISO-20022 потоков данных и проактивной защиты серверной памяти АБС банков. Поддерживает как стандарты NIST, так и государственные криптографические спецификации Китая GM/T (алгоритмы SM2/SM3/SM4) для ШОС-региона.</p></div><h3>⚙️ Проектируемые модули нашей Enterprise-экосистемы:</h3><ul><li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж P2P-сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской банка для снижения нагрузки на саппорт на 80%%. Развертывание ИИ-ассистентов и ИИ-агентов автоматизирует юридическую помощь комплаенс-отделам.</li><li><strong>Quantum Sanctions Screening Engine:</strong> Графовый ИИ-скрининг скрытых бенефициаров до 4-го колена по мировым базам (OFAC, SDN-листы, ЕС, ООН) для предотвращения рисков вторичных санкций.</li><li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от уязвимостей переполнения буфера по методу Stealth RAM Isolation.</li><li><b>Hardware Dongle API:</b> Низкоуровневая привязка лицензий к процессорам серверов и физическим USB-токенам FEITIAN/Рутокен 3.0 крупным оптом для защиты интеллектуальной собственности.</li></ul><br><h3>💰 Варианты Решения Выявленных Проблем и Стоимость:</h3><ul><li><b>Транзакционная модель:</b> \$0.10 – \$0.50 за каждый успешно верифицированный тикет.</li><li><b>SaaS-подписка:</b> От \$1,500/мес до \$15,000/мес Enterprise-контур.</li><li><b>Интеграция шлюзов API (Setup Fee):</b> \$3,000 – \$5,000 разово.</li><li><b>Enterprise модули (AntiHacker / Orchestrator):</b> По On-Premise лицензиям по запросу.</li></ul><br><center><p style='color:#aaa;'>Полная техническая документация и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p><h3>📞 Контакты ОсОО «Квантум Сейф»:</h3><p>г. Ош, ул. Ленина / г. Бишкек, Проспект Чуй, 265/1 (ПВТ КР) | Email: corporate@kvantumsafe.tech</p><a href='/report/mbank' class='btn'>← Вернуться в панель аудита</a></center></div></body></html>")
+		w.Write([]byte(`<html><head><style>
+			body{font-family:Arial,sans-serif;margin:40px;background:#1a1a1a;color:#fff;} 
+			.card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:750px;margin:0 auto;} 
+			.tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} 
+			ul{line-height:1.6;} 
+			.btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;}
+		</style></head><body>
+			<div class='card'>
+				<h2>🏛️ Спецификация программного обеспечения «Квантум Сейф Compliance Gateway»</h2>
+				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Резидент Парка высоких технологий Кыргызской Республики).</p>
+				<div class='tech-box'>
+					<h3>📋 Назначение платформы:</h3>
+					<p>Автономный комплекс высокоскоростного контроля, комплаенс-мониторинга трансграничных финансовых ISO-20022 потоков данных и проактивной защиты серверной памяти АБС банков. Поддерживает как спецификации NIST, так и государственные криптографические спецификации Китая GM/T (алгоритмы SM2/SM3/SM4) для ШОС-региона.</p>
+				</div>
+				<h3>⚙️ Проектируемые модули нашей Enterprise-экосистемы:</h3>
+				<ul>
+					<li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж P2P-сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской банка для снижения нагрузки на саппорт на 80%. Развертывание ИИ-ассистентов и ИИ-агентов автоматизирует юридическую помощь комплаенс-отделам.</li>
+					<li><strong>Quantum Sanctions Screening Engine:</strong> Графовый ИИ-скрининг скрытых бенефициаров до 4-го колена по мировым базам (OFAC, SDN-листы, ЕС, ООН) для предотвращения рисков вторичных санкций.</li>
+					<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от уязвимостей переполнения буфера по методу Stealth RAM Isolation.</li>
+					<li><b>Hardware Dongle API:</b> Низкоуровневая привязка лицензий к процессорам серверов и физическим USB-токенам FEITIAN/Рутокен 3.0 крупным оптом для защиты интеллектуальной собственности.</li>
+				</ul>
+				<br>
+				<h3>💰 Варианты Решения Выявленных Проблем и Стоимость:</h3>
+				<ul>
+					<li><b>Транзакционная модель:</b> $0.10 – $0.50 за каждый успешно верифицированный тикет.</li>
+					<li><b>SaaS-подписка:</b> От $1,500/мес до $15,000/мес Enterprise-контур.</li>
+					<li><b>Интеграция шлюзов API (Setup Fee):</b> $3,000 – $5,000 разово.</li>
+					<li><b>Enterprise модули (AntiHacker / Orchestrator):</b> По On-Premise лицензиям по запросу.</li>
+				</ul>
+				<br><center>
+					<p style='color:#aaa;'>Полная техническая документация и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p>
+					<h3>📞 Контакты ОсОО «Квантум Сейф»:</h3>
+					<p>г. Ош, ул. Ленина / г. Бишкек, Проспект Чуй, 265/1 (ПВТ КР) | Email: corporate@kvantumsafe.tech</p>
+					<a href='/report/mbank' class='btn'>← Вернуться в панель аудита</a>
+				</center>
+			</div>
+		</body></html>`))
 	})
 
 	fmt.Printf("[SUCCESS] Сканер-сервер успешно развернут на порту: %s\n", port)
