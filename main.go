@@ -28,10 +28,7 @@ func CheckDomainSecurity(domain string) TLSReport {
 		report.ErrorMsg = "Ошибка DNS: Не удалось разрешить IP-адрес домена."
 		return report
 	}
-	report.IPAddress = ips[String()
-	if len(ips) > 0 {
-		report.IPAddress = ips[0].String()
-	}
+	report.IPAddress = ips[0].String()
 
 	dialer := &net.Dialer{Timeout: 3 * time.Second}
 	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
@@ -125,7 +122,6 @@ func main() {
 			</div></body></html>`, report.Domain, statusHTML, tableHTML, logHTML)
 	})
 
-	// Роут расширенной спецификации всей линейки ПО
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		fmt.Fprintf(w, `<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} .tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} ul{line-height:1.6; padding-left:20px;} .btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;} h3{color:#00ff00; margin-top:20px;} hr{border:0; border-top:1px solid #444; margin:20px 0;}</style></head><body>
@@ -134,7 +130,7 @@ func main() {
 				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Официальный резидент Парка высоких технологий Кыргызской Республики).</p>
 				
 				<div class='tech-box'>
-					<b>Назначение экосистемы:</b> Сквозная правовая и технологическая защита банковской инфраструктуры, автоматизация комплаенс-контроля P2P/SWIFT/ISO-20022 потоков и пресечение рисков вторичных санкций.
+					<b>Назначение экосистемы:</b> Сквозная правовая и technological защита банковской инфраструктуры, автоматизация комплаенс-контроля P2P/SWIFT/ISO-20022 потоков и пресечение рисков вторичных санкций.
 				</div>
 
 				<hr>
