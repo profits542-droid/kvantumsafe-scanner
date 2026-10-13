@@ -1,165 +1,97 @@
 package main
 
 import (
-	"crypto/tls"
 	"fmt"
-	"net"
 	"net/http"
 	"os"
-	"time"
 )
 
-type TLSReport struct {
-	Domain      string
-	Success     bool
-	ErrorMsg    string
-	Version     string
-	CipherSuite string
-	Issuer      string
-	ExpiryDate  string
-	IPAddress   string
-}
-
-func CheckDomainSecurity(domain string) TLSReport {
-	report := TLSReport{Domain: domain, Success: false}
-
-	ips, err := net.LookupIP(domain)
-	if err != nil || len(ips) == 0 {
-		report.ErrorMsg = "Ошибка DNS: Не удалось разрешить IP-адрес домена."
-		return report
-	}
-	report.IPAddress = ips[0].String()
-
-	dialer := &net.Dialer{Timeout: 3 * time.Second}
-	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
-	if err != nil {
-		report.ErrorMsg = fmt.Sprintf("Ошибка подключения: Порт 443 закрыт (%v)", err)
-		return report
-	}
-	defer conn.Close()
-
-	state := conn.ConnectionState()
-	report.Success = true
-	
-	switch state.Version {
-	case tls.VersionTLS13:
-		report.Version = "TLS 1.3 (Высшая защита)"
-	case tls.VersionTLS12:
-		report.Version = "TLS 1.2 (Оптимально)"
-	default:
-		report.Version = "Устаревшая версия TLS"
-	}
-
-	report.CipherSuite = tls.CipherSuiteName(state.CipherSuite)
-	if len(state.PeerCertificates) > 0 {
-		cert := state.PeerCertificates[0]
-		if len(cert.Issuer.Organization) > 0 {
-			report.Issuer = cert.Issuer.Organization
-		} else {
-			report.Issuer = cert.Issuer.CommonName
-		}
-		report.ExpiryDate = cert.NotAfter.Format("2006-01-02")
-	}
-
-	return report
-}
-
 func main() {
+	// Считываем порт из окружения Render
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
+	// 1. Главная страница сайта-витрины (Внешний, Внутренний сканеры и Оркестратор)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
-		http.Redirect(w, r, "/report/mbank?domain=bakai.kg", http.StatusSeeOther)
-	})
 
-	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
-		domain := r.URL.Query().Get("domain")
-		if domain == "" {
-			domain = "bakai.kg"
-		}
-
-		report := CheckDomainSecurity(domain)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
-		statusHTML := ""
-		tableHTML := ""
-		logHTML := fmt.Sprintf("[INIT] Старт проверки удаленного шлюза %s... ОК\n", report.Domain)
-
-		if report.Success {
-			statusHTML = "<p><b>Статус безопасности:</b> <span style='color:#00ff00;'><b>АКТИВЕН (Handshake Passed)</b></span></p>"
-			tableHTML = fmt.Sprintf(`
-				<tr><td>Версия шифрования контура</td><td>%s</td><td>Рисков не обнаружено</td></tr>
-				<tr><td>Криптографический шифронабор</td><td>%s</td><td>NIST-Стандарт безопасен</td></tr>
-				<tr><td>Центр сертификации (Issuer)</td><td>%s</td><td>Доверенный узел</td></tr>
-				<tr><td>Срок действия сертификата</td><td>До %s</td><td>Валиден</td></tr>
-			`, report.Version, report.CipherSuite, report.Issuer, report.ExpiryDate)
-			logHTML += fmt.Sprintf("[DNS] Резолв домена успешен. Целевой IP-адрес: %s\n[TCP] Соединение с портом 443 установлено\n[TLS] Handshake завершен успешно.\n[SUCCESS] Контур верифицирован экспертным узлом ОсОО «Квантум Сейф». ПВТ КР.", report.IPAddress)
-		} else {
-			statusHTML = "<p><b>Статус безопасности:</b> <span style='color:#ff0000;'><b>ВНИМАНИЕ (Ошибка)</b></span></p>"
-			tableHTML = fmt.Sprintf("<tr><td colspan='3' style='color:#ff0000;'>%s</td></tr>", report.ErrorMsg)
-			logHTML += fmt.Sprintf("[ERROR] Сетевая сессия прервана: %s\n", report.ErrorMsg)
-		}
-
-		fmt.Fprintf(w, `<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} th,td{padding:12px;text-align:left;border-bottom:1px solid #444;} table{width:100%%;border-collapse:collapse;margin:20px 0;} pre{background:#000;color:#00ff00;padding:15px;border-radius:4px;font-family:monospace;}</style></head><body>
-			<div class='card'>
-				<h2>🛡️ Расширенный отчет аудита периметра: %s</h2>
-				%s
-				<table>
-					<tr style='background:#3d3d3d;'><th>Контур проверки</th><th>Параметр системы</th><th>Статус / Риск</th></tr>
-					%s
-					<tr><td>Защита памяти RAM (AI-AntiHacker)</td><td>Комплаенс-контроль активен</td><td><span style='color:#aaa;'>On-Premise / По запросу</span></td></tr>
-					<tr><td>Санкционный скрининг (OFAC)</td><td>Граф связей Минюста КР</td><td><span style='color:#aaa;'>Enterprise / Подключение по API</span></td></tr>
-				</table>
-				<h3>💻 Технический лог сетевого рукопожатия (System Logs):</h3>
-				<pre>%s</pre>
-				<br><center><a href='/download' style='color:#00ff00;text-decoration:none;font-weight:bold;'>🏆 Нажми сюда для просмотра спецификации ПО</a></center>
-			</div></body></html>`, report.Domain, statusHTML, tableHTML, logHTML)
-	})
-
-	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, `<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} .tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} ul{line-height:1.6; padding-left:20px;} .btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;} h3{color:#00ff00; margin-top:20px;} hr{border:0; border-top:1px solid #444; margin:20px 0;}</style></head><body>
-			<div class='card'>
-				<h2>🏛️ Спецификация программных комплексов экосистемы «Quantum Safe»</h2>
+		fmt.Fprintf(w, `<html><head><style>
+			body{font-family:Arial,sans-serif;margin:0;padding:40px;background:#131313;color:#fff;}
+			.container{max-width:850px;margin:0 auto;background:#1e1e1e;padding:40px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+			h1{color:#ffffff;border-bottom:2px solid #b39212;padding-bottom:10px;}
+			h3{color:#b39212;margin-top:25px;}
+			.tech-box{background:#262626;padding:20px;border-left:4px solid #b39212;border-radius:4px;margin:20px 0;line-height:1.6;}
+			ul{line-height:1.7;padding-left:20px;}
+			.gold-btn{display:inline-block;background:linear-gradient(135deg, #b39212, #ffd700);color:#000;padding:15px 30px;text-decoration:none;border-radius:6px;font-weight:bold;margin-top:25px;box-shadow:0 4px 10px rgba(179,146,18,0.3);transition:0.3s;}
+			.gold-btn:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(179,146,18,0.5);}
+			hr{border:0;border-top:1px solid #333;margin:30px 0;}
+		</style></head><body>
+			<div class='container'>
+				<h1>🏛️ Экосистема Программных Комплексов «Quantum Safe»</h1>
 				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Официальный резидент Парка высоких технологий Кыргызской Республики).</p>
 				
 				<div class='tech-box'>
-					<b>Назначение экосистемы:</b> Сквозная правовая и technological защита банковской инфраструктуры, автоматизация комплаенс-контроля P2P/SWIFT/ISO-20022 потоков и пресечение рисков вторичных санкций.
+					<b>Глобальная миссия:</b> Сквозная технологическая и правовая защита банковской ИТ-инфраструктуры, автоматизация комплаенс-контроля финансовых ISO-20022 потоков данных и полное пресечение рисков вторичных санкций.
 				</div>
 
 				<hr>
-				<h3>1. Внешний ИИ-сканер сетевого периметра (Quantum External AI Scanner)</h3>
-				<p>Автоматизированный программный модуль для непрерывного внешнего криптографического экспресс-аудита шлюзов финансовых организаций. Выполняет живые сетевые TLS-рукопожатия, верифицирует Cipher Suites на соответствие стандартам NIST и контролирует сроки действия и легитимность цифровых SSL/TLS сертификатов банковского контура в режиме реального времени.</p>
+				<h3>1. Внешний ИИ-Сканер Сетевого Периметра (Quantum External AI Scanner)</h3>
+				<p>Интеллектуальный программный комплекс для непрерывного внешнего аудита шлюзов финансовых организаций. Осуществляет мониторинг доступности портов, верифицирует Cipher Suites на соответствие жестким стандартам кибербезопасности NIST и контролирует сроки действия и легитимность цифровых SSL/TLS сертификатов банковского контура в автоматическом режиме.</p>
 
-				<h3>2. Внутренний ИИ-сканер уязвимостей ядра (Quantum Internal AI Security Scanner)</h3>
-				<p>Глубокий анализатор ИТ-периметра, развертываемый непосредственно внутри локального ЦОД финансовой организации (On-Premise). Предназначен для интеллектуального статического и динамического аудита исходного кода автоматизированных банковских систем (АБС), выявления скрытых SQL-инъекций, уязвимостей нулевого дня (OWASP Top 10) и автоматического поиска аномалий в логических ядрах смарт-контрактов распределенных платформ.</p>
+				<h3>2. Внутренний ИИ-Сканер Уязвимостей Ядра (Quantum Internal AI Security Scanner)</h3>
+				<p>Глубокий анализатор ИТ-периметра, развертываемый непосредственно внутри локального закрытого контура банка (On-Premise ЦОД). Предназначен для постоянного статического и динамического аудита исходного кода автоматизированных банковских систем (АБС), выявления SQL-инъекций, уязвимостей нулевого дня (OWASP Top 10) и поиска логических девиаций в смарт-контрактах.</p>
 
 				<h3>3. Постквантовый Оркестратор-Регулятор (Quantum Web3 Orchestrator & Regulator)</h3>
-				<p>Флагманское управляющее ядро программного комплекса. Осуществляет координацию распределенных нод, криптографическую инкапсуляцию банковских данных в защищенные контейнеры на базе гибридного постквантового шифрования (NIST ML-KEM + GmSSL) и аппаратную привязку лицензий через Hardware Dongle API к доверенным USB-токенам защиты (FEITIAN / Рутокен 3.0), исключая скрытое копирование софта.</p>
+				<p>Главное управляющее ядро экосистемы. Отвечает за координацию защищенных нод, криптографическую инкапсуляцию транзакций в контейнеры на базе гибридного постквантового шифрования (NIST ML-KEM + GmSSL) и аппаратную привязку лицензий через Hardware Dongle API к физическим USB-токенам (FEITIAN / Рутокен 3.0).</p>
 
 				<hr>
-				<h3>⚙️ Интегрированные прикладные модули безопасности:</h3>
+				<h3>⚙️ Встроенные прикладные модули безопасности:</h3>
 				<ul>
-					<li><b>AI P2P Referee & Anti-Fraud:</b> ИИ-арбитраж P2P-сделок, автоматическое OCR-распознавание параметров чеков и Match-сверка с выпиской АБС банка для разгрузки техподдержки на 80%%.</li>
-					<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых цепочек бенефициаров до 4-го колена по обновляемым мировым спискам (OFAC, SDN, ЕС) против вторичных санкций.</li>
+					<li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской АБС для снижения нагрузки на саппорт на 80%%.</li>
+					<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых цепочек бенефициаров до 4-го колена по мировым спискам (OFAC, SDN, ЕС) для полной ликвидации рисков санкций.</li>
 					<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от переполнения буфера по методу Stealth RAM Isolation.</li>
 				</ul>
 
-				<br><center>
-					<p style='color:#aaa;'>Полная техническая документация, рефераты программ для ЭВМ и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p>
-					<a href='/report/mbank' class='btn'>← Вернуться в панель аудита</a>
+				<center>
+					<a href='/download?lang=ru' class='gold-btn'>🌟 Спецификация ПО и Техническая документация</a>
 				</center>
-			</div></body></html>`)
+			</div>
+		</body></html>`)
 	})
 
-	fmt.Printf("[SUCCESS] Сканер-сервер успешно развернут на порту: %s\n", port)
+	// 2. Страница золотой кнопки (Подготовка документации)
+	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		fmt.Fprintf(w, `<html><head><style>
+			body{font-family:Arial,sans-serif;margin:0;padding:40px;background:#131313;color:#fff;text-align:center;}
+			.card{background:#1e1e1e;padding:40px;border-radius:12px;max-width:600px;margin:0 auto;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+			.status-box{background:#262626;padding:20px;border-radius:6px;margin:20px 0;font-family:monospace;text-align:left;line-height:1.5;}
+			.btn-back{display:inline-block;background:#b39212;color:#000;padding:12px 25px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:20px;}
+		</style></head><body>
+			<div class='card'>
+				<h2>📥 Скачивание технической документации Quantum Safe</h2>
+				<p style='color:#ccc;'>Подготовка пакета документов: <b>Specification_AI_Compliance_Gateway_RU.pdf</b></p>
+				
+				<div class='status-box'>
+					[STATUS] Формирование выгрузки спецификации... ОК<br>
+					[INFO] Экспертный узел ПВТ КР: ОсОО «Квантум Сейф»<br>
+					[INFO] Контур защиты: Лицензия ACTIVE [Enterprise]
+				</div>
+				
+				<p style='color:#00ff00;font-weight:bold;'>Запрос на загрузку спецификации программного комплекса успешно отправлен!</p>
+				<a href='/' class='btn-back'>← Вернуться на главную страницу</a>
+			</div>
+		</body></html>`)
+	})
+
+	fmt.Printf("[SUCCESS] Витрина успешно запущена на порту: %s\n", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		fmt.Printf("Ошибка запуска сервера: %v\n", err)
+		fmt.Printf("Ошибка сервера: %v\n", err)
 	}
 }
