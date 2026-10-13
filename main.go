@@ -28,13 +28,15 @@ func CheckDomainSecurity(domain string) TLSReport {
 		report.ErrorMsg = "Ошибка DNS: Не удалось разрешить IP-адрес домена."
 		return report
 	}
-	// Ювелирно переводим первый IP-адрес из массива в читаемую строку
-	report.IPAddress = ips[0].String()
+	report.IPAddress = ips[String()
+	if len(ips) > 0 {
+		report.IPAddress = ips[0].String()
+	}
 
 	dialer := &net.Dialer{Timeout: 3 * time.Second}
 	conn, err := tls.DialWithDialer(dialer, "tcp", domain+":443", &tls.Config{InsecureSkipVerify: true})
 	if err != nil {
-		report.ErrorMsg = fmt.Sprintf("Ошибка подключения: Порт 443 закрыт или заблокирован (%v)", err)
+		report.ErrorMsg = fmt.Sprintf("Ошибка подключения: Порт 443 закрыт (%v)", err)
 		return report
 	}
 	defer conn.Close()
@@ -53,16 +55,12 @@ func CheckDomainSecurity(domain string) TLSReport {
 
 	report.CipherSuite = tls.CipherSuiteName(state.CipherSuite)
 	if len(state.PeerCertificates) > 0 {
-		// Берём самый первый корневой сертификат из цепочки узлов
 		cert := state.PeerCertificates[0]
-		
-		// Извлекаем название организации эмитента сертификата
 		if len(cert.Issuer.Organization) > 0 {
-			report.Issuer = cert.Issuer.Organization[0]
+			report.Issuer = cert.Issuer.Organization
 		} else {
 			report.Issuer = cert.Issuer.CommonName
 		}
-		// Записываем точную дату окончания действия
 		report.ExpiryDate = cert.NotAfter.Format("2006-01-02")
 	}
 
@@ -75,7 +73,6 @@ func main() {
 		port = "8080"
 	}
 
-	// Автоматический редирект для устранения ошибки 404 на главной странице
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
@@ -84,7 +81,6 @@ func main() {
 		http.Redirect(w, r, "/report/mbank?domain=bakai.kg", http.StatusSeeOther)
 	})
 
-	// Роут реального B2B-аудита периметра
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
 		domain := r.URL.Query().Get("domain")
 		if domain == "" {
@@ -129,26 +125,38 @@ func main() {
 			</div></body></html>`, report.Domain, statusHTML, tableHTML, logHTML)
 	})
 
-	// Роут честной спецификации
+	// Роут расширенной спецификации всей линейки ПО
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, `<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:750px;margin:0 auto;} .tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} ul{line-height:1.6;} .btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;}</style></head><body>
+		fmt.Fprintf(w, `<html><head><style>body{font-family:Arial;margin:40px;background:#1a1a1a;color:#fff;} .card{background:#2d2d2d;padding:30px;border-radius:8px;max-width:800px;margin:0 auto;} .tech-box{background:#3d3d3d;padding:20px;border-left:4px solid #00ff00;border-radius:4px;margin:15px 0;} ul{line-height:1.6; padding-left:20px;} .btn{display:inline-block;background:#00ff00;color:#000;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:15px;} h3{color:#00ff00; margin-top:20px;} hr{border:0; border-top:1px solid #444; margin:20px 0;}</style></head><body>
 			<div class='card'>
-				<h2>🏛️ Спецификация программного обеспечения «Quantum Safe Compliance Gateway»</h2>
-				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Резидент Парка высоких технологий Кыргызской Республики).</p>
+				<h2>🏛️ Спецификация программных комплексов экосистемы «Quantum Safe»</h2>
+				<p><b>Разработчик:</b> ОсОО «Квантум Сейф» (Официальный резидент Парка высоких технологий Кыргызской Республики).</p>
+				
 				<div class='tech-box'>
-					<h3>📋 Назначение платформы:</h3>
-					<p>Автономный комплекс высокоскоростного контроля, комплаенс-мониторинга трансграничных финансовых ISO-20022 потоков данных и проактивной защиты серверной памяти АБС банков.</p>
+					<b>Назначение экосистемы:</b> Сквозная правовая и технологическая защита банковской инфраструктуры, автоматизация комплаенс-контроля P2P/SWIFT/ISO-20022 потоков и пресечение рисков вторичных санкций.
 				</div>
-				<h3>⚙️ Проектируемые модули нашей Enterprise-экосистемы:</h3>
+
+				<hr>
+				<h3>1. Внешний ИИ-сканер сетевого периметра (Quantum External AI Scanner)</h3>
+				<p>Автоматизированный программный модуль для непрерывного внешнего криптографического экспресс-аудита шлюзов финансовых организаций. Выполняет живые сетевые TLS-рукопожатия, верифицирует Cipher Suites на соответствие стандартам NIST и контролирует сроки действия и легитимность цифровых SSL/TLS сертификатов банковского контура в режиме реального времени.</p>
+
+				<h3>2. Внутренний ИИ-сканер уязвимостей ядра (Quantum Internal AI Security Scanner)</h3>
+				<p>Глубокий анализатор ИТ-периметра, развертываемый непосредственно внутри локального ЦОД финансовой организации (On-Premise). Предназначен для интеллектуального статического и динамического аудита исходного кода автоматизированных банковских систем (АБС), выявления скрытых SQL-инъекций, уязвимостей нулевого дня (OWASP Top 10) и автоматического поиска аномалий в логических ядрах смарт-контрактов распределенных платформ.</p>
+
+				<h3>3. Постквантовый Оркестратор-Регулятор (Quantum Web3 Orchestrator & Regulator)</h3>
+				<p>Флагманское управляющее ядро программного комплекса. Осуществляет координацию распределенных нод, криптографическую инкапсуляцию банковских данных в защищенные контейнеры на базе гибридного постквантового шифрования (NIST ML-KEM + GmSSL) и аппаратную привязку лицензий через Hardware Dongle API к доверенным USB-токенам защиты (FEITIAN / Рутокен 3.0), исключая скрытое копирование софта.</p>
+
+				<hr>
+				<h3>⚙️ Интегрированные прикладные модули безопасности:</h3>
 				<ul>
-					<li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж P2P-сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской банка для снижения нагрузки на саппорт на 80%%.</li>
-					<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых бенефициаров до 4-го колена по мировым базам (OFAC, SDN-листы, ЕС, ООН) для предотвращения рисков вторичных санкций.</li>
-					<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от уязвимостей переполнения буфера по методу Stealth RAM Isolation.</li>
-					<li><b>Hardware Dongle API:</b> Низкоуровневая привязка лицензий к процессорам серверов и физическим USB-токенам FEITIAN/Рутокен 3.0 крупным оптом для защиты интеллектуальной собственности.</li>
+					<li><b>AI P2P Referee & Anti-Fraud:</b> ИИ-арбитраж P2P-сделок, автоматическое OCR-распознавание параметров чеков и Match-сверка с выпиской АБС банка для разгрузки техподдержки на 80%%.</li>
+					<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых цепочек бенефициаров до 4-го колена по обновляемым мировым спискам (OFAC, SDN, ЕС) против вторичных санкций.</li>
+					<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от переполнения буфера по методу Stealth RAM Isolation.</li>
 				</ul>
+
 				<br><center>
-					<p style='color:#aaa;'>Полная техническая документация и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p>
+					<p style='color:#aaa;'>Полная техническая документация, рефераты программ для ЭВМ и архитектурные схемы предоставляются по официальному B2B-запросу финансовых организаций.</p>
 					<a href='/report/mbank' class='btn'>← Вернуться в панель аудита</a>
 				</center>
 			</div></body></html>`)
