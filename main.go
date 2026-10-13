@@ -36,13 +36,12 @@ func main() {
 		port = "8080"
 	}
 
-	// ИСПРАВЛЕНИЕ: Обработка корня сайта. Вместо 404 делаем автоматический редирект на отчет!
+	// Обработка корня сайта: перенаправляем на отчет, чтобы убрать ошибку 404
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
-		// Перенаправляем пользователя на наш главный рабочий B2B-отчет по умолчанию
 		http.Redirect(w, r, "/report/mbank?domain=bakai.kg", http.StatusSeeOther)
 	})
 
@@ -87,11 +86,11 @@ func main() {
 		fmt.Fprintf(w, "</div>")
 
 		fmt.Fprintf(w, "<h3>⚙️ Проектируемые модули нашей Enterprise-экосистемы:</h3>")
-		<ul>
-			fmt.Fprintf(w, "<li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж P2P-сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской банка для снижения нагрузки на саппорт на 80%%.</li>")
-			fmt.Fprintf(w, "<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых бенефициаров до 4-го колена по мировым базам (OFAC, SDN-листы, ЕС, ООН) для предотвращения рисков вторичных санкций.</li>")
-			fmt.Fprintf(w, "<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от уязвимостей переполнения буфера по методу Stealth RAM Isolation.</li>")
-			fmt.Fprintf(w, "<li><b>Hardware Dongle API:</b> Низкоуровневая привязка лицензий к процессорам серверов и физическим USB-токенам FEITIAN/Рутокен 3.0 крупным оптом для защиты интеллектуальной собственности.</li>")
+		fmt.Fprintf(w, "<ul>")
+		fmt.Fprintf(w, "<li><b>AI P2P Referee & Anti-Fraud Module:</b> ИИ-арбитраж P2P-сделок, моментальное OCR-распознавание параметров чеков и Match-сверка с выпиской банка для снижения нагрузки на саппорт на 80%%.</li>")
+		fmt.Fprintf(w, "<li><b>Quantum Sanctions Screening Engine:</b> Графовый ИИ-скрининг скрытых бенефициаров до 4-го колена по мировым базам (OFAC, SDN-листы, ЕС, ООН) для предотвращения рисков вторичных санкций.</li>")
+		fmt.Fprintf(w, "<li><b>AI-AntiHacker (Guard Engine):</b> Микросекундная защита оперативной памяти серверов (RAM) от уязвимостей переполнения буфера по методу Stealth RAM Isolation.</li>")
+		fmt.Fprintf(w, "<li><b>Hardware Dongle API:</b> Низкоуровневая привязка лицензий к процессорам серверов и физическим USB-токенам FEITIAN/Рутокен 3.0 крупным оптом для защиты интеллектуальной собственности.</li>")
 		fmt.Fprintf(w, "</ul>")
 
 		fmt.Fprintf(w, "<br><center>")
