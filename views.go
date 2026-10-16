@@ -394,6 +394,38 @@ func RenderMarketplacePage() string {
 			<p>Работают полностью самостоятельно по API. Классический пример — Quantum AI P2P Referee: за 5 секунд проверяет чеки по фото, сверяет с выпиской, отсекает подделки из Telegram-ботов и закрывает споры. Экономит банку до 45000 долларов в год на ФОТ саппорта. ОсОО Квантум Сейф регулярно создаёт новые ИИ-агенты под любые острые боли и востребованность рынка, чтобы вы всегда были в безопасности.</p>
 		</div>
 	</div>
+	<h2>💰 Тарифная сетка внедрения модулей экосистемы:</h2>
+	<div class="table-wrap" style="margin-top: 15px;">
+		<table>
+			<thead>
+				<tr>
+					<th>Модель развертывания</th>
+					<th>Официальные коммерческие условия</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="param-name">Транзакционная модель (По мере роста бизнеса)</td>
+					<td class="param-value">$0.10 – $0.50 за каждый успешно проверенный ИИ-агентом тикет</td>
+				</tr>
+				<tr>
+					<td class="param-name">Фиксированная ежемесячная SaaS-подписка на модули</td>
+					<td class="param-value">От $1,500 в месяц для финтех-проектов до $15,000 в месяц за Enterprise-контур</td>
+				</tr>
+				<tr>
+					<td class="param-name">Разовая интеграция API шлюзов (Setup Fee)</td>
+					<td class="param-value">$3,000 – $5,000 под ключ (включая техническое сопровождение)</td>
+				</tr>
+				<tr>
+					<td class="param-name">Тяжелый серверный Enterprise-контур защиты памяти</td>
+					<td class="param-value">Стоимость рассчитывается индивидуально по официальному B2B-запросу</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="footer-contacts">
+		Email: <a href="mailto:info@kvantumsafe.tech">info@kvantumsafe.tech</a> &nbsp;|&nbsp; WhatsApp & Telegram: +996777579970
+	</div>
 	<a href="/" class="btn btn-gold" style="margin-top:28px; background:linear-gradient(135deg, #f59e0b, #d97706);">🏠 Вернуться на главную страницу</a>
 </div>
 </body>
