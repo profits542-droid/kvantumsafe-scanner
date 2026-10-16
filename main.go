@@ -1,49 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
-	"os"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	// Главная страница: теперь показывает чистую форму ввода без результатов
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" {
-			http.NotFound(w, r)
-			return
-		}
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, RenderStartPage())
+		w.Write([]byte(RenderStartPage()))
 	})
-
-	// Страница генерации отчета: срабатывает строго ПОСЛЕ нажатия кнопки сканирования
 	http.HandleFunc("/report/mbank", func(w http.ResponseWriter, r *http.Request) {
 		domain := r.URL.Query().Get("domain")
 		if domain == "" {
-			// Если нажали пустую кнопку, возвращаем на главную
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			http.Error(w, "Введите домен или IP", http.StatusBadRequest)
 			return
 		}
-
-		report := CheckDomainSecurity(domain)
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, RenderReportPage(report))
+		report := ScanDomain(domain)
+		w.Write([]byte(RenderReportPage(report)))
 	})
-
-	// Страница спецификации ПО, тарифов и NDA соглашения
 	http.HandleFunc("/download", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, RenderDownloadPage())
+		w.Write([]byte(RenderDownloadPage()))
 	})
-
-	fmt.Printf("[SUCCESS] Квантум Сейф Веб-Ядро запущено на порту: %s\n", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		fmt.Printf("Ошибка запуска сервера: %v\n", err)
-	}
+	http.HandleFunc("/marketplace", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(RenderDownloadPage()))
+	})
+	log.Println("[SUCCESS] Квантум Сейф Веб-Ядро запущено на порту: 8080")
+	http.ListenAndServe(":8080", nil)
 }
