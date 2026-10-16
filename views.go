@@ -95,7 +95,7 @@ input[type="text"]:focus {
 	margin-bottom: 28px;
 }
 table {
-	width: 100%;
+	width: auto;
 	border-collapse: collapse;
 }
 th {
@@ -166,7 +166,6 @@ tr:last-child td {
 .card p {
 	font-size: 14px;
 	color: #cbd5e1;
-	line-height: 1.6;
 }
 .free-audit {
 	background: linear-gradient(135deg, #14532d, #166534);
@@ -206,20 +205,15 @@ func RenderStartPage() string {
 	<div class="banner">
 		📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР ОсОО Квантум Сейф: Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
 	</div>
-
 	<h1>🔍 Экспресс-Аудит Сетевого Периметра (Внешний ИИ-Сканер)</h1>
-
 	<div class="form-card">
 		<form method="GET" action="/report/mbank" style="display:flex;gap:12px;flex:1;flex-wrap:wrap;align-items:center;">
 			<input type="text" name="domain" placeholder="Введите домен или IP для сканирования..." required>
 			<button type="submit" class="btn btn-primary">🚀 Запустить сканирование</button>
 		</form>
 	</div>
-
-	<div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-		<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
-		<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
-	</div>
+	<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
+	<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
 </div>
 </body>
 </html>`
@@ -233,7 +227,6 @@ func RenderReportPage(report TLSReport) string {
 		statusText = "Успешно (Handshake OK)"
 		statusClass = "status-ok"
 	}
-
 	html := `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -247,16 +240,13 @@ func RenderReportPage(report TLSReport) string {
 	<div class="banner">
 		📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР ОсОО Квантум Сейф: Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
 	</div>
-
 	<h1>🔍 Экспресс-Аудит Сетевого Периметра (Внешний ИИ-Сканер)</h1>
-
 	<div class="form-card">
 		<form method="GET" action="/report/mbank" style="display:flex;gap:12px;flex:1;flex-wrap:wrap;align-items:center;">
 			<input type="text" name="domain" value="{{DOMAIN}}" placeholder="Введите домен или IP для сканирования..." required>
-			<button type="submit" class="btn btn-primary">🚀 Сканировать повторно</button>
+			<button type="submit" class="btn btn-primary">🚀 Запустить сканирование</button>
 		</form>
 	</div>
-
 	<div class="table-wrap">
 		<table>
 			<thead>
@@ -275,32 +265,31 @@ func RenderReportPage(report TLSReport) string {
 				</tr>
 				<tr>
 					<td class="param-name">Версия протокола контура</td>
-					<td class="param-value">{{VERSION}}</td>
+					<td class="param-value {{VERSION}}</td>
 				</tr>
 				<tr>
 					<td class="param-name">Криптографический шифронабор</td>
-					<td class="param-value">{{CIPHERSUITE}}</td>
+					<td class="param-value {{CIPHERSUITE}}</td>
 				</tr>
 				<tr>
 					<td class="param-name">Центр сертификации (Issuer)</td>
-					<td class="param-value">{{ISSUER}}</td>
+					<td class="param-value {{ISSUER}}</td>
 				</tr>
 				<tr>
 					<td class="param-name">Срок действия сертификата</td>
-					<td class="param-value">{{EXPIRYDATE}}</td>
+					<td class="param-value {{EXPIRYDATE}}</td>
 				</tr>
 				<tr>
 					<td class="param-name">Защита памяти RAM (AI-AntiHacker)</td>
-					<td class="param-value" style="color: #f87171; font-weight: bold;">КОНТУРА БЕЗОПАСНОСТИ ВООБЩЕ НЕТ! ⚠️ Оперативная память серверов полностью открыта для скрытых хакерских угроз. Необходима установка защитного модуля</td>
+					<td class="param-value">КОНТУРА БЕЗОПАСНОСТИ ВООБЩЕ НЕТ! ⚠️ Оперативная память серверов полностью открыта для скрытых хакерских угроз. Необходима установка защитного модуля</td>
 				</tr>
 				<tr>
 					<td class="param-name">Санкционный скрининг (OFAC)</td>
-					<td class="param-value" style="color: #f87171; font-weight: bold;">АВТОМАТИЧЕСКОЙ ПРОВЕРКИ ВООБЩЕ НЕТ! 🛑 Высокий риск вторичных санкций и потери международных корреспондентских счетов. Требуется API-подключение антисанкционного шлюза Квантум Сейф</td>
+					<td class="param-value">АВТОМАТИЧЕСКОЙ ПРОВЕРКИ ВООБЩЕ НЕТ! 🛑 Высокий риск вторичных санкций и потери международных корреспондентских счетов. Требуется API-подключение антисанкционного шлюза Квантум Сейф</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-
 	<pre class="log-window">[SYSTEM] ИИ-сканер инициализирован
 [INFO]    Цель: {{DOMAIN}}
 [INFO]    IP: {{IPADDRESS}}
@@ -312,24 +301,19 @@ func RenderReportPage(report TLSReport) string {
 [WARN]    AI-AntiHacker: Защита оперативной памяти полностью отсутствует! Обнаружен критический риск эксплуатации уязвимостей нулевого дня.
 [CRIT]    OFAC / Минюст КР: Автоматическая онлайн-проверка платежей отсутствует! Требуется интеграция шлюза Квантум Сейф
 [DONE]    Сканирование завершено</pre>
-
-	<div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-		<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
-		<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
-	</div>
+	<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
+	<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
 </div>
 </body>
 </html>`
-
 	html = strings.Replace(html, "{{DOMAIN}}", report.Domain, -1)
+	html = strings.Replace(html, "{{IPADDRESS}}", report.IPAddress, -1)
+	html = strings.Replace(html, "{{STATUSTEXT}}", statusText, -1)
+	html = strings.Replace(html, "{{STATUSCLASS}}", statusClass, -1)
 	html = strings.Replace(html, "{{VERSION}}", report.Version, -1)
 	html = strings.Replace(html, "{{CIPHERSUITE}}", report.CipherSuite, -1)
 	html = strings.Replace(html, "{{ISSUER}}", report.Issuer, -1)
 	html = strings.Replace(html, "{{EXPIRYDATE}}", report.ExpiryDate, -1)
-	html = strings.Replace(html, "{{IPADDRESS}}", report.IPAddress, -1)
-	html = strings.Replace(html, "{{STATUSTEXT}}", statusText, -1)
-	html = strings.Replace(html, "{{STATUSCLASS}}", statusClass, -1)
-
 	return html
 }
 
@@ -345,3 +329,80 @@ func RenderDownloadPage() string {
 <body>
 <div class="container">
 	<div class="banner">
+		📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР ОсОО Квантум Сейф: Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
+	</div>
+	<h1>🏆 Спецификация ПО и Финансовая Выгода</h1>
+	<div class="free-audit">
+		🎁 Бесплатный Внутренний Аудит (ИИ-Сканер уязвимостей АБС): предоставляется коммерческим банкам абсолютно бесплатно строго после подписания соглашения о неразглашении конфиденциальной информации (NDA).
+	</div>
+	<div class="cards">
+		<div class="card">
+			<h3>1. Программный комплекс Quantum AI P2P Referee</h3>
+			<p>Этот программный комплекс бережно сохраняет время команды и деньги банка. Он разбирает споры за 5 секунд вместо 3-х дней, снижает нагрузку на команду верификации на 80 процентов и со 100-процентной точностью блокирует фальшивые чеки из мошеннических Telegram-ботов. Чистая экономия на ФОТ саппорта до $45,000 в год, заменяя штат из 5-7 сотрудников.</p>
+		</div>
+		<div class="card">
+			<h3>2. Программный комплекс Quantum Sanctions Screening</h3>
+			<p>Этот программный комплекс заботливо оберегает банк от страшного риска блокировки международных корреспондентских счетов. Он автоматически сверяет переводы по базам OFAC, ООН, ЕС и Минюста КР до 4-го колена учредителей, но автоматически отсеивает ложные совпадения (простых однофамильцев).</p>
+		</div>
+		<div class="card">
+			<h3>3. Программный комплекс Quantum Web3 Orchestrator & Regulator</h3>
+			<p>Обеспечивает гибридное постквантовое оркестрирование и защиту конфиденциальных данных распределенных ИТ-систем. Платформа полностью поддерживает как глобальные международные стандарты NIST (алгоритмы ML-KEM / FIPS 203), так и азиатские стандарты комплаенса КНР GM/T (алгоритмы SM2/SM3/SM4) для ШОС-региона. Включает в себя флагманский технологический модуль AI-AntiHacker, осуществляющий микросекундную проактивную защиту оперативной памяти серверов АБС от уязвимостей нулевого дня методом изоляции скомпрометированных секторов (Stealth RAM Isolation). Предотвращает хакерские атаки и надежно страхует банк от простоев инфраструктуры, каждый день которых стоит от $20,000 до $50,000 прямых убытков.</p>
+		</div>
+	</div>
+	<div class="footer-contacts">
+		Email: <a href="mailto:info@kvantumsafe.tech">info@kvantumsafe.tech</a> &nbsp;|&nbsp; WhatsApp & Telegram: +996777579970
+	</div>
+</div>
+</body>
+</html>`
+	return html
+}
+
+func RenderMarketplacePage() string {
+	html := `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маркетплейс ИИ-решений — Kvantum Safe</title>
+` + sharedStyles + `
+</head>
+<body>
+<div class="container">
+	<div class="banner">
+		📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР ОсОО Квантум Сейф: Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
+	</div>
+	<h1>🏪 Маркетплейс ИИ-решений</h1>
+	<div class="form-card">
+		<form method="GET" action="/report/mbank" style="display:flex;gap:12px;flex:1;flex-wrap:wrap;align-items:center;">
+			<input type="text" name="domain" placeholder="Введите домен или IP для сканирования..." required>
+			<button type="submit" class="btn btn-primary">🚀 Запустить сканирование</button>
+		</form>
+	</div>
+	<h2>Категория 1. Специализированное программное обеспечение (ПО)</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Тяжелые монолитные серверные системы защиты (On-Premise)</h3>
+			<p>Это бронированный ИТ-фундамент. ОсОО Квантум Сейф создаёт тяжёлые, надёжные серверные системы, которые полностью защищают оперативную память серверов АБС от хакерских угроз. Они страховывают банк от простоев инфраструктуры, когда каждый день простоя может стоить от двадцати тысяч до пятидесяти тысяч долларов прямых убытков. Поддерживают международные стандарты NIST и азиатские стандарты комплаенса КНР GM/T.</p>
+		</div>
+	</div>
+	<h2>Категория 2. Интеллектуальные ИИ-Ассистенты</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Умные цифровые помощники для действующих сотрудников банка</h3>
+			<p>Они берут на себя всю рутину. Мгновенно анализируют огромные массивы документов, проверяют контрагентов по базам Минюста КР и OFAC, выявляют скрытых бенефициаров до 4-го колена. Исключают человеческий фактор, усталость персонала и защищают банк от штрафов за ошибки. Всё с любовью и заботой о вашем спокойствии.</p>
+		</div>
+	</div>
+	<h2>Категория 3. Автономные ИИ-Агенты</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Цифровые сотрудники нового поколения</h3>
+			<p>Работают полностью самостоятельно по API. Классический пример — Quantum AI P2P Referee: за 5 секунд проверяет чеки по фото, сверяет с выпиской, отсекает подделки из Telegram-ботов и закрывает споры. Экономит банку до 45000 долларов в год на ФОТ саппорта. ОсОО Квантум Сейф регулярно создаёт новые ИИ-агенты под любые острые боли и востребованность рынка, чтобы вы всегда были в безопасности.</p>
+		</div>
+	</div>
+	<a href="/" class="btn btn-gold" style="margin-top:28px; background:linear-gradient(135deg, #f59e0b, #d97706);">🏠 Вернуться на главную страницу</a>
+</div>
+</body>
+</html>`
+	return html
+}
