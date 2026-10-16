@@ -213,6 +213,7 @@ func RenderStartPage() string {
 		</form>
 	</div>
 	<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
+	<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
 </div>
 </body>
 </html>`
@@ -301,6 +302,7 @@ func RenderReportPage(report TLSReport) string {
 [CRIT]    OFAC / Минюст КР: Автоматическая онлайн-проверка платежей отсутствует! Требуется интеграция шлюза Квантум Сейф
 [DONE]    Сканирование завершено</pre>
 	<a href="/download" class="btn btn-gold">🏆 Спецификация ПО и Финансовая Выгода</a>
+	<a href="/marketplace" class="btn btn-primary" style="margin-top:12px; background:linear-gradient(135deg, #3b82f6, #2563eb);">🏪 Маркетплейс ИИ-решений</a>
 </div>
 </body>
 </html>`
@@ -350,6 +352,61 @@ func RenderDownloadPage() string {
 	<div class="footer-contacts">
 		Email: <a href="mailto:info@kvantumsafe.tech">info@kvantumsafe.tech</a> &nbsp;|&nbsp; WhatsApp & Telegram: +996777579970
 	</div>
+</div>
+</body>
+</html>`
+	return html
+}
+
+func RenderMarketplacePage() string {
+	html := `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маркетплейс ИИ-решений — Kvantum Safe</title>
+` + sharedStyles + `
+</head>
+<body>
+<div class="container">
+	<div class="banner">
+		📌 ПРОФИЛЬ ДЕЯТЕЛЬНОСТИ РЕЗИДЕНТА ПВТ КР ОсОО Квантум Сейф: Комплексная разработка специализированного программного обеспечения, проектирование интеллектуальных ИИ-ассистентов и автономных ИИ-агентов, сквозной нормативно-правовой и технологический комплаенс-контроль, а также оказание профильной юридической помощи для финансовых организаций, распределенных ИТ-систем и Web3-инфраструктуры.
+	</div>
+	<h1>🏪 Маркетплейс ИИ-решений</h1>
+	<div class="form-card">
+		<form method="GET" action="/report/mbank" style="display:flex;gap:12px;flex:1;flex-wrap:wrap;align-items:center;">
+			<input type="text" name="domain" placeholder="Введите домен или IP для сканирования..." required>
+			<button type="submit" class="btn btn-primary">🚀 Запустить сканирование</button>
+		</form>
+	</div>
+	<h2>Блок 1. Специализированное программное обеспечение (ПО)</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Тяжелые монолитные серверные системы защиты (On-Premise)</h3>
+			<p>Это бронированный ИТ-фундамент. ОсОО Квантум Сейф создаёт тяжёлые, надёжные серверные системы, которые полностью защищают оперативную память серверов АБС от хакерских угроз. Они страховывают банк от простоев инфраструктуры, когда каждый день простоя может стоить от двадцати тысяч до пятидесяти тысяч долларов прямых убытков. Поддерживают международные стандарты NIST и азиатские стандарты комплаенса КНР GM/T.</p>
+		</div>
+	</div>
+	<h2>Блок 2. Интеллектуальные ИИ-Ассистенты</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Умные цифровые помощники для действующих сотрудников банка</h3>
+			<p>Они берут на себя всю рутину. Мгновенно анализируют огромные массивы документов, проверяют контрагентов по базам Минюста КР и OFAC, выявляют скрытых бенефициаров до 4-го колена. Исключают человеческий фактор, усталость персонала и защищают банк от штрафов за ошибки. Всё с любовью и заботой о вашем спокойствии.</p>
+		</div>
+	</div>
+	<h2>Блок 3. Автономные ИИ-Агенты</h2>
+	<div class="cards">
+		<div class="card">
+			<h3>Цифровые сотрудники нового поколения</h3>
+			<p>Работают полностью самостоятельно по API. Классический пример — Quantum AI P2P Referee: за 5 секунд проверяет чеки по фото, сверяет с выпиской, отсекает подделки из Telegram-ботов и закрывает споры. Экономит банку до 45000 долларов в год на ФОТ саппорта. ОсОО Квантум Сейф регулярно создаёт новые ИИ-агенты под любые острые боли и востребованность рынка, чтобы вы всегда были в безопасности.</p>
+		</div>
+	</div>
+	<div class="cards">
+		<div class="card">
+			<h3>Готовы к любым вызовам</h3>
+			<p>Наш маркетплейс ИИ-решений — это ваш безопасный путь к полной защите. ОсОО Квантум Сейф создаёт именно то, что нужно именно вам. Никаких рисков, только спокойствие и уверенность.</p>
+		</div>
+	</div>
+	<a href="/" class="btn btn-gold" style="margin-top:28px; background:linear-gradient(135deg, #f59e0b, #d97706);">🏠 Вернуться на главную страницу</a>
 </div>
 </body>
 </html>`
