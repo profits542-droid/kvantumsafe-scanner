@@ -8,19 +8,7 @@ import (
 	"time"
 )
 
-// Структура отчета сканирования
-type TLSReport struct {
-	Domain      string
-	Version     string
-	CipherSuite string
-	Issuer      string
-	ExpiryDate  string
-	IPAddress   string
-	Success     bool
-	ErrorMsg    string
-}
-
-// Встроенная функция бесконтактного ИИ-сканирования шлюзов
+// Встроенная функция бесконтактного ИИ-сканирования шлюзов (структура TLSReport берется из соседнего файла)
 func ScanDomain(domain string) TLSReport {
 	report := TLSReport{Domain: domain, Success: false}
 
